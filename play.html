@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Play | Pixel Portal</title>
+<link rel="stylesheet" href="liquid-glass.css">
+<link rel="icon" type="image/png" href="images/favicon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: 'Trebuchet MS', Arial, sans-serif;
+  color: white;
+  background: url("images/galaxy.gif") center / cover fixed;
+  text-align: center;
+}
+
+.logo {
+  padding: 30px 20px 10px;
+}
+
+.pixel {
+  font-size: 32px;
+  color: #4fd1ff;
+  text-shadow: 0 0 6px #4fd1ff;
+}
+
+.portal {
+  display: block;
+  font-size: 36px;
+  color: #b47cff;
+  text-shadow: 0 0 10px #7c5cff;
+}
+
+.game-wrapper {
+  display: flex;
+  justify-content: flex-start;
+  padding: 20px;
+  height: calc(100vh - 120px); /* leaves room for header */
+  box-sizing: border-box;
+}
+
+.game-container {
+  width: 100%;
+  max-width: 1000px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* IFRAME */
+#gameFrame {
+  width: 100%;
+  flex: 1; /* fills remaining space */
+  border: none;
+
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+
+  display: block;
+}
+
+/* BOTTOM BAR */
+.game-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 12px 16px;
+  height: 70px; /* fixed height */
+
+  background: rgba(255,255,255,0.01);
+  backdrop-filter: blur(2px);
+
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+}
+
+/* TITLE */
+#gameTitle {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* FULLSCREEN BUTTON */
+.fullscreen-btn {
+  background: linear-gradient(135deg, #4fd1ff, #7c5cff);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.bottom-nav {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  padding: 12px 20px;
+  border-radius: 20px;
+  display: flex;
+  gap: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+  z-index: 999;
+}
+
+.bottom-nav a {
+  text-decoration: none;
+  color: #4fd1ff;
+  font-weight: bold;
+  padding: 8px 16px;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.bottom-nav a:hover {
+  background: #4fd1ff;
+  color: white;
+}
+
+header {
+  padding: 30px 20px 10px;
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+
+.promo-tag {
+  position: fixed;
+  top: 40%;
+  right: -220px; /* hidden except stub */
+  width: 240px;
+  background: white;
+  color: black;
+  padding: 15px;
+  border-radius: 14px 0 0 14px;
+  box-shadow: 0px 0px 18px rgba(0, 0, 0, 0.25);
+  font-family: Arial, sans-serif;
+  z-index: 9999;
+  transition: right 0.6s ease;
+}
+
+.promo-tag.show {
+  right: 0; /* fully visible */
+}
+
+.promo-tag h4 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.promo-tag p {
+  margin: 6px 0 12px;
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+.promo-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.promo-btn {
+  flex: 1;
+  text-decoration: none;
+  text-align: center;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: bold;
+  color: white;
+  transition: 0.2s ease;
+}
+
+.promo-btn:hover {
+  transform: scale(1.05);
+}
+
+.promo-btn.discord {
+  background: #5865F2;
+}
+
+.promo-btn.youtube {
+  background: #FF0000;
+}
+
+/* the stub arrow button */
+.promo-toggle {
+  position: absolute;
+  top: 50%;
+  left: -28px;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 55px;
+  border: none;
+  background: white;
+  color: black;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 12px 0 0 12px;
+  box-shadow: -3px 0px 12px rgba(0, 0, 0, 0.15);
+  transition: 0.2s ease;
+}
+
+.promo-toggle:hover {
+  transform: translateY(-50%) scale(1.05);
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 6px;
+}
+
+.icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.promo-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.main-layout {
+  display: flex;
+  gap: 20px;
+  padding: 20px;
+  height: calc(100vh - 120px);
+  box-sizing: border-box;
+}
+
+/* LEFT GAME */
+.game-wrapper {
+  flex: 3;
+  display: flex;
+}
+
+/* Sidebar container */
+.sidebar {
+  flex: 1;
+  max-width: 320px;
+  overflow-y: auto;  /* scrollable if content is long */
+  padding: 10px;
+  position: relative;
+}
+
+/* Sidebar container */
+.sidebar {
+  flex: 1;
+  max-width: 320px;
+  overflow-y: auto;  /* scrollable if content is long */
+  padding: 10px;
+  position: relative;
+}
+
+/* Sticky “Games You Might Like” title */
+.sidebar h3 {
+  position: sticky;
+  top: 0; /* always at the very top */
+  background: rgba(0,0,0,0.5); 
+  padding: 8px 0;
+  margin: 0 0 8px 0;
+  z-index: 20;
+}
+
+/* Sticky request tag BELOW the title */
+.request-tag {
+  top: 32px; /* height of title + small gap */
+  background: linear-gradient(135deg, #4fd1ff, #7c5cff);
+  color: white;
+  padding: 12px 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: transform 0.15s;
+  z-index: 19;
+}
+
+.request-tag:hover {
+  transform: scale(1.02);
+}
+
+.request-title {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.request-subtitle {
+  font-size: 12px;
+  opacity: 0.9;
+}
+
+/* Suggestions container */
+#suggestions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* GAME CARD */
+.suggestion {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 12px;
+  transition: 0.2s;
+}
+
+.suggestion:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+/* THUMBNAIL */
+.suggestion img {
+  width: 120px;
+  height: 70px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* TEXT */
+.suggestion-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.suggestion-title {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.suggestion-desc {
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+gameFrame {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  z-index: 9999; /* Ensures it stays on top of other elements */
+}
+</style>
+</head>
+<body>
+
+<header onclick="location.href='library.html'">
+  <span class="pixel">PIXEL</span>
+  <span class="portal">PORTAL</span>
+</header>
+
+<div class="main-layout">
+  
+  <!-- LEFT: GAME -->
+  <div class="game-wrapper">
+    <div class="game-container">
+      <iframe id="gameFrame" allowfullscreen scrolling="no"></iframe>
+
+      <div class="game-bar glass">
+        <span id="gameTitle">Loading...</span>
+        <button class="fullscreen-btn glass" onclick="goFullscreen()">⛶</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: SIDEBAR -->
+  <div class="sidebar">
+
+  <!-- Sticky Games You Might Like title -->
+  <h3>Games You Might Like</h3>
+
+  <!-- Sticky request tag BELOW the title -->
+  <div class="request-tag" onclick="window.location.href='request.html'">
+    <div class="request-title">Want to see new games on Pixel Portal?</div>
+    <div class="request-subtitle">Click on this tag to request new games!</div>
+  </div>
+
+  <!-- Suggestions container -->
+  <div id="suggestions"></div>
+
+</div>
+
+<div class="bottom-bar glass">
+<a href="welcome.html">Welcome</a>
+<a href="library.html">Library</a>
+<a href="about.html">About</a>
+<a href="request.html">Request</a>
+<a href="devlog.html">DevLog</a>
+<a href="dmca.html">DMCA</a>
+</div>
+<script>
+const games = [
+  {
+    name: "Minecraft Parkour 1",
+    id: "mcparkour1",
+    description: "Run, jump, and adventure your way through the world of Minecraft!",
+    img: "mcparkour1.png"
+  },
+  {
+    name: "Minecraft Parkour 2",
+    id: "mcparkour2",
+    description: "Run, jump, and adventure your way through the world of Minecraft!",
+    img: "mcparkour2.png"
+  },
+  {
+    name: "Minecraft Parkour GOD MODE",
+    id: "mcparkourGODMODE",
+    description: "Run, jump, and adventure your way through the world of Minecraft with unlimited abilities!",
+    img: "mcparkourGODMODE.png"
+  },
+  {
+    name: "Child PFP Trend Creator",
+    id: "cptc",
+    description: "Customize your little goober and its background to make a creative new PFP!",
+    img: "cptc.png"
+  },
+  {
+    name: "TADC: GATHER THE GLOINKS!",
+    id: "gloinks",
+    description: "Like the title said, GATHER THE GLOINKS!",
+    img: "gloinks.png"
+  },
+  {
+    name: "Google Snake Game",
+    id: "playsnake",
+    description: "Play the classic Google Snake game!",
+    img: "snake.png"
+  },
+  {
+    name: "Ring Runner",
+    id: "playringrunner",
+    description: "Run through rings and avoid obstacles!",
+    img: "ringrunner.png"
+  },
+  {
+    name: "Undertale",
+    id: "undertale",
+    description: "A legendary indie RPG.",
+    img: "undertale.png"
+  },
+  {
+    name: "Jevil Fight Simulator",
+    id: "jevil",
+    description: "Battle Jevil!",
+    img: "jevilfight.png"
+  },
+  {
+    name: "Bad Time Simulator",
+    id: "sansfight",
+    description: "Fight Sans!",
+    img: "sansfight.png"
+  },
+  {
+    name: "Asriel Dreemurr Fight Simulator",
+    id: "asriel",
+    description: "Fight Asriel Dreemurr!",
+    img: "asriel.png"
+  },
+  {
+    name: "Silk",
+    id: "silk",
+    description: "Make vibrant art with Silk!",
+    img: "silk.png"
+  },
+  {
+    name: "Chess",
+    id: "clchess",
+    description: "Play chess!",
+    img: "chess.png"
+  },
+  {
+    name: "Unfair Undyne",
+    id: "clunfairundyne",
+    description: "Spar with Undyne!",
+    img: "undyne.png"
+  },
+  {
+    name: "We Become What We Behold",
+    id: "wbwwb",
+    description: "A game about cycles.",
+    img: "wbwwb.png"
+  },
+  {
+    name: "TADC Mainframe Simulator",
+    id: "tadc-simulator",
+    description: "Recreate the computer scene from Episode 8 of the Amazing Digital Circus!",
+    img: "tadc-simulator.png"
+  },
+  {
+    name: "Tomb of the Mask",
+    id: "tombofthemask",
+    description: "Move through fast-paced mazes while avoiding traps and collecting points.",
+    img: "tomb-of-the-mask.png"
+  },
+  {
+    name: "Nothing to Say",
+    id: "nothing-to-say",
+    description: "A dating sim where you collect hearts to unlock new letters on your keyboard.",
+    img: "nothing-to-say.png"
+  },
+  {
+    name: "Undertale Yellow",
+    id: "clundertaleyellow",
+    description: "A fan-made Undertale story focused on the yellow soul.",
+    img: "undertale-yellow.png"
+  },
+  {
+    name: "There is No Game",
+    id: "clthereisnofile",
+    description: "A puzzle experience built around interacting with the game in unexpected ways.",
+    img: "there-is-no-game.png"
+  },
+  {
+    name: "Tag",
+    id: "cltagc3",
+    description: "A movement-based platformer focused on speed and parkour mechanics.",
+    img: "tag.png"
+  },
+  {
+    name: "Swords and Souls",
+    id: "clswordsandsouls",
+    description: "Train your character and improve stats through minigames and battles.",
+    img: "swords-and-souls.png"
+  },
+  {
+    name: "Spacebar Clicker",
+    id: "clspacebarclicker",
+    description: "Press the spacebar to gain points and unlock upgrades over time.",
+    img: "spacebar-clicker.png"
+  },
+  {
+    name: "Snow Rider 3D",
+    id: "clsnowrider",
+    description: "Ride down snowy slopes while avoiding obstacles.",
+    img: "snow-rider-3d.png"
+  },
+  {
+    name: "Slither.io",
+    id: "clslitherio",
+    description: "Grow your snake by collecting orbs and outlasting other players.",
+    img: "slither-io.png"
+  },
+  {
+    name: "Ragdoll Archers",
+    id: "clragdollarchers",
+    description: "A physics-based archery game with unpredictable movement.",
+    img: "ragdoll-archers.png"
+  },
+  {
+    name: "OvO",
+    id: "clovofixed",
+    description: "A platformer focused on precise movement and timing.",
+    img: "ovo.png"
+  },
+  {
+    name: "Google Dinosaur Game",
+    id: "clgoogledino",
+    description: "An endless runner where you jump over obstacles and avoid hazards.",
+    img: "google-dino.png"
+  },
+  {
+    name: "Duck Life",
+    id: "clducklife",
+    description: "Train a duck in different skills to compete in races.",
+    img: "duck-life.png"
+  },
+  {
+    name: "Dig to China",
+    id: "cldigtochina",
+    description: "Dig downward while collecting resources and upgrading your tools.",
+    img: "dig-to-china.png"
+  },
+  {
+    name: "Deltarune",
+    id: "cldeltarune",
+    description: "A story-driven RPG with turn-based combat and exploration.",
+    img: "deltarune.png"
+  },
+  {
+    name: "Bad Monday Simulator",
+    id: "clbadmondaysimulator",
+    description: "A Garfield-themed battle inspired by Undertale mechanics.",
+    img: "bad-monday-simulator.png"
+  },
+  {
+    name: "Backyard Baseball",
+    id: "clbackyardbaseball",
+    description: "A casual baseball game with simple controls and gameplay.",
+    img: "backyard-baseball.png"
+  },
+  {
+    name: "2048",
+    id: "cl2048",
+    description: "Combine matching numbers to reach higher values.",
+    img: "2048.png"
+  },
+  {
+    name: "10 Minutes Till Dawn",
+    id: "cl10minutestilldawn",
+    description: "Survive waves of enemies while upgrading your abilities.",
+    img: "10minutestilldawn.png"
+  },
+  {
+    name: "Diamond Clicker",
+    id: "diamond",
+    description: "Mine diamonds to spend more diamonds!",
+    img: "diamond.png"
+  }
+];
+const params = new URLSearchParams(window.location.search);
+const gameId = params.get("game");
+
+const game = games.find(g => g.id === gameId);
+const frame = document.getElementById("gameFrame");
+
+const titleEl = document.getElementById("gameTitle");
+
+if (game) {
+  frame.src = `games/${game.id}.html`;
+  document.title = `Play | ${game.name} | Pixel Portal`;
+  titleEl.textContent = game.name;
+} else {
+  frame.src = "";
+  titleEl.textContent = "Game not found";
+  frame.insertAdjacentHTML("beforebegin", "<p style='color:white;font-size:18px;'>Game not found. Please go back to the library.</p>");
+}
+
+function goFullscreen() {
+  if (frame.requestFullscreen) frame.requestFullscreen();
+  else if (frame.webkitRequestFullscreen) frame.webkitRequestFullscreen();
+  else if (frame.msRequestFullscreen) frame.msRequestFullscreen();
+}
+</script>
+<script>
+  const promoTag = document.getElementById("promoTag");
+  const promoArrow = document.getElementById("promoArrow");
+
+  // show it automatically on page load
+  window.addEventListener("load", () => {
+    setTimeout(() => {
+      promoTag.classList.add("show");
+      promoArrow.textContent = "❯";
+    }, 1200);
+  });
+
+  function togglePromo() {
+    promoTag.classList.toggle("show");
+
+    if (promoTag.classList.contains("show")) {
+      promoArrow.textContent = "❯"; // arrow points right when open
+    } else {
+      promoArrow.textContent = "❮"; // arrow points left when closed
+    }
+  }
+const suggestions = document.getElementById("suggestions");
+
+games.forEach(g => {
+  if (g.id === gameId) return; // skip current game
+
+  const div = document.createElement("div");
+  div.className = "suggestion";
+  div.onclick = () => {
+    window.location.href = `play.html?game=${g.id}`;
+  };
+
+  div.innerHTML = `
+    <img src="images/${g.img}" alt="${g.name}">
+    <div class="suggestion-info">
+      <div class="suggestion-title">${g.name}</div>
+      <div class="suggestion-desc">${g.description}</div>
+    </div>
+  `;
+
+  suggestions.appendChild(div);
+});
+</script>
+</body>
+</html>

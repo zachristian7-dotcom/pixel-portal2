@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Private Page</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+  margin: 0;
+  padding: 40px 20px;
+  font-family: Trebuchet MS, Arial, sans-serif;
+  background: #0b1020;
+  color: white;
+  text-align: center;
+}
+
+h1 {
+  margin-bottom: 10px;
+}
+
+.unlock {
+  margin: 20px auto;
+}
+
+.unlock input {
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: none;
+  font-size: 16px;
+  outline: none;
+}
+
+.unlock button {
+  margin-left: 8px;
+  padding: 10px 16px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  background: #4fd1ff;
+  color: black;
+}
+
+.status {
+  margin-top: 10px;
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+textarea {
+  width: 90%;
+  max-width: 800px;
+  height: 300px;
+  margin-top: 25px;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 14px;
+  border: 2px solid #4fd1ff;
+  background: #111827;
+  color: white;
+  resize: vertical;
+}
+
+textarea[disabled] {
+  background: #1f2937;
+  color: #888;
+}
+</style>
+</head>
+
+<body>
+
+<h1>Private Page</h1>
+<p>This page can be viewed by anyone, but only unlocked by the owner.</p>
+
+<div class="unlock">
+  <input id="codeInput" type="password" placeholder="Enter unlock code">
+  <button onclick="unlock()">Unlock</button>
+  <div class="status" id="status">Viewing only</div>
+</div>
+
+<textarea id="content" disabled>
+This text is visible to everyone,
+but only editable with the correct code.
+</textarea>
+
+<script>
+/* ===== CONFIG ===== */
+const SECRET_CODE = "SD4LL"; // ← CHANGE THIS TO YOUR OWN CODE
+
+const textarea = document.getElementById("content");
+const statusText = document.getElementById("status");
+const codeInput = document.getElementById("codeInput");
+
+function unlock() {
+  if (codeInput.value === SECRET_CODE) {
+    textarea.disabled = false;
+    statusText.textContent = "Unlocked — editing enabled";
+    statusText.style.color = "#4fd1ff";
+    codeInput.value = "";
+  } else {
+    statusText.textContent = "Incorrect code";
+    statusText.style.color = "#ff6b6b";
+  }
+}
+</script>
+
+</body>
+</html>
