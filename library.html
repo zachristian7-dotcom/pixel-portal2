@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Pixel Portal – Library</title>
+<link rel="icon" type="image/png" href="images/favicon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+.logo-link {
+    display: inline-flex;
+    flex-direction: column; /* Stacks items vertically */
+    align-items: center;    /* Centers items horizontally */
+    text-decoration: none;
+    color: black;           /* Or your preferred color */
+}
+
+.pixel, .portal {
+    display: block;         /* Ensures each span takes full width */
+    line-height: 1.2;       /* Adjusts space between lines */
+}
+/* ---------- BACKGROUND ---------- */
+
+body{
+margin:0;
+font-family:"Trebuchet MS",Arial,sans-serif;
+background:url("images/galaxy.gif") center/cover fixed;
+color:white;
+text-align:center;
+padding-bottom:120px;
+}
+
+/* ---------- LIQUID GLASS ---------- */
+
+.glass {
+  background: rgba(255, 255, 255, 0.02);
+  backdrop-filter: blur(3px) saturate(180%);
+  -webkit-backdrop-filter: blur(10px) saturate(180%);
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.5);
+}
+box-shadow:
+0 10px 40px rgba(255,255,255,0.25),
+inset 0 1px 0 rgba(255,255,255,0.25);
+
+position:relative;
+overflow:hidden;
+
+transition:transform .25s,box-shadow .25s;
+}
+
+.game-card.glass:hover{
+transform:translateY(-6px) scale(1.02);
+}
+
+.bottom-bar:hover {
+  transform: translateX(-50%);
+}
+
+box-shadow:
+0 18px 50px rgba(255,255,255,0.25),
+0 0 25px rgba(79,209,255,0.25),
+inset 0 1px 0 rgba(255,255,255,0.35);
+}
+
+/* cursor reflection */
+
+.glass::before{
+content:"";
+position:absolute;
+inset:0;
+
+background:radial-gradient(
+circle at var(--x) var(--y),
+rgba(255,255,255,0.25)),
+transparent 40%
+);
+
+opacity:0;
+transition:opacity .25s;
+pointer-events:none;
+}
+
+.glass:hover::before{
+opacity:1;
+}
+
+/* ---------- LOGO ---------- */
+
+.logo{
+padding:30px 0 10px;
+}
+
+.pixel{
+font-size:48px;
+letter-spacing:4px;
+color:#4fd1ff;
+text-shadow:0 0 8px #4fd1ff;
+}
+
+.portal{
+font-size:54px;
+letter-spacing:6px;
+color:#b47cff;
+text-shadow:0 0 12px #7c5cff;
+}
+
+/* ---------- CONTROLS ---------- */
+
+.controls{
+display:flex;
+justify-content:center;
+gap:12px;
+flex-wrap:wrap;
+
+margin:20px auto;
+padding:12px 18px;
+
+border-radius:18px;
+
+width:max-content;
+}
+
+input, select {
+  padding: 10px 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.2);
+
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+
+  color: white;
+  font-size: 14px;
+
+  box-shadow:
+    0 6px 20px rgba(0,0,0,0.35),
+    inset 0 1px 0 rgba(255,255,255,0.25);
+
+  outline: none;
+
+  transition: all .2s ease;
+}
+
+input:hover, select:hover,
+input:focus, select:focus {
+
+  background: rgba(255,255,255,0.12);
+
+  box-shadow:
+    0 8px 30px rgba(0,0,0,0.45),
+    0 0 15px rgba(79,209,255,0.25),
+    inset 0 1px 0 rgba(255,255,255,0.35);
+}
+
+::placeholder{
+  color: rgba(255,255,255,0.65);
+}
+
+.search-box{
+display:flex;
+align-items:center;
+gap:8px;
+
+padding:8px 14px;
+
+border-radius:14px;
+
+background:rgba(255,255,255,0.08);
+backdrop-filter:blur(14px);
+border:1px solid rgba(255,255,255,0.2);
+
+box-shadow:
+0 6px 20px rgba(0,0,0,0.35),
+inset 0 1px 0 rgba(255,255,255,0.25);
+}
+
+.search-icon{
+font-size:16px;
+opacity:.8;
+}
+
+select{
+padding:10px 14px;
+
+background:rgba(255,255,255,0.08);
+backdrop-filter:blur(14px);
+
+border:1px solid rgba(255,255,255,0.2);
+border-radius:14px;
+
+color:white;
+
+box-shadow:
+0 6px 20px rgba(0,0,0,0.35),
+inset 0 1px 0 rgba(255,255,255,0.25);
+}
+/* remove input background so glass shows */
+
+.search-box input{
+background:transparent;
+border:none;
+outline:none;
+color:white;
+font-size:14px;
+width:180px;
+}
+
+.search-box input::placeholder{
+color:rgba(255,255,255,0.65);
+}
+/* ---------- GRID ---------- */
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:22px;
+padding:30px;
+max-width:1200px;
+margin:auto;
+}
+
+/* ---------- GAME CARDS ---------- */
+
+.game-card{
+padding:15px;
+cursor:pointer;
+transform-style:preserve-3d;
+}
+
+.game-card img{
+width:100%;
+border-radius:12px;
+margin-bottom:10px;
+transform:translateZ(20px);
+}
+
+.game-card h3{
+margin:12px 0 6px;
+transform:translateZ(30px);
+}
+
+.game-card p{
+font-size:13px;
+opacity:.9;
+transform:translateZ(15px);
+}
+
+/* categories */
+
+.categories{
+display:flex;
+justify-content:center;
+flex-wrap:wrap;
+gap:6px;
+margin-top:8px;
+}
+
+.category{
+background:rgba(255,255,255,0.18);
+padding:4px 10px;
+border-radius:12px;
+font-size:11px;
+}
+
+/* featured */
+
+.featured{
+outline:6px solid gold;
+}
+
+.featured::after{
+content:"FEATURED GAME";
+position:50px;
+bottom:-14px;
+left:50%;
+transform:translateX(-50%);
+background:gold;
+color:white;
+padding:4px 14px;
+font-size:12px;
+font-weight:bold;
+border-radius:12px;
+}
+
+/* new */
+
+.new{
+outline:6px solid #4fd1ff;
+}
+
+.new::after{
+content:"NEW!";
+position:50px;
+bottom:-14px;
+left:50%;
+transform:translateX(-50%);
+background:#4fd1ff;
+color:white;
+padding:4px 14px;
+font-size:12px;
+font-weight:bold;
+border-radius:12px;
+}
+
+/* ---------- BOTTOM BAR ---------- */
+
+.bottom-bar{
+position:fixed;
+bottom:20px;
+left:50%;
+transform:translateX(-50%);
+display:flex;
+gap:30px;
+padding:14px 28px;
+z-index:100;
+}
+
+.bottom-bar a{
+color:white;
+text-decoration:none;
+font-weight:bold;
+opacity:.8;
+}
+
+.bottom-bar a:hover{
+opacity:1;
+}
+
+/* Glass style for select menus */
+select {
+  padding: 10px 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.08);   /* glass effect */
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  color: white;                       /* text color inside select */
+  font-size: 14px;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+select:hover {
+  background: rgba(255,255,255,0.12);   /* slightly brighter on hover */
+  color: black
+}
+
+.request-tag {
+  position: sticky;
+  top: 0; /* stays at the top of sidebar */
+  background: linear-gradient(135deg, #4fd1ff, #7c5cff);
+  color: white;
+  padding: 12px 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  margin-bottom: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  transition: transform 0.15s;
+  z-index: 20;
+}
+
+.request-tag:hover {
+  transform: scale(1.02);
+}
+
+.request-title {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.request-subtitle {
+  font-size: 12px;
+  opacity: 0.9;
+}
+
+img {
+  width: 200px;
+  height: 100px;
+}
+</style>
+</head>
+
+<body>
+
+<header class="logo">
+  <a href="library.html" class="logo-link">
+    <span class="pixel">PIXEL</span>
+    <span class="portal">PORTAL</span>
+  </a>
+</header>
+
+<div class="controls">
+<div class="search-box">
+  <span class="search-icon">🔍</span>
+  <input id="searchInput" placeholder="Search games or categories" oninput="renderGames()">
+</div>
+
+<select id="sortSelect" onchange="renderGames()">
+<option value="newest">Newest</option>
+<option value="oldest">Oldest</option>
+<option value="title">A-Z</option>
+</select>
+</div>
+<div class="request-tag" onclick="window.location.href='request.html'">
+  <div class="request-title">Want to see new games on Pixel Portal?</div>
+  <div class="request-subtitle">Click on this tag to request new games!</div>
+</div>
+<div id="game-list" class="grid"></div>
+
+<div class="bottom-bar glass">
+<a href="welcome.html">Welcome</a>
+<a href="library.html">Library</a>
+<a href="about.html">About</a>
+<a href="request.html">Request</a>
+<a href="devlog.html">DevLog</a>
+<a href="dmca.html">DMCA</a>
+</div>
+
+<script>
+
+/* ---------- GAME DATA ---------- */
+
+const games = [
+  { name: "Ring Runner", id: "playringrunner", thumbnail: "ringrunner.png", description: "Run through rings and avoid obstacles!", categories: ["Platformer"], added: "2026-01-02", featured: true },
+  { name: "Undertale", id: "undertale", thumbnail: "undertale.png", description: "A legendary indie RPG.", categories: ["RPG"], added: "2026-01-01" },
+  { name: "Jevil Fight Simulator", id: "jevil", thumbnail: "jevilfight.png", description: "Battle Jevil!", categories: ["Boss Fight"], added: "2025-12-30" },
+  { name: "Asgore Fight Simulator", id: "asgore", thumbnail: "asgore.webp", description: "Fight Asgore!", categories: ["Boss Fight"], added: "2025-12-28" },
+  { name: "Diamond Clicker", id: "diamond", thumbnail: "diamond.png", description: "Mine diamonds to spend more diamonds!", categories: ["Minecraft"], added: "2026-02-28" },
+  { name: "Silk", id: "silk", thumbnail: "silk.png", description: "Make vibrant art with Silk!", categories: ["Art"], added: "2026-03-03" },
+  { name: "Asriel Dreemurr Fight Simulator", id: "asriel", thumbnail: "asriel.png", description: "Face off against the God of Hyperdeath himself, Asriel Dreemurr!", categories: ["Boss Fight"], added: "2026-03-07" },
+  { name: "Minecraft Parkour 1", id: "mcparkour1", thumbnail: "mcparkour1.png", description: "Run, jump, and adventure your way through the world of Minecraft!", categories: ["Minecraft"], added: "2026-03-26" },
+  { name: "Minecraft Parkour 2", id: "mcparkour2", thumbnail: "mcparkour2.png", description: "Run, jump, and adventure your way through the world of Minecraft!", categories: ["Minecraft"], added: "2026-03-26" },
+  { name: "Minecraft Parkour GOD MODE", id: "mcparkourGODMODE", thumbnail: "mcparkourGODMODE.png", description: "Run, jump, and adventure your way through the world of Minecraft!", categories: ["Minecraft"], added: "2026-03-26" },
+  { name: "Child PFP Trend Creator", id: "cptc", thumbnail: "cptc.png", description: "Customize your little goober and its background to make a creative new PFP!", categories: ["Creative"], added: "2026-03-26" },
+  { name: "TADC: GATHER THE GLOINKS!", id: "gloinks", thumbnail: "gloinks.png", description: "Like the title said, GATHER THE GLOINKS!", categories: ["Digital Circus"], added: "2026-03-26" },
+  { name: "Google Snake Game", id: "playsnake", thumbnail: "snake.png", description: "Play the classic Google Snake game!", categories: ["Classics"], added: "2026-03-26" },
+  { name: "Bad Time Simulator", id: "sansfight", thumbnail: "sansfight.png", description: "Fight Sans!", categories: ["Boss Fight"], added: "2026-03-28" },
+  { name: "Chess", id: "clchess", thumbnail: "chess.png", description: "Play chess!", categories: ["Strategy"], added: "2026-04-01" },
+  { name: "Unfair Undyne", id: "clunfairundyne", thumbnail: "undyne.png", description: "Spar with Undyne!", categories: ["Boss Fight"], added: "2026-04-03" },
+  { name: "We Become What We Behold", id: "wbwwb", thumbnail: "wbwwb.png", description: "A game about cycles.", categories: ["Fun"], added: "2026-04-03" },
+  { name: "TADC Mainframe Simulator", id: "tadc-simulator", thumbnail: "tadc-simulator.png", description: "Recreate the computer scene from Episode 8! Spoilers included.", categories: ["TADC"], added: "2026-04-11", new: true },
+  { name: "Tomb of the Mask", id: "tombofthemask", thumbnail: "tomb-of-the-mask.png", description: "Move through fast-paced mazes, avoiding traps.", categories: ["Arcade"], added: "2026-04-11", new: true },
+  { name: "Nothing to Say", id: "nothing-to-say", thumbnail: "nothing-to-say.png", description: "A dating sim where you collect hearts to unlock letters.", categories: ["Story"], added: "2026-04-12", new: true },
+
+  { name: "Undertale Yellow", id: "clundertaleyellow", thumbnail: "undertale-yellow.png", description: "A fan-made Undertale story focused on the yellow soul.", categories: ["Undertale"], added: "2026-04-12", new: true },
+  { name: "There is No Game", id: "clthereisnofile", thumbnail: "there-is-no-game.png", description: "A puzzle experience built around interacting in unexpected ways.", categories: ["Puzzle"], added: "2026-04-11", new: true },
+  { name: "Tag", id: "cltagc3", thumbnail: "tag.png", description: "A movement-based platformer focused on speed.", categories: ["Platformer"], added: "2026-04-13", new: true },
+  { name: "Swords and Souls", id: "clswordsandsouls", thumbnail: "swords-and-souls.png", description: "Train your character and improve stats through minigames.", categories: ["RPG"], added: "2026-04-11", new: true },
+  { name: "Spacebar Clicker", id: "clspacebarclicker", thumbnail: "spacebar-clicker.png", description: "Press the spacebar to gain points and unlock upgrades.", categories: ["Idle"], added: "2026-04-12", new: true },
+  { name: "Snow Rider 3D", id: "clsnowrider", thumbnail: "snow-rider-3d.png", description: "Ride down snowy slopes while avoiding obstacles.", categories: ["Arcade"], added: "2026-04-11", new: true },
+  { name: "Slither.io", id: "clslitherio", thumbnail: "slither-io.png", description: "Grow your snake by collecting orbs and outlasting others.", categories: ["Multiplayer"], added: "2026-04-13", new: true },
+  { name: "Ragdoll Archers", id: "clragdollarchers", thumbnail: "ragdoll-archers.png", description: "A physics-based archery game.", categories: ["Action"], added: "2026-04-12", new: true },
+  { name: "OvO", id: "clovofixed", thumbnail: "ovo.png", description: "A platformer focused on precise movement and timing.", categories: ["Platformer"], added: "2026-04-11", new: true },
+  { name: "Google Dinosaur Game", id: "clgoogledino", thumbnail: "google-dino.png", description: "An endless runner jump over obstacles.", categories: ["Arcade"], added: "2026-04-11", new: true },
+  { name: "Duck Life", id: "clducklife", thumbnail: "duck-life.png", description: "Train a duck in different skills to compete in races.", categories: ["Simulation"], added: "2026-04-12", new: true },
+  { name: "Dig to China", id: "cldigtochina", thumbnail: "dig-to-china.png", description: "Dig downward while collecting resources.", categories: ["Idle"], added: "2026-04-13", new: true },
+  { name: "Deltarune", id: "cldeltarune", thumbnail: "deltarune.png", description: "A story-driven RPG with turn-based combat.", categories: ["Deltarune"], added: "2026-04-11", new: true },
+  { name: "Bad Monday Simulator", id: "clbadmondaysimulator", thumbnail: "bad-monday-simulator.png", description: "A Garfield-themed battle inspired by Undertale.", categories: ["Undertale"], added: "2026-04-12", new: true },
+  { name: "Backyard Baseball", id: "clbackyardbaseball", thumbnail: "backyard-baseball.png", description: "A casual baseball game with simple controls.", categories: ["Sports"], added: "2026-04-13", new: true },
+  { name: "2048", id: "cl2048", thumbnail: "2048.png", description: "Combine matching numbers to reach higher values.", categories: ["Puzzle"], added: "2026-04-11", new: true },
+  { name: "10 Minutes Till Dawn", id: "cl10minutestilldawn", thumbnail: "10minutestilldawn.png", description: "Survive waves of enemies while upgrading abilities.", categories: ["Action"], added: "2026-04-12", new: true },
+  { name: "Coming Soon!", id: null, thumbnail: "comingsoon.jpeg", description: "More games coming soon!", categories: ["Coming Soon"], added: "2025-12-27" }
+];
+
+/* ---------- RENDER ---------- */
+
+function renderGames(){
+
+const list=document.getElementById("game-list");
+const search=document.getElementById("searchInput").value.toLowerCase();
+const sort=document.getElementById("sortSelect").value;
+
+let filtered=games.filter(g=>
+g.name.toLowerCase().includes(search)||
+g.categories.join(" ").toLowerCase().includes(search)
+);
+
+if(sort==="newest") filtered.sort((a,b)=>new Date(b.added)-new Date(a.added));
+if(sort==="oldest") filtered.sort((a,b)=>new Date(a.added)-new Date(b.added));
+if(sort==="title") filtered.sort((a,b)=>a.name.localeCompare(b.name));
+
+list.innerHTML="";
+
+/* create cards */
+
+filtered.forEach(game=>{
+
+const card=document.createElement("div");
+
+card.className="game-card glass"+
+(game.featured?" featured":"")+
+(game.new?" new":"");
+
+card.innerHTML=`
+
+<img src="images/${game.thumbnail}">
+
+<h3>${game.name}</h3>
+
+<p>${game.description}</p>
+
+<div class="categories">
+
+${game.categories.map(c=>`<span class="category">${c}</span>`).join("")}
+
+</div>
+`;
+
+/* play */
+
+if(game.id){
+card.onclick=()=>window.location.href=`play.html?game=${game.id}`;
+}
+
+/* cursor reflection */
+
+card.addEventListener("mousemove",e=>{
+
+const rect=card.getBoundingClientRect();
+
+card.style.setProperty("--x",(e.clientX-rect.left)+"px");
+card.style.setProperty("--y",(e.clientY-rect.top)+"px");
+
+});
+
+list.appendChild(card);
+
+});
+
+}
+
+renderGames();
+
+</script>
+</body>
+</html>

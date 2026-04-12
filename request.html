@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Request Games - Pixel Portal</title>
+<link rel="stylesheet" href="liquid-glass.css">
+<link rel="icon" type="image/png" href="images/favicon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+.logo-link {
+    display: inline-flex;
+    flex-direction: column; /* Stacks items vertically */
+    align-items: center;    /* Centers items horizontally */
+    text-decoration: none;
+    color: black;           /* Or your preferred color */
+}
+
+.pixel, .portal {
+    display: block;         /* Ensures each span takes full width */
+    line-height: 1.2;       /* Adjusts space between lines */
+}
+
+body {
+  margin: 0;
+  font-family: 'Trebuchet MS', Arial, sans-serif;
+  background: url("images/galaxy.gif") center / cover fixed;
+  color: white;
+  text-align: center;
+}
+
+/* Logo text */
+.logo {
+  padding: 30px 0 10px 0;
+}
+
+.logo-link {
+  text-decoration: none;
+  color: inherit;
+  display: inline-block;
+  transition: transform 0.15s ease;
+  position: relative;
+}
+
+.logo-link:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+}
+
+/* Tooltip for logo */
+.logo-link::after {
+  content: "Click to go to the Library";
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.75);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  white-space: nowrap;
+  z-index: 1000;
+}
+
+.logo-link:hover::after {
+  opacity: 1;
+}
+
+.pixel {
+  font-size: 48px;
+  letter-spacing: 4px;
+  color: #4fd1ff;
+  text-shadow: 0 0 8px #4fd1ff;
+}
+
+.portal {
+  font-size: 54px;
+  letter-spacing: 6px;
+  color: #b47cff;
+  text-shadow: 0 0 12px #7c5cff;
+}
+
+/* Panel */
+.panel {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 30px;
+  border-radius: 16px;
+  text-align: left;
+  line-height: 1.6;
+}
+
+/* Form styling */
+form input, form textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  border: none;
+  font-family: 'Trebuchet MS', Arial, sans-serif;
+}
+
+form button {
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: linear-gradient(135deg, #4fd1ff, #7c5cff);
+  backdrop-filter: blur(3px);  /* still blur behind panel */
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  color: white
+}
+
+form button:hover {
+  transform: scale(1.05);
+}
+
+/* Success message */
+#success-message {
+  display: none;
+  margin-top: 20px;
+  padding: 15px;
+  background: rgba(0, 128, 0, 0.8);
+  border-radius: 10px;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  font-size: 16px;
+}
+
+/* Bottom nav */
+.bottom-nav {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  padding: 12px 20px;
+  border-radius: 20px;
+  display: flex;
+  gap: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+  z-index: 999;
+}
+
+.bottom-nav a {
+  text-decoration: none;
+  color: #4fd1ff;
+  font-weight: bold;
+  padding: 8px 16px;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.bottom-nav a:hover {
+  background: #4fd1ff;
+  color: white;
+}
+
+.promo-tag {
+  position: fixed;
+  top: 40%;
+  right: -220px; /* hidden except stub */
+  width: 240px;
+  background: white;
+  color: black;
+  padding: 15px;
+  border-radius: 14px 0 0 14px;
+  box-shadow: 0px 0px 18px rgba(0, 0, 0, 0.25);
+  font-family: Arial, sans-serif;
+  z-index: 9999;
+  transition: right 0.6s ease;
+}
+
+.promo-tag.show {
+  right: 0; /* fully visible */
+}
+
+.promo-tag h4 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.promo-tag p {
+  margin: 6px 0 12px;
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+.promo-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.promo-btn {
+  flex: 1;
+  text-decoration: none;
+  text-align: center;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: bold;
+  color: white;
+  transition: 0.2s ease;
+}
+
+.promo-btn:hover {
+  transform: scale(1.05);
+}
+
+.promo-btn.discord {
+  background: #5865F2;
+}
+
+.promo-btn.youtube {
+  background: #FF0000;
+}
+
+/* the stub arrow button */
+.promo-toggle {
+  position: absolute;
+  top: 50%;
+  left: -28px;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 55px;
+  border: none;
+  background: white;
+  color: black;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 12px 0 0 12px;
+  box-shadow: -3px 0px 12px rgba(0, 0, 0, 0.15);
+  transition: 0.2s ease;
+}
+
+.promo-toggle:hover {
+  transform: translateY(-50%) scale(1.05);
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 6px;
+}
+
+.icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.promo-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+/* Transparent Inputs & Textarea */
+form input,
+form textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: transparent;      /* fully clear background */
+  backdrop-filter: blur(14px);  /* still blur behind panel */
+  color: white;
+  font-family: 'Trebuchet MS', Arial, sans-serif;
+  outline: none;
+}
+
+form textarea {
+  resize: vertical;
+}
+</style>
+</head>
+
+<body>
+
+<header class="logo">
+  <a href="library.html" class="logo-link">
+    <span class="pixel">PIXEL</span>
+    <span class="portal">PORTAL</span>
+  </a>
+</header>
+
+<div class="glass">
+  <h2>Support Form</h2>
+  <p>Found a bug? Have a game you'd like to see on Pixel Portal? Have questions? Submit your questions or requests below!</p>
+
+  <!-- Formsubmit form -->
+  <form id="request-form" action="https://formsubmit.co/zachristian@icloud.com" method="POST" target="_blank">
+    <input type="hidden" name="_captcha" value="false">
+    <input type="hidden" name="_template" value="table">
+
+    <input type="text" name="Game name or inquiry title" placeholder="Game name or inquiry title" required>
+    <input type="text" name="Email" placeholder="Contact info (optional) Use N/A if you decide to not share it" required>
+    <textarea name="text" placeholder="Inquiry details or game description" rows="5" required></textarea>
+    <button type="submit">Submit</button>
+  </form>
+
+  <div id="success-message">Thanks! Your support form has been sent. ✅</div>
+</div>
+
+<div class="bottom-bar glass">
+<a href="welcome.html">Welcome</a>
+<a href="library.html">Library</a>
+<a href="about.html">About</a>
+<a href="request.html">Request</a>
+<a href="devlog.html">DevLog</a>
+<a href="dmca.html">DMCA</a>
+</div>
+<script>
+// Show success message after submission
+const form = document.getElementById('request-form');
+const success = document.getElementById('success-message');
+
+form.addEventListener('submit', function(e) {
+  // small delay to allow Formsubmit to open email redirect
+  setTimeout(() => {
+    form.style.display = 'none';
+    success.style.display = 'block';
+  }, 100);
+});
+</script>
+</body>
+</html>

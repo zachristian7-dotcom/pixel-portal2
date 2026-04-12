@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Pixel Portal</title>
+<link rel="stylesheet" href="liquid-glass.css">
+<link rel="icon" type="image/png" href="images/favicon.png">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="favicon.png">
+
+<style>
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Trebuchet MS, Arial, sans-serif;
+  color: white;
+  background: url("images/galaxy.gif") center / cover fixed;
+  text-align: center;
+}
+
+.logo {
+  padding: 50px 20px 10px;
+}
+
+.logo a {
+  text-decoration: none;
+  color: inherit;
+  display: inline-block;
+}
+
+.logo a:active {
+  transform: scale(0.95);
+}
+
+.pixel {
+  font-size: 48px;
+  letter-spacing: 4px;
+  color: #4fd1ff;
+  text-shadow: 0 0 8px #4fd1ff;
+}
+
+.portal {
+  display: block;
+  font-size: 54px;
+  letter-spacing: 6px;
+  color: #b47cff;
+  text-shadow: 0 0 12px #7c5cff;
+}
+
+.tagline {
+  font-size: 14px;
+  letter-spacing: 2px;
+  color: #ddd;
+}
+
+.panel {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 30px;
+  background: rgba(0,0,0,0.65);
+  border-radius: 16px;
+}
+
+.button {
+  display: inline-block;
+  margin: 15px 8px;
+  padding: 14px 32px;
+  font-size: 18px;
+  border-radius: 10px;
+  text-decoration: none;
+  background: linear-gradient(135deg, #4fd1ff, #7c5cff);
+  color: white;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.switch-btn {
+  background: rgba(255,255,255,0.15);
+  color: white;
+  border: 2px solid rgba(255,255,255,0.4);
+  animation: none;
+}
+
+.switch-btn:hover {
+  background: rgba(255,255,255,0.25);
+  transform: scale(1.05);
+}
+
+.bottom-nav {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  padding: 12px 20px;
+  border-radius: 22px;
+  display: flex;
+  gap: 20px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+}
+
+.bottom-nav a {
+  text-decoration: none;
+  font-weight: bold;
+  color: #4fd1ff;
+  padding: 8px 16px;
+  border-radius: 14px;
+}
+
+.bottom-nav a:hover {
+  background: #4fd1ff;
+  color: white;
+}
+
+.teacher-safe-indicator {
+  display: none;
+}
+
+body.teacher-safe .teacher-safe-indicator {
+  display: block;
+  position: fixed;
+  top: 10px;
+  right: 14px;
+  font-size: 12px;
+  opacity: 0.7;
+}
+</style>
+</head>
+
+<body>
+
+<header class="logo">
+  <a href="library.html">
+    <span class="pixel">PIXEL</span>
+    <span class="portal">PORTAL</span>
+  </a>
+  <div class="tagline">STEP INTO THE PORTAL</div>
+</header>
+
+<div class="glass">
+  <br><br>
+  Pixel Portal is a free Scratch game site made by students, for students.<br><br>
+  No downloads. No accounts. Just click and play.<br><br>
+  
+  <a class="button glass" href="library.html">Enter Pixel Portal</a>
+  
+  <br>
+<div class="teacher-safe-indicator">Teacher Safe Mode Active</div>
+
+<script>
+// Teacher Safe Mode
+const SAFE_KEY = "teacherSafeMode";
+
+if (localStorage.getItem(SAFE_KEY) === "on") {
+  document.body.classList.add("teacher-safe");
+}
+
+document.addEventListener("keydown", e => {
+  if (e.shiftKey && e.key.toLowerCase() === "t") {
+    document.body.classList.toggle("teacher-safe");
+    localStorage.setItem(
+      SAFE_KEY,
+      document.body.classList.contains("teacher-safe") ? "on" : "off"
+    );
+  }
+});
+
+</script>
+</body>
+</html>

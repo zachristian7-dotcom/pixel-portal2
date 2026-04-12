@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>404 | Pixel Portal</title>
+<style>
+body {
+  margin: 0;
+  background: black;
+  color: red;
+  font-family: monospace;
+  padding: 20px;
+}
+
+input {
+  background: black;
+  color: red;
+  border: 1px solid red;
+  padding: 8px;
+  font-family: monospace;
+  width: 300px;
+}
+
+button {
+  background: red;
+  color: black;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-family: monospace;
+}
+</style>
+</head>
+<body>
+
+<h2>PIXEL PORTAL ERROR</h2>
+<p>FILE NOT FOUND.</p>
+
+<p>Enter filename:</p>
+<input id="fileInput" placeholder="example: library.html">
+<button onclick="checkFile()">OPEN</button>
+
+<p id="result"></p>
+
+<script>
+const realFiles = [
+  "welcome.html",
+  "library.html",
+  "about.html",
+  "request.html",
+  "play.html",
+  "secret.html",
+  "console.html",
+  "error.html"
+];
+
+function checkFile() {
+  const input = document.getElementById("fileInput").value.trim();
+  const result = document.getElementById("result");
+
+  if (realFiles.includes(input)) {
+    window.location.href = input;
+  } else {
+    result.textContent = "ERROR: FILE DOES NOT EXIST.";
+  }
+}
+</script>
+
+</body>
+</html>
