@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ring Runner | Pixel Portal</title>
+<link rel="stylesheet" href="../../css/style.css">
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0b0b14;
+  color: white;
+  text-align: center;
+}
+
+.logo {
+  padding: 20px;
+  font-size: 32px;
+  color: #4fd1ff;
+}
+
+/* Container for iframe to keep centered and responsive */
+.embed-box {
+  width: 100vw;
+  height: 100vh;       
+  max-width: 98%;     /* responsive fallback */
+  margin: 0 auto;
+}
+
+.embed-box iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+/* Fullscreen fills entire screen */
+.embed-box:fullscreen {
+  padding-top: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+canvas, iframe, #game {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+</style>
+</head>
+<body>
+<div class="embed-box">
+<iframe src="https://zachristian7-dotcom.github.io/TADC-Mainframe-Simulator" allowfullscreen scrolling="no"></iframe>
+</div>
+
+</body>
+</html>
