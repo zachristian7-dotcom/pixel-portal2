@@ -53,7 +53,7 @@ const games = [
   added: "2026-04-17",
   new: true
 },
-{ name: "Duck Life 3",
+{ name: "Duck Life 3: Evolution",
   id: "clducklife3",
   thumbnail: "ducklife3.png",
   description: "Genetically modify ducks and race them.",
@@ -69,7 +69,7 @@ const games = [
   added: "2026-04-17",
   new: true
 },
-{ name: "Duck Life 5",
+{ name: "Duck Life 5: Treasure Hunt",
   id: "clducklife5",
   thumbnail: "ducklife5.png",
   description: "Hunt for treasure with your duck!",
