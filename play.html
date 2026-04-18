@@ -441,9 +441,12 @@ function goFullscreen() {
   else if (frame.webkitRequestFullscreen) frame.webkitRequestFullscreen();
   else if (frame.msRequestFullscreen) frame.msRequestFullscreen();
 }
+</script> 
+<script>
+// Assuming game.id is already defined in your code
+document.getElementById('your-container-id').innerHTML = 
+  `Fullscreen not working? <a href="games/${game.id}.html">Click here to play a different version!</a>`;
 </script>
-frame.msRequestFullscreen();
-}
 <script>
   const promoTag = document.getElementById("promoTag");
   const promoArrow = document.getElementById("promoArrow");
