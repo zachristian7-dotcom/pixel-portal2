@@ -42,7 +42,7 @@ const games = [
     thumbnail: "google-baseball.png",
     description: "Play the classic Google Baseball game!",
     categories: ["Arcade", "Sports", "Classics"],
-    added: "2026-04-18",
+    added: "2026-04-17",
     new: true
   },
   { name: "Duck Life 2",
@@ -50,7 +50,7 @@ const games = [
   thumbnail: "ducklife2.png",
   description: "Train your duck and compete in new challenges.",
   categories: ["Simulation", "Duck Life"],
-  added: "2026-04-18",
+  added: "2026-04-17",
   new: true
 },
 { name: "Duck Life 3",
@@ -58,7 +58,7 @@ const games = [
   thumbnail: "ducklife3.png",
   description: "Genetically modify ducks and race them.",
   categories: ["Simulation", "Duck Life"],
-  added: "2026-04-19",
+  added: "2026-04-17",
   new: true
 },
 { name: "Duck Life 4",
@@ -66,7 +66,7 @@ const games = [
   thumbnail: "ducklife4.png",
   description: "Train your duck to become a tournament champion.",
   categories: ["Simulation", "Duck Life"],
-  added: "2026-04-19",
+  added: "2026-04-17",
   new: true
 },
 { name: "Duck Life 5",
@@ -74,7 +74,7 @@ const games = [
   thumbnail: "ducklife5.png",
   description: "Hunt for treasure with your duck!",
   categories: ["Simulation", "Duck Life"],
-  added: "2026-04-20",
+  added: "2026-04-17",
   new: true
 },
   { name: "Burrito Bison",
@@ -82,7 +82,7 @@ const games = [
     thumbnail: "burrito-bison.png",
     description: "Launch yourself and smash through gummy enemies!",
     categories: ["Arcade", "Action"],
-    added: "2026-04-20",
+    added: "2026-04-17",
     new: true
   },
   { name: "Curveball",
@@ -90,7 +90,7 @@ const games = [
     thumbnail: "curveball.png",
     description: "A 3D twist on classic Pong gameplay.",
     categories: ["Arcade"],
-    added: "2026-04-21",
+    added: "2026-04-17",
     new: true
   },
   { name: "Santa Run",
@@ -98,7 +98,7 @@ const games = [
     thumbnail: "santa-run.png",
     description: "Help Santa run and deliver presents!",
     categories: ["Arcade", "Platformer"],
-    added: "2026-04-21",
+    added: "2026-04-17",
     new: true
   },
   { name: "Among Us",
@@ -114,7 +114,7 @@ const games = [
     thumbnail: "capybara-clicker.png",
     description: "Click capybaras and grow your collection.",
     categories: ["Idle"],
-    added: "2026-04-22",
+    added: "2026-04-17",
     new: true
   },
   { name: "Candy Timbermen",
@@ -122,11 +122,9 @@ const games = [
     thumbnail: "candy-timbermen.png",
     description: "Chop candy trees while avoiding obstacles.",
     categories: ["Arcade"],
-    added: "2026-04-23",
+    added: "2026-04-17",
     new: true
-  },
-
-  { name: "Coming Soon!", id: null, thumbnail: "comingsoon.jpeg", description: "More games coming soon!", categories: ["Coming Soon"], added: "2025-12-27" }
+  }
 ];
 
 const collections = [
