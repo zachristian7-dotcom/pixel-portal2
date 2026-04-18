@@ -443,9 +443,10 @@ function goFullscreen() {
 }
 </script> 
 <script>
-// Assuming game.id is already defined in your code
-document.getElementById('your-container-id').innerHTML = 
-  `Fullscreen not working? <a href="games/${game.id}.html">Click here to play a different version!</a>`;
+// Creates a paragraph tag with the link inside
+document.body.insertAdjacentHTML('beforeend', 
+  `<p>fullscreen not working? <a href="games/${game.id}.html">click here to play a different version!</a></p>`
+);
 </script>
 <script>
   const promoTag = document.getElementById("promoTag");
