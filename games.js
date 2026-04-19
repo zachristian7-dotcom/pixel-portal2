@@ -106,7 +106,7 @@ const games = [
     thumbnail: "among-us.png",
     description: "Find the impostor among your crew.",
     categories: ["Multiplayer", "Strategy"],
-    added: "2026-04-22",
+    added: "2026-04-17",
     new: true
   },
   { name: "Capybara Clicker",
@@ -123,6 +123,14 @@ const games = [
     description: "Chop candy trees while avoiding obstacles.",
     categories: ["Arcade"],
     added: "2026-04-17",
+    new: true
+  },
+  { name: "Hole.io",
+    id: "holeio",
+    thumbnail: "holeio.png",
+    description: "Suck up the entire city as a black hole!",
+    categories: ["Arcade"],
+    added: "2026-04-19",
     new: true
   }
 ];
