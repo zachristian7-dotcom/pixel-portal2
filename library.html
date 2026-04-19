@@ -425,6 +425,73 @@ img {
   transform: translateY(-7px) scale(1.03);
   transition: all 0.25s ease;
 }
+
+@media (max-width: 700px){
+
+  /* --- GRID: tighter + smoother --- */
+  .grid{
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 10px;
+    padding: 12px;
+  }
+
+  /* --- CARDS: less bulky --- */
+  .game-card{
+    padding: 10px;
+    border-radius: 14px;
+  }
+
+  .game-card h3{
+    font-size: 0.9rem;
+  }
+
+  .game-card p{
+    font-size: 0.75rem;
+  }
+
+  /* --- CONTROLS: stack clean --- */
+  .controls{
+    flex-direction: column;
+    align-items: stretch;
+    width: 92%;
+  }
+
+  .controls > *{
+    width: 100%;
+  }
+
+  .search-box input{
+    width: 100%;
+  }
+
+  /* --- LOGO: shrink --- */
+  .pixel{
+    font-size: 32px;
+  }
+
+  .portal{
+    font-size: 36px;
+  }
+
+  /* --- REQUEST TAG: less intrusive --- */
+  .request-tag{
+    position: static;
+    margin: 10px;
+  }
+
+  /* --- BOTTOM NAV: real mobile nav --- */
+  .bottom-bar{
+    bottom: 0;
+    left: 0;
+    transform: none;
+    width: 100%;
+    justify-content: space-around;
+    border-radius: 16px 16px 0 0;
+    padding: 10px;
+    gap: 10px;
+  }
+
+}
 </style>
 </head>
 

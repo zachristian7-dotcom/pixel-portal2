@@ -379,7 +379,44 @@ gameFrame {
   font-weight: bold;
 }
 
+@media (max-width: 800px){
 
+  /* STACK layout instead of side-by-side */
+  .main-layout{
+    flex-direction: column;
+    height: auto;
+    padding: 10px;
+  }
+
+  /* GAME FIRST */
+  .game-wrapper{
+    order: 1;
+  }
+
+  /* SIDEBAR BELOW */
+  .sidebar{
+    order: 2;
+    max-width: 100%;
+  }
+
+  /* FIX GAME SIZE */
+  #gameFrame{
+    height: 60vh;
+  }
+
+  /* CLEAN GAME BAR */
+  .game-bar{
+    flex-direction: column;
+    gap: 6px;
+    height: auto;
+    text-align: center;
+  }
+
+  #gameTitle{
+    font-size: 14px;
+  }
+
+}
 </style>
 </head>
 <body>
