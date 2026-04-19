@@ -367,6 +367,19 @@ gameFrame {
   overflow: hidden;
   z-index: 9999; /* Ensures it stays on top of other elements */
 }
+
+#gameLink {
+  /* Define the gradient colors */
+  background: linear-gradient(90deg, #a859ff, #00c4ff);
+  /* Clip background to text */
+  -webkit-background-clip: text;
+  /* Make original text color transparent */
+  -webkit-text-fill-color: transparent;
+  /* Optional: font weight for better visibility */
+  font-weight: bold;
+}
+
+
 </style>
 </head>
 <body>
@@ -385,6 +398,7 @@ gameFrame {
 
       <div class="game-bar glass">
         <span id="gameTitle">Loading...</span>
+          <p>Fullscreen not working? <a id="gameLink" href="#">Click here to play a different version!</a></p>
         <button class="fullscreen-btn glass" onclick="goFullscreen()">⛶</button>
       </div>
     </div>
@@ -443,32 +457,6 @@ function goFullscreen() {
 }
 </script>
 <script>
-// Creates a paragraph tag with the link inside
-document.body.insertAdjacentHTML('beforeend', 
-  `<p>Fullscreen not working? <a href="games/${game.id}.html">Click here to play a different version!</a></p>`
-);
-</script>
-<script>
-  const promoTag = document.getElementById("promoTag");
-  const promoArrow = document.getElementById("promoArrow");
-
-  // show it automatically on page load
-  window.addEventListener("load", () => {
-    setTimeout(() => {
-      promoTag.classList.add("show");
-      promoArrow.textContent = "❯";
-    }, 1200);
-  });
-
-  function togglePromo() {
-    promoTag.classList.toggle("show");
-
-    if (promoTag.classList.contains("show")) {
-      promoArrow.textContent = "❯"; // arrow points right when open
-    } else {
-      promoArrow.textContent = "❮"; // arrow points left when closed
-    }
-  }
 const suggestions = document.getElementById("suggestions");
 
 games.forEach(g => {
@@ -491,5 +479,13 @@ games.forEach(g => {
   suggestions.appendChild(div);
 });
 </script>
+<script>
+  // 2. Select the link element
+  const linkElement = document.getElementById('gameLink');
+
+  // 3. Replace the href with the dynamic game ID
+  linkElement.href = `games/${game.id}.html`;
+</script>
+
 </body>
 </html>
