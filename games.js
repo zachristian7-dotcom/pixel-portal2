@@ -42,87 +42,92 @@ const games = [
     thumbnail: "google-baseball.png",
     description: "Play the classic Google Baseball game!",
     categories: ["Arcade", "Sports", "Classics"],
-    added: "2026-04-17",
-    new: true
+    added: "2026-04-17"
   },
   { name: "Duck Life 2",
   id: "clducklife2",
   thumbnail: "ducklife2.png",
   description: "Train your duck and compete in new challenges.",
   categories: ["Simulation", "Duck Life"],
-  added: "2026-04-17",
-  new: true
+  added: "2026-04-17"
 },
 { name: "Duck Life 3: Evolution",
   id: "clducklife3",
   thumbnail: "ducklife3.png",
   description: "Genetically modify ducks and race them.",
   categories: ["Simulation", "Duck Life"],
-  added: "2026-04-17",
-  new: true
+  added: "2026-04-17"
 },
 { name: "Duck Life 4",
   id: "clducklife4",
   thumbnail: "ducklife4.png",
   description: "Train your duck to become a tournament champion.",
   categories: ["Simulation", "Duck Life"],
-  added: "2026-04-17",
-  new: true
+  added: "2026-04-17"
 },
 { name: "Duck Life 5: Treasure Hunt",
   id: "clducklife5",
   thumbnail: "ducklife5.png",
   description: "Hunt for treasure with your duck!",
   categories: ["Simulation", "Duck Life"],
-  added: "2026-04-17",
-  new: true
+  added: "2026-04-17"
 },
   { name: "Burrito Bison",
     id: "clburritobison",
     thumbnail: "burrito-bison.png",
     description: "Launch yourself and smash through gummy enemies!",
     categories: ["Arcade", "Action"],
-    added: "2026-04-17",
-    new: true
+    added: "2026-04-17"
   },
   { name: "Curveball",
     id: "clcurveball",
     thumbnail: "curveball.png",
     description: "A 3D twist on classic Pong gameplay.",
     categories: ["Arcade"],
-    added: "2026-04-17",
-    new: true
+    added: "2026-04-17"
   },
   { name: "Santa Run",
     id: "clsantarun",
     thumbnail: "santa-run.png",
     description: "Help Santa run and deliver presents!",
     categories: ["Arcade", "Platformer"],
-    added: "2026-04-17",
-    new: true
+    added: "2026-04-17"
   },
   { name: "Among Us",
     id: "clamongus",
     thumbnail: "among-us.png",
     description: "Find the impostor among your crew.",
     categories: ["Multiplayer", "Strategy"],
-    added: "2026-04-17",
-    new: true
+    added: "2026-04-17"
   },
   { name: "Capybara Clicker",
     id: "clcapybaraclicker",
     thumbnail: "capybara-clicker.png",
     description: "Click capybaras and grow your collection.",
     categories: ["Idle"],
-    added: "2026-04-17",
-    new: true
+    added: "2026-04-17"
   },
   { name: "Candy Timbermen",
     id: "candy_timbermen",
     thumbnail: "candy-timbermen.png",
     description: "Chop candy trees while avoiding obstacles.",
     categories: ["Arcade"],
-    added: "2026-04-17",
+    added: "2026-04-17"
+  },
+  { name: "Hammy Home",
+    id: "hammyhome",
+    thumbnail: "hammyhome.png",
+    description: "Raise your very own hamster in a digital world!",
+    categories: ["Relaxing"],
+    added: "2026-04-21",
+    new: true
+  },
+  { name: "Geometry Dash Lite",
+    id: "clgdlite",
+    thumbnail: "gdlite.png",
+    description: "Avoid obstacles and listen to the classic GDLite soundtrack!",
+    categories: ["Arcade"],
+    added: "2026-04-22",
     new: true
   },
   { name: "Hole.io",
@@ -130,93 +135,38 @@ const games = [
     thumbnail: "holeio.png",
     description: "Suck up the entire city as a black hole!",
     categories: ["Arcade"],
-    added: "2026-04-19",
-    new: true
+    added: "2026-04-19"
   }
 ];
 
 const collections = [
+ /*example*/
+  /*{
+    name: "Undertale Universe",
+    desc: "All Undertale, Deltarune, and boss fights",
+    thumbnails: "undertale.png",
+    filter: g => [
+      "Undertale Yellow",
+      "Bad Monday Simulator",
+      "Deltarune",
+      "Undertale"
+    ].includes(g.name)
+  },*/
   {
     name: "Undertale Universe",
     desc: "All Undertale, Deltarune, and boss fights",
     thumbnails: "undertale.png",
-    filter: g =>
-      g.categories.includes("Undertale") ||
-      g.categories.includes("Deltarune") ||
-      g.categories.includes("Boss Fight")
+    // Filter by specific project IDs or exact names
+    filter: g => [
+      "Undertale Yellow",
+      "Bad Monday Simulator",
+      "Deltarune",
+      "Undertale",
+      "Bad Time Simulator",
+      "Asriel Dreemurr Fight Simulator",
+      "Ring Runner",
+      "Jevil Fight Simulator",
+      "Asgore Fight Simulator"
+    ].includes(g.name)
   },
-
-  {
-    name: "Minecraft",
-    desc: "Blocky adventures and parkour",
-    thumbnails: "mcparkour1.png",
-    filter: g => g.categories.includes("Minecraft")
-  },
-
-  {
-    name: "Creative",
-    desc: "Make art and express yourself",
-    thumbnails: "silk.png",
-    filter: g =>
-      g.categories.includes("Creative") ||
-      g.categories.includes("Art")
-  },
-
-  {
-    name: "Arcade Hits",
-    desc: "Fast-paced, replayable games",
-    thumbnails: "tomb-of-the-mask.png",
-    filter: g => g.categories.includes("Arcade")
-  },
-
-  {
-    name: "Platformers",
-    desc: "Jump, run, and master movement",
-    thumbnails: "ovo.png",
-    filter: g => g.categories.includes("Platformer")
-  },
-
-  {
-    name: "Idle & Clicker",
-    desc: "Chill games that grow over time",
-    thumbnails: "cookieclicker.png",
-    filter: g => g.categories.includes("Idle")
-  },
-
-  {
-    name: "Puzzle & Strategy",
-    desc: "Think your way to victory",
-    thumbnails: "2048.png",
-    filter: g =>
-      g.categories.includes("Puzzle") ||
-      g.categories.includes("Strategy")
-  },
-
-  {
-    name: "Action",
-    desc: "Fast combat and survival",
-    thumbnails: "10minutestilldawn.png",
-    filter: g => g.categories.includes("Action")
-  },
-
-  {
-    name: "Multiplayer",
-    desc: "Play with others online",
-    thumbnails: "slither-io.png",
-    filter: g => g.categories.includes("Multiplayer")
-  },
-
-  {
-    name: "Digital Circus",
-    desc: "TADC-themed experiences",
-    thumbnails: "gloinks.png",
-    filter: g => g.categories.includes("Digital Circus")
-  },
-
-  {
-    name: "Duck Life",
-    desc: "All of the Duck Life games are here!",
-    thumbnails: "ducklife.png",
-    filter: g => g.categories.includes("Duck Life")
-  }
 ];
