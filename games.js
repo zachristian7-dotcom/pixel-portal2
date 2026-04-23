@@ -1,4 +1,13 @@
 const games = [
+   /*example*/
+  /*{ name: "",
+    id: "",
+    thumbnail: ".png",
+    description: "",
+    categories: [""],
+    added: "YYYY-MM-DD",
+    new: true?
+  }*/
   { name: "Ring Runner", id: "playringrunner", thumbnail: "ringrunner.png", description: "Run through rings and avoid obstacles!", categories: ["Platformer", "Arcade"], added: "2026-01-02", featured: true },
   { name: "Undertale", id: "undertale", thumbnail: "undertale.png", description: "A legendary indie RPG.", categories: ["RPG", "Undertale"], added: "2026-01-01" },
   { name: "Jevil Fight Simulator", id: "jevil", thumbnail: "jevilfight.png", description: "Battle Jevil!", categories: ["Boss Fight", "Undertale"], added: "2025-12-30" },
@@ -129,6 +138,29 @@ const games = [
     categories: ["Arcade"],
     added: "2026-04-22",
     new: true
+  },
+  { name: "GoldFishies",
+    id: "goldfishies",
+    thumbnail: "goldfishies.png",
+    description: "Raise your own goldfish(es)!",
+    categories: ["Relaxing"],
+    added: "2026-04-23",
+    new: true
+  },
+  { name: "Baseball Bros.",
+    id: "clbaseballbros",
+    thumbnail: "baseballbros.png",
+    description: "Play some baseball!",
+    categories: ["Baseball"],
+    added: "2026-04-23",
+    new: true
+  },
+  { name: "How I made Pixel Portal!",
+    id: "video",
+    thumbnail: "video.png",
+    description: "Watch a video of the basics of how I made Pixel Portal!",
+    categories: ["Watch"],
+    added: "2026-12-31"
   },
   { name: "Hole.io",
     id: "holeio",
