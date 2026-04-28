@@ -39,6 +39,7 @@ padding-bottom:120px;
   border-radius: 18px;
   border: 1px solid rgba(255,255,255,0.5);
 }
+
 box-shadow:
 0 10px 40px rgba(255,255,255,0.25),
 inset 0 1px 0 rgba(255,255,255,0.25);
@@ -492,6 +493,142 @@ img {
   }
 
 }
+.settings-btn{
+  margin-left:6px;
+  padding:6px 10px;
+  border-radius:10px;
+  border:none;
+  background:rgba(255,255,255,0.1);
+  color:white;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.settings-btn:hover{
+  background:rgba(255,255,255,0.2);
+  transform:scale(1.1);
+}
+
+.settings-popup{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100vw;
+  height:100vh;
+
+  display:none;
+  align-items:center;   /* center vertically */
+  justify-content:center;
+
+  background:rgba(0,0,0,0.6);
+
+  z-index:2147483647;
+}
+
+/* POPUP BOX */
+.settings-content{
+  padding:25px;
+  border-radius:20px;
+  width:320px;
+  text-align:center;
+}
+
+/* OPTIONS */
+.cloak-options{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  justify-content:center;
+  margin:15px 0;
+}
+
+.cloak-options button{
+  padding:8px 12px;
+  border-radius:10px;
+  border:none;
+  background:rgba(255,255,255,0.1);
+  color:white;
+  cursor:pointer;
+}
+
+.cloak-options button:hover{
+  background:rgba(255,255,255,0.2);
+}
+
+/* CUSTOM */
+.custom-cloak input{
+  width:100%;
+  margin:5px 0;
+  padding:8px;
+  border-radius:8px;
+  border:none;
+}
+
+/* CLOSE */
+.close-btn{
+  margin-top:15px;
+  padding:8px 16px;
+  border:none;
+  border-radius:10px;
+  background:#ff4d4d;
+  color:white;
+  cursor:pointer;
+}
+
+.cloak-options{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 8px;
+  justify-items: stretch;
+  margin: 15px 0;
+  max-height: 260px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+/* cloak button */
+.cloak-btn{
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: none;
+
+  background: rgba(255,255,255,0.1);
+  color: white;
+  cursor: pointer;
+
+  font-size: 13px;
+
+  transition: 0.2s ease;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.cloak-btn:hover{
+  background: rgba(255,255,255,0.2);
+  transform: scale(1.03);
+}
+
+/* FORCE ALL ICONS TO 16x16 */
+.cloak-btn img{
+  width: 16px;
+  height: 16px;
+  min-width: 16px;
+  min-height: 16px;
+
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+/* text handling */
+.cloak-btn span{
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 </style>
 </head>
 
@@ -507,9 +644,11 @@ img {
 <div class="controls glass">
 
   <div class="search-box">
-    <span class="search-icon">🔍</span>
-    <input id="searchInput" placeholder="Search games or categories" oninput="renderGames()">
-  </div>
+  <span class="search-icon">🔍</span>
+  
+  <input id="searchInput" placeholder="Search games or categories" oninput="renderGames()">
+<button class="settings-btn" onclick="openSettings()">⚙️</button>
+</div>
 
   <select id="sortSelect" onchange="renderGames()">
     <option value="newest">Newest</option>
@@ -530,14 +669,46 @@ img {
 <div id="game-list" class="grid"></div>
 
 <div class="bottom-bar glass">
-<a href="welcome.html">Welcome</a>
-<a href="library.html">Library</a>
-<a href="about.html">About</a>
-<a href="request.html">Request</a>
-<a href="devlog.html">DevLog</a>
-<a href="dmca.html">DMCA</a>
+  <a href="welcome.html">Welcome</a>
+  <a href="library.html">Library</a>
+  <a href="about.html">About</a>
+  <a href="request.html">Request</a>
+  <a href="devlog.html">DevLog</a>
+  <a href="dmca.html">DMCA</a>
+</div>
+
+<!-- SINGLE SETTINGS POPUP (FIXED DUPLICATE REMOVED) -->
+<div id="settingsPopup" class="settings-popup">
+  <div class="settings-content glass">
+
+    <h2>⚙️ Settings</h2>
+
+    <h3>Tab Cloaking</h3>
+
+    <div class="cloak-options" id="cloakOptions"></div>
+
+    <div class="custom-cloak">
+      <input id="customTitle" placeholder="Custom Title">
+      <input id="customIcon" placeholder="Favicon URL">
+      <button onclick="applyCustomCloak()">Apply Custom</button>
+    </div>
+
+    <button class="close-btn" onclick="closeSettings()">Close</button>
+
+  </div>
+</div>
 
 <script src="games.js"></script>
+<script src="tabcloak.js"></script>
+<script>
+function openSettings(){
+  document.getElementById("settingsPopup").style.display = "flex";
+}
+
+function closeSettings(){
+  document.getElementById("settingsPopup").style.display = "none";
+}
+</script>
 <script>
 
 let currentView = "games";
@@ -683,6 +854,62 @@ function renderCard(game){
 
 setView("games");
 renderGames();
+</script>
+<script>
+function renderCloaks(){
+  const container = document.getElementById("cloakOptions");
+  if(!container) return;
+
+  container.innerHTML = Object.entries(cloaks).map(([key, c]) => `
+    <button class="cloak-btn" onclick="setCloak('${key}')">
+      <img src="${c.icon}" onerror="this.style.display='none'">
+      <span>${c.title}</span>
+    </button>
+  `).join("");
+}
+
+function setCloak(key){
+  const c = cloaks[key];
+  if(!c) return;
+
+  document.title = c.title;
+
+  let icon = document.querySelector("link[rel='icon']");
+  if(!icon){
+    icon = document.createElement("link");
+    icon.rel = "icon";
+    document.head.appendChild(icon);
+  }
+
+  icon.href = c.icon;
+}
+
+function resetCloak(){
+  document.title = "Pixel Portal – Library";
+  const icon = document.querySelector("link[rel='icon']");
+  if(icon) icon.href = "images/favicon.png";
+}
+
+function applyCustomCloak(){
+  const title = document.getElementById("customTitle").value;
+  const icon = document.getElementById("customIcon").value;
+
+  if(title) document.title = title;
+
+  if(icon){
+    let link = document.querySelector("link[rel='icon']");
+    if(!link){
+      link = document.createElement("link");
+      link.rel = "icon";
+      document.head.appendChild(link);
+    }
+    link.href = icon;
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  renderCloaks();
+});
 </script>
 </body>
 </html>
