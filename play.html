@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Play | Pixel Portal</title>
+<script src="tabcloak.js"></script>
 <link rel="stylesheet" href="liquid-glass.css">
-<link rel="icon" type="image/png" href="images/favicon.png">
+<link rel="icon" href="" id="dynamic-favicon">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 body {
@@ -418,6 +419,7 @@ gameFrame {
 
 }
 </style>
+<script src="tabcloak.js"></script>
 </head>
 <body>
 
@@ -479,7 +481,6 @@ const titleEl = document.getElementById("gameTitle");
 
 if (game) {
   frame.src = `games/${game.id}.html`;
-  document.title = `Play | ${game.name} | Pixel Portal`;
   titleEl.textContent = game.name;
 } else {
   frame.src = "";
@@ -523,6 +524,5 @@ games.forEach(g => {
   // 3. Replace the href with the dynamic game ID
   linkElement.href = `games/${game.id}.html`;
 </script>
-
 </body>
 </html>

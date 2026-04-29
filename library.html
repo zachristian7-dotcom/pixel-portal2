@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Pixel Portal – Library</title>
-<link rel="icon" type="image/png" href="images/favicon.png">
+<script src="tabcloak.js"></script>
+<link rel="icon" href="" id="dynamic-favicon">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
@@ -629,6 +630,15 @@ img {
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.close-btn{
+  margin-top:10px;
+  background:#ff4d4d;
+}
+
+.reset-btn{
+  background:#888;
+}
 </style>
 </head>
 
@@ -686,7 +696,7 @@ img {
     <h3>Tab Cloaking</h3>
 
     <div class="cloak-options" id="cloakOptions"></div>
-
+    <button class="close-btn" onclick="resetCloak()">Reset to Default</button>
     <div class="custom-cloak">
       <input id="customTitle" placeholder="Custom Title">
       <input id="customIcon" placeholder="Favicon URL">
@@ -699,7 +709,6 @@ img {
 </div>
 
 <script src="games.js"></script>
-<script src="tabcloak.js"></script>
 <script>
 function openSettings(){
   document.getElementById("settingsPopup").style.display = "flex";
@@ -868,48 +877,7 @@ function renderCloaks(){
   `).join("");
 }
 
-function setCloak(key){
-  const c = cloaks[key];
-  if(!c) return;
-
-  document.title = c.title;
-
-  let icon = document.querySelector("link[rel='icon']");
-  if(!icon){
-    icon = document.createElement("link");
-    icon.rel = "icon";
-    document.head.appendChild(icon);
-  }
-
-  icon.href = c.icon;
-}
-
-function resetCloak(){
-  document.title = "Pixel Portal – Library";
-  const icon = document.querySelector("link[rel='icon']");
-  if(icon) icon.href = "images/favicon.png";
-}
-
-function applyCustomCloak(){
-  const title = document.getElementById("customTitle").value;
-  const icon = document.getElementById("customIcon").value;
-
-  if(title) document.title = title;
-
-  if(icon){
-    let link = document.querySelector("link[rel='icon']");
-    if(!link){
-      link = document.createElement("link");
-      link.rel = "icon";
-      document.head.appendChild(link);
-    }
-    link.href = icon;
-  }
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-  renderCloaks();
-});
+renderCloaks();
 </script>
 </body>
 </html>
