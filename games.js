@@ -128,32 +128,28 @@ const games = [
     thumbnail: "hammyhome.png",
     description: "Raise your very own hamster in a digital world!",
     categories: ["Relaxing"],
-    added: "2026-04-21",
-    new: true
+    added: "2026-04-21"
   },
   { name: "Geometry Dash Lite",
     id: "clgdlite",
     thumbnail: "gdlite.png",
     description: "Avoid obstacles and listen to the classic GDLite soundtrack!",
     categories: ["Arcade"],
-    added: "2026-04-22",
-    new: true
+    added: "2026-04-22"
   },
   { name: "GoldFishies",
     id: "goldfishies",
     thumbnail: "goldfishies.png",
     description: "Raise your own goldfish(es)!",
     categories: ["Relaxing"],
-    added: "2026-04-23",
-    new: true
+    added: "2026-04-23"
   },
   { name: "Baseball Bros.",
     id: "clbaseballbros",
     thumbnail: "baseballbros.png",
     description: "Play some baseball!",
     categories: ["Baseball"],
-    added: "2026-04-23",
-    new: true
+    added: "2026-04-23"
   },
   { name: "How I made Pixel Portal!",
     id: "video",
@@ -168,7 +164,196 @@ const games = [
     description: "Suck up the entire city as a black hole!",
     categories: ["Arcade"],
     added: "2026-04-19"
-  }
+  },
+  {
+  name: "Pizza Tower",
+  id: "pizzatower",
+  thumbnail: "pizzatower.png",
+  description: "Dash, slide, and combo your way through chaotic cartoon levels.",
+  categories: ["Platformer", "Action"],
+  added: "2026-04-28",
+  new: true
+},
+{
+  name: "Minecraft Tower Defense",
+  id: "MINECRAFTTOWERDEFENSE",
+  thumbnail: "minecrafttowerdefense.png",
+  description: "Defend your base using Minecraft-themed traps and towers.",
+  categories: ["Strategy", "Minecraft"],
+  added: "2026-04-28",
+  new: true
+},
+{
+  name: "Maze",
+  id: "maze",
+  thumbnail: "maze.png",
+  description: "Navigate twisting mazes and reach the exit as fast as possible.",
+  categories: ["Puzzle"],
+  added: "2026-04-28",
+  new: true
+},
+{
+  name: "Jacksmith",
+  id: "jacksmith",
+  thumbnail: "jacksmith.png",
+  description: "Forge weapons and help your heroes battle through enemies.",
+  categories: ["Simulation", "RPG"],
+  added: "2026-04-28",
+  new: true
+},
+{
+  name: "Ragdoll Hit",
+  id: "clragdollhit",
+  thumbnail: "ragdollhit.png",
+  description: "Launch ragdoll fighters and knock out your opponents.",
+  categories: ["Action"],
+  added: "2026-04-28",
+  new: true
+},
+{
+  name: "One Night as Freddy",
+  id: "clonenightasfreddy",
+  thumbnail: "onenightasfreddy.png",
+  description: "Survive a night of chaos in this FNaF-inspired challenge.",
+  categories: ["Strategy"],
+  added: "2026-04-28",
+  new: true
+},
+{
+  name: "Never Ending Legacy",
+  id: "clneverendinglegacy",
+  thumbnail: "neverendinglegacy.png",
+  description: "Grow your civilization from humble beginnings to greatness.",
+  categories: ["Strategy", "Simulation"],
+  added: "2026-04-28",
+  new: true
+},
+{
+  name: "Magic Tiles 3",
+  id: "clmagictiles3",
+  thumbnail: "magictiles3.png",
+  description: "Tap the tiles to the rhythm and keep the music flowing.",
+  categories: ["Arcade"],
+  added: "2026-04-28",
+  new: true
+},
+{
+  name: "Learn to Fly",
+  id: "cllearntofly",
+  thumbnail: "learntofly.png",
+  description: "Launch your penguin and upgrade your flight to reach new heights.",
+  categories: ["Arcade"],
+  added: "2026-04-28",
+  new: true
+},
+{
+  name: "Jellydad Hero",
+  id: "cljellydadhero",
+  thumbnail: "jellydadhero.png",
+  description: "Solve puzzles and rescue your family in this quirky adventure.",
+  categories: ["Puzzle", "Platformer"],
+  added: "2026-04-28",
+  new: true
+},
+{
+  name: "Infinite Craft",
+  id: "clinfinitecraft",
+  thumbnail: "infinitecraft.png",
+  description: "Combine elements to discover endless new creations.",
+  categories: ["Creative"],
+  added: "2026-04-28",
+  new: true
+},
+{
+  name: "Idle Miner Tycoon",
+  id: "clidleminertycoon",
+  thumbnail: "idleminertycoon.png",
+  description: "Build a mining empire and automate your way to riches.",
+  categories: ["Idle", "Simulation"],
+  added: "2026-04-28",
+  new: true
+},
+{
+  name: "Idle Idle GameDev",
+  id: "clidleidlegamedev",
+  thumbnail: "idlegamedev.png",
+  description: "Develop games, earn money, and grow your studio.",
+  categories: ["Idle", "Simulation"],
+  added: "2026-04-28",
+  new: true
+},
+{
+  name: "Hardware Tycoon",
+  id: "clhardwaretycoon",
+  thumbnail: "hardwaretycoon.png",
+  description: "Design and sell computer hardware to dominate the tech market.",
+  categories: ["Simulation", "Strategy"],
+  added: "2026-04-28",
+  new: true
+},
+{
+  name: "Grow a Garden",
+  id: "clgrowagarden",
+  thumbnail: "growagarden.png",
+  description: "Plant seeds, nurture your garden, and watch it flourish.",
+  categories: ["Relaxing", "Simulation"],
+  added: "2026-04-28",
+  new: true
+},
+{
+  name: "Fruit Ninja",
+  id: "clfruitninja",
+  thumbnail: "fruitninja.png",
+  description: "Slice fruit with precision while avoiding bombs.",
+  categories: ["Arcade"],
+  added: "2026-04-28",
+  new: true
+},
+{
+  name: "Block Craft Parkour",
+  id: "clblockcraftparkour",
+  thumbnail: "blockcraftparkour.png",
+  description: "Jump through blocky obstacle courses with precise timing.",
+  categories: ["Platformer", "Minecraft"],
+  added: "2026-04-28",
+  new: true
+},
+{
+  name: "2048 Cupcakes",
+  id: "cl2048cupcakes",
+  thumbnail: "2048cupcakes.png",
+  description: "Merge cupcakes to reach sweeter and higher levels.",
+  categories: ["Puzzle"],
+  added: "2026-04-28",
+  new: true
+},
+{
+  name: "60 Seconds Burger Run",
+  id: "cl60secondsburgerrun",
+  thumbnail: "60secondsburgerrun.png",
+  description: "Race to the burger shop before time runs out.",
+  categories: ["Platformer", "Arcade"],
+  added: "2026-04-28",
+  new: true
+},
+{
+  name: "1v1 Tennis",
+  id: "cl1v1tennis",
+  thumbnail: "1v1tennis.png",
+  description: "Challenge opponents in fast-paced tennis matches.",
+  categories: ["Sports"],
+  added: "2026-04-28",
+  new: true
+},
+{
+  name: "1 on 1 Soccer",
+  id: "cl1on1soccer",
+  thumbnail: "1on1soccer.png",
+  description: "Score goals in quick, competitive soccer duels.",
+  categories: ["Sports"],
+  added: "2026-04-28",
+  new: true
+}
 ];
 
 const collections = [

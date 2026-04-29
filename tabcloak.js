@@ -1,26 +1,16 @@
 (function () {
 
+const DEFAULT_FAVICON = "images/favicon.png";
+
 function setFavicon(icon) {
-  // remove ALL possible favicon links
   document.querySelectorAll("link[rel*='icon']").forEach(el => el.remove());
 
-  // FORCE browser to re-evaluate favicon system
-  const head = document.head;
+  const link = document.createElement("link");
+  link.rel = "icon";
+  link.type = "image/png";
+  link.href = icon || DEFAULT_FAVICON;
 
-  // step 1: hard reset with empty icon
-  const reset = document.createElement("link");
-  reset.rel = "icon";
-  reset.href = "data:image/x-icon;base64,AAABAAEAEBAAAAAAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAQAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==";
-  head.appendChild(reset);
-
-  // step 2: apply real icon after tiny delay (important)
-  setTimeout(() => {
-    const link = document.createElement("link");
-    link.rel = "icon";
-    link.href = icon + "?v=" + Date.now();
-
-    head.appendChild(link);
-  }, 50);
+  document.head.appendChild(link);
 }
 
   function applyCloak(title, icon) {
@@ -133,15 +123,14 @@ function setFavicon(icon) {
   applySavedCloak();
 };
 
-  window.resetCloak = function(){
-    localStorage.removeItem("cloak");
-    localStorage.removeItem("cloak_custom");
+  window.resetCloak = function () {
+  localStorage.removeItem("cloak");
+  localStorage.removeItem("cloak_custom");
 
-    // trigger sync across tabs
-    localStorage.setItem("cloak_reset", Date.now());
+  localStorage.setItem("cloak_reset", Date.now());
 
-    applyCloak("Pixel Portal", "images/favicon.png");
-  };
+  applyCloak("Pixel Portal", DEFAULT_FAVICON);
+};
 
   window.applyCustomCloak = function(){
     const title = document.getElementById("customTitle")?.value;
