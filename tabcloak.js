@@ -22,39 +22,39 @@ function setFavicon(icon) {
   window.cloaks = {
     google: {
       title: "Google",
-      icon: "images/icons/google.png"
+      icon: "images/google.png"
     },
     classroom: {
       title: "Home - Classroom",
-      icon: "images/icons/classroom.png"
+      icon: "images/classroom.png"
     },
     docs: {
       title: "Google Docs",
-      icon: "images/icons/docs.png"
+      icon: "images/docs.png"
     },
     drive: {
       title: "My Drive",
-      icon: "images/icons/drive.png"
+      icon: "images/drive.png"
     },
     gmail: {
       title: "Gmail",
-      icon: "images/icons/gmail.png"
+      icon: "images/gmail.png"
     },
     youtube: {
       title: "YouTube",
-      icon: "images/icons/youtube.png"
+      icon: "images/youtube.png"
     },
     calendar: {
       title: "Calendar",
-      icon: "images/icons/calendar.png"
+      icon: "images/calendar.png"
     },
     meet: {
       title: "Meet",
-      icon: "images/icons/meet.png"
+      icon: "images/meet.png"
     },
     github: {
       title: "GitHub",
-      icon: "images/icons/github.svg"
+      icon: "images/github.svg"
     },
     pixelportal: {
   title: "Pixel Portal",
