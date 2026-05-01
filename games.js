@@ -301,15 +301,6 @@ const games = [
   new: true
 },
 {
-  name: "Fruit Ninja",
-  id: "clfruitninja",
-  thumbnail: "fruitninja.png",
-  description: "Slice fruit with precision while avoiding bombs.",
-  categories: ["Arcade"],
-  added: "2026-04-28",
-  new: true
-},
-{
   name: "Block Craft Parkour",
   id: "clblockcraftparkour",
   thumbnail: "blockcraftparkour.png",
