@@ -56,6 +56,67 @@ function setFavicon(icon) {
       title: "GitHub",
       icon: "images/github.svg"
     },
+    ixl: {
+      title: "IXL | Dashboard",
+      icon: "images/ixl.png"
+    },
+    clever: {
+      title: "Clever | Portal",
+      icon: "images/clever.png"
+    },
+    mcgrawhill: {
+    title: "McGraw Hill",
+    icon: "images/mcgrawhill.png"
+  },
+  kahoot: {
+    title: "Kahoot!",
+    icon: "images/kahoot.png"
+  },
+  gimkit: {
+    title: "Gimkit",
+    icon: "images/gimkit.png"
+  },
+  blooket: {
+    title: "Blooket",
+    icon: "images/blooket.png"
+  },
+  prodigy: {
+    title: "Prodigy Math",
+    icon: "images/prodigy.png"
+  },
+  sheets: {
+    title: "Google Sheets",
+    icon: "images/sheets.png"
+  },
+  canva: {
+    title: "Canva",
+    icon: "images/canva.png"
+  },
+  powerschool: {
+    title: "PowerSchool",
+    icon: "images/powerschool.png"
+  },
+  slides: {
+    title: "Google Slides",
+    icon: "images/slides.png"
+  },
+  zoom: {
+    title: "Zoom",
+    icon: "images/zoom.png"
+  },
+  edge: {
+    title: "Microsoft Edge",
+    icon: "images/edge.png"
+  },
+  safari: {
+    title: "Safari",
+    icon: "images/safari.png"
+  },
+  bing: {
+    title: "Bing",
+    icon: "images/bing.png"
+  },
+    new_tab: { title: "New Tab", icon: "images/newtab.png" },
     pixelportal: {
   title: "Pixel Portal",
   icon: "images/favicon.png",
