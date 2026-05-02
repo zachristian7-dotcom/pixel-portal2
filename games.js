@@ -344,6 +344,15 @@ const games = [
   categories: ["Sports"],
   added: "2026-04-28",
   new: true
+},
+{
+  name: "Girly Pop Bow Clicker!",
+  id: "bowclicker",
+  thumbnail: "bowclicker.png",
+  description: "Click the big pink bow.",
+  categories: ["Idle","Clicker"],
+  added: "2026-05-01",
+  new: true
 }
 ];
 
