@@ -6,7 +6,7 @@ const games = [
     description: "",
     categories: [""],
     added: "YYYY-MM-DD",
-    new: true?
+    ?
   }*/
   { name: "Ring Runner", id: "playringrunner", thumbnail: "ringrunner.png", description: "Run through rings and avoid obstacles!", categories: ["Platformer", "Arcade"], added: "2026-01-02", featured: true },
   { name: "Undertale", id: "undertale", thumbnail: "undertale.png", description: "A legendary indie RPG.", categories: ["RPG", "Undertale"], added: "2026-01-01" },
@@ -172,7 +172,7 @@ const games = [
   description: "Dash, slide, and combo your way through chaotic cartoon levels.",
   categories: ["Platformer", "Action"],
   added: "2026-04-28",
-  new: true
+  
 },
 {
   name: "Minecraft Tower Defense",
@@ -181,7 +181,7 @@ const games = [
   description: "Defend your base using Minecraft-themed traps and towers.",
   categories: ["Strategy", "Minecraft"],
   added: "2026-04-28",
-  new: true
+  
 },
 {
   name: "Maze",
@@ -190,7 +190,7 @@ const games = [
   description: "Navigate twisting mazes and reach the exit as fast as possible.",
   categories: ["Puzzle"],
   added: "2026-04-28",
-  new: true
+  
 },
 {
   name: "Jacksmith",
@@ -199,7 +199,7 @@ const games = [
   description: "Forge weapons and help your heroes battle through enemies.",
   categories: ["Simulation", "RPG"],
   added: "2026-04-28",
-  new: true
+  
 },
 {
   name: "Ragdoll Hit",
@@ -208,7 +208,7 @@ const games = [
   description: "Launch ragdoll fighters and knock out your opponents.",
   categories: ["Action"],
   added: "2026-04-28",
-  new: true
+  
 },
 {
   name: "One Night as Freddy",
@@ -217,7 +217,7 @@ const games = [
   description: "Survive a night of chaos in this FNaF-inspired challenge.",
   categories: ["Strategy"],
   added: "2026-04-28",
-  new: true
+  
 },
 {
   name: "Never Ending Legacy",
@@ -226,7 +226,7 @@ const games = [
   description: "Grow your civilization from humble beginnings to greatness.",
   categories: ["Strategy", "Simulation"],
   added: "2026-04-28",
-  new: true
+  
 },
 {
   name: "Magic Tiles 3",
@@ -235,7 +235,7 @@ const games = [
   description: "Tap the tiles to the rhythm and keep the music flowing.",
   categories: ["Arcade"],
   added: "2026-04-28",
-  new: true
+  
 },
 {
   name: "Learn to Fly",
@@ -244,7 +244,7 @@ const games = [
   description: "Launch your penguin and upgrade your flight to reach new heights.",
   categories: ["Arcade"],
   added: "2026-04-28",
-  new: true
+  
 },
 {
   name: "Jellydad Hero",
@@ -253,7 +253,7 @@ const games = [
   description: "Solve puzzles and rescue your family in this quirky adventure.",
   categories: ["Puzzle", "Platformer"],
   added: "2026-04-28",
-  new: true
+  
 },
 {
   name: "Infinite Craft",
@@ -262,7 +262,7 @@ const games = [
   description: "Combine elements to discover endless new creations.",
   categories: ["Creative"],
   added: "2026-04-28",
-  new: true
+  
 },
 {
   name: "Idle Miner Tycoon",
@@ -271,7 +271,7 @@ const games = [
   description: "Build a mining empire and automate your way to riches.",
   categories: ["Idle", "Simulation"],
   added: "2026-04-28",
-  new: true
+  
 },
 {
   name: "Idle Idle GameDev",
@@ -280,7 +280,7 @@ const games = [
   description: "Develop games, earn money, and grow your studio.",
   categories: ["Idle", "Simulation"],
   added: "2026-04-28",
-  new: true
+  
 },
 {
   name: "Hardware Tycoon",
@@ -289,7 +289,7 @@ const games = [
   description: "Design and sell computer hardware to dominate the tech market.",
   categories: ["Simulation", "Strategy"],
   added: "2026-04-28",
-  new: true
+  
 },
 {
   name: "Grow a Garden",
@@ -298,7 +298,7 @@ const games = [
   description: "Plant seeds, nurture your garden, and watch it flourish.",
   categories: ["Relaxing", "Simulation"],
   added: "2026-04-28",
-  new: true
+  
 },
 {
   name: "Block Craft Parkour",
@@ -307,7 +307,7 @@ const games = [
   description: "Jump through blocky obstacle courses with precise timing.",
   categories: ["Platformer", "Minecraft"],
   added: "2026-04-28",
-  new: true
+  
 },
 {
   name: "2048 Cupcakes",
@@ -316,7 +316,7 @@ const games = [
   description: "Merge cupcakes to reach sweeter and higher levels.",
   categories: ["Puzzle"],
   added: "2026-04-28",
-  new: true
+  
 },
 {
   name: "60 Seconds Burger Run",
@@ -325,7 +325,7 @@ const games = [
   description: "Race to the burger shop before time runs out.",
   categories: ["Platformer", "Arcade"],
   added: "2026-04-28",
-  new: true
+  
 },
 {
   name: "1v1 Tennis",
@@ -334,7 +334,7 @@ const games = [
   description: "Challenge opponents in fast-paced tennis matches.",
   categories: ["Sports"],
   added: "2026-04-28",
-  new: true
+  
 },
 {
   name: "1 on 1 Soccer",
@@ -343,7 +343,7 @@ const games = [
   description: "Score goals in quick, competitive soccer duels.",
   categories: ["Sports"],
   added: "2026-04-28",
-  new: true
+  
 },
 {
   name: "Girly Pop Bow Clicker!",
@@ -352,7 +352,7 @@ const games = [
   description: "Click the big pink bow.",
   categories: ["Idle","Clicker"],
   added: "2026-05-01",
-  new: true
+  
 }
 ];
 
