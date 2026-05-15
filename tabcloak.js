@@ -207,50 +207,104 @@ function setFavicon(icon) {
 })();
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Selects all elements with the game-card class
   const gameCards = document.querySelectorAll(".game-card");
+
+  function resolveUrl(url) {
+    try {
+      return new URL(url, window.location.href).href;
+    } catch (e) {
+      return url;
+    }
+  }
+
+  function openGame(url) {
+    const gameUrl = resolveUrl(url);
+
+    // Try opening a new tab first
+    const newTab = window.open("", "_blank");
+
+    // If popup blocked → fallback immediately
+    if (!newTab) {
+      window.location.href = gameUrl;
+      return;
+    }
+
+    // Build a clean document shell
+    const doc = newTab.document;
+
+    doc.open();
+    doc.write(`
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <title>Loading Game...</title>
+          <style>
+            html, body {
+              margin: 0;
+              padding: 0;
+              height: 100%;
+              background: black;
+              overflow: hidden;
+            }
+            iframe {
+              border: none;
+              width: 100%;
+              height: 100%;
+            }
+            #error {
+              color: white;
+              font-family: Arial;
+              padding: 20px;
+              display: none;
+            }
+          </style>
+        </head>
+        <body>
+          <div id="error">
+            Game failed to load. Try reopening or check the link.
+          </div>
+
+          <iframe id="gameFrame"></iframe>
+
+          <script>
+            const iframe = document.getElementById("gameFrame");
+            const errorBox = document.getElementById("error");
+
+            iframe.src = "${gameUrl}.html";
+
+            // If iframe never loads properly, show fallback message
+            let loaded = false;
+
+            iframe.onload = () => {
+              loaded = true;
+            };
+
+            setTimeout(() => {
+              if (!loaded) {
+                iframe.style.display = "none";
+                errorBox.style.display = "block";
+              }
+            }, 8000);
+          </script>
+        </body>
+      </html>
+    `);
+
+    doc.close();
+  }
 
   gameCards.forEach(card => {
     card.addEventListener("click", (e) => {
-      // Prevents traditional links from taking over the active window
       e.preventDefault();
 
-      // Finds the target link from a data attribute OR a nested 'a' tag
-      let gameUrl = card.getAttribute("data-url");
-      if (!gameUrl) {
-        const fallbackLink = card.querySelector("a");
-        if (fallbackLink) gameUrl = fallbackLink.getAttribute("href");
-      }
-      
-      if (gameUrl) {
-        // Spawns a completely empty tab free of Securly extension hooks
-        const blankWindow = window.open("about:blank", "_blank");
-        
-        if (blankWindow) {
-          const doc = blankWindow.document;
-          
-          // Establishes a clean, full-screen viewport style
-          doc.body.style.margin = "0";
-          doc.body.style.height = "100vh";
-          doc.body.style.backgroundColor = "#000";
-          doc.body.style.overflow = "hidden";
-          
-          // Compiles an isolated sandbox iframe
-          const iframe = doc.createElement("iframe");
-          iframe.style.border = "none";
-          iframe.style.width = "100%";
-          iframe.style.height = "100%";
-          
-          // Uses absolute pathing to ensure games pull correct relative folder files
-          iframe.src = new URL(gameUrl, window.location.href).href;
-          
-          // Mounts the game canvas into the new browser instance
-          doc.body.appendChild(iframe);
-        } else {
-          // Normal redirection fallback if Chrome blocks pop-ups
-          window.location.href = gameUrl;
-        }
-      }
+      let gameUrl =
+        card.getAttribute("data-url") ||
+        card.querySelector("a")?.getAttribute("href");
+
+      if (!gameUrl) return;
+
+      openGame(gameUrl);
     });
   });
 });
