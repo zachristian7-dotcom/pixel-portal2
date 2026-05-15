@@ -205,3 +205,52 @@ function setFavicon(icon) {
   };
 
 })();
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Selects all elements with the game-card class
+  const gameCards = document.querySelectorAll(".game-card");
+
+  gameCards.forEach(card => {
+    card.addEventListener("click", (e) => {
+      // Prevents traditional links from taking over the active window
+      e.preventDefault();
+
+      // Finds the target link from a data attribute OR a nested 'a' tag
+      let gameUrl = card.getAttribute("data-url");
+      if (!gameUrl) {
+        const fallbackLink = card.querySelector("a");
+        if (fallbackLink) gameUrl = fallbackLink.getAttribute("href");
+      }
+      
+      if (gameUrl) {
+        // Spawns a completely empty tab free of Securly extension hooks
+        const blankWindow = window.open("about:blank", "_blank");
+        
+        if (blankWindow) {
+          const doc = blankWindow.document;
+          
+          // Establishes a clean, full-screen viewport style
+          doc.body.style.margin = "0";
+          doc.body.style.height = "100vh";
+          doc.body.style.backgroundColor = "#000";
+          doc.body.style.overflow = "hidden";
+          
+          // Compiles an isolated sandbox iframe
+          const iframe = doc.createElement("iframe");
+          iframe.style.border = "none";
+          iframe.style.width = "100%";
+          iframe.style.height = "100%";
+          
+          // Uses absolute pathing to ensure games pull correct relative folder files
+          iframe.src = new URL(gameUrl, window.location.href).href;
+          
+          // Mounts the game canvas into the new browser instance
+          doc.body.appendChild(iframe);
+        } else {
+          // Normal redirection fallback if Chrome blocks pop-ups
+          window.location.href = gameUrl;
+        }
+      }
+    });
+  });
+});
