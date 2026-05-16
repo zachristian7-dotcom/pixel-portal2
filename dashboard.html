@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Pixel Portal Secure Dashboard</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  background: radial-gradient(circle at top, #1a1a2e, #09090b 60%);
+  color: white;
+  padding: 20px;
+  overflow-x: hidden;
+}
+
+/* subtle animated glow background */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 20% 20%, rgba(6,182,212,0.15), transparent 40%),
+              radial-gradient(circle at 80% 30%, rgba(99,102,241,0.12), transparent 45%),
+              radial-gradient(circle at 50% 80%, rgba(34,211,238,0.08), transparent 50%);
+  z-index: -1;
+  animation: floatBG 12s ease-in-out infinite alternate;
+}
+
+@keyframes floatBG {
+  from { transform: scale(1); filter: blur(0px); }
+  to { transform: scale(1.05); filter: blur(2px); }
+}
+
+.hidden { display: none; }
+
+/* LOGIN */
+.login-screen,
+.dashboard {
+  max-width: 1400px;
+  margin: auto;
+}
+
+.card {
+  background: rgba(24, 24, 27, 0.75);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(63, 63, 70, 0.6);
+  border-radius: 22px;
+  padding: 22px;
+  margin-bottom: 20px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+  transition: 0.25s;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 60px rgba(0,0,0,0.75);
+  border-color: rgba(103,232,249,0.25);
+}
+
+h1 {
+  font-size: 44px;
+  margin-bottom: 10px;
+  letter-spacing: 0.5px;
+}
+
+h2 {
+  margin-bottom: 15px;
+  color: #67e8f9;
+}
+
+p {
+  color: #a1a1aa;
+}
+
+input,
+textarea {
+  width: 100%;
+  background: rgba(39,39,42,0.9);
+  border: 1px solid #3f3f46;
+  color: white;
+  padding: 12px;
+  border-radius: 14px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  outline: none;
+  transition: 0.2s;
+}
+
+input:focus,
+textarea:focus {
+  border-color: #67e8f9;
+  box-shadow: 0 0 0 2px rgba(103,232,249,0.15);
+}
+
+textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+button {
+  background: linear-gradient(135deg, #06b6d4, #22d3ee);
+  color: black;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+  box-shadow: 0 5px 20px rgba(6,182,212,0.2);
+}
+
+button:hover {
+  transform: scale(1.04);
+  box-shadow: 0 8px 30px rgba(6,182,212,0.35);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.stat-box {
+  background: rgba(24,24,27,0.75);
+  border-radius: 22px;
+  padding: 22px;
+  border: 1px solid rgba(63,63,70,0.6);
+  box-shadow: 0 10px 35px rgba(0,0,0,0.4);
+  transition: 0.25s;
+  cursor: pointer;
+}
+
+.stat-box:hover {
+  transform: translateY(-4px) scale(1.02);
+  border-color: rgba(103,232,249,0.4);
+}
+
+.stat-number {
+  font-size: 38px;
+  font-weight: bold;
+  color: #67e8f9;
+  margin-top: 5px;
+}
+
+.note {
+  background: rgba(39,39,42,0.85);
+  border-radius: 16px;
+  padding: 15px;
+  margin-top: 10px;
+  border: 1px solid rgba(63,63,70,0.4);
+  transition: 0.2s;
+}
+
+.note:hover {
+  transform: translateX(3px);
+  border-color: rgba(103,232,249,0.25);
+}
+
+.note h3 {
+  margin-bottom: 6px;
+  color: white;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.danger {
+  background: #ef4444;
+  color: white;
+  box-shadow: 0 5px 20px rgba(239,68,68,0.25);
+}
+
+.success {
+  color: #4ade80;
+  margin-top: 10px;
+}
+
+/* scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: #27272a;
+  border-radius: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="login-screen" id="loginScreen">
+  <div class="card" style="max-width:500px;margin:auto;margin-top:100px;">
+    <h1>🔒 Pixel Portal Vault</h1>
+    <p>Secure encrypted dashboard for Pixel Portal.</p>
+
+    <input type="password" id="password" placeholder="Enter Master Password">
+    <button onclick="unlockDashboard()">Unlock Dashboard</button>
+
+    <p id="loginStatus" style="margin-top:15px;"></p>
+  </div>
+</div>
+
+<div class="dashboard hidden" id="dashboard">
+
+  <div class="topbar">
+    <div>
+      <h1>🛡 Pixel Portal Dashboard</h1>
+      <p>Private command center for notes, games, bugs, and ideas.</p>
+    </div>
+
+    <button class="danger" onclick="lockDashboard()">Lock Dashboard</button>
+  </div>
+
+  <div class="stats">
+    <div class="stat-box">
+      <p>Total Games</p>
+      <div class="stat-number" id="gameCountStat">0</div>
+    </div>
+
+    <div class="stat-box">
+      <p>School Notes</p>
+      <div class="stat-number" id="notesCountStat">0</div>
+    </div>
+
+    <div class="stat-box">
+      <p>Broken Games</p>
+      <div class="stat-number" id="bugsCountStat">0</div>
+    </div>
+
+    <div class="stat-box">
+      <p>Ideas</p>
+      <div class="stat-number" id="ideasCountStat">0</div>
+    </div>
+  </div>
+
+  <div class="grid">
+
+    <div class="card">
+      <h2>🎮 Game Counter</h2>
+      <input type="number" id="gameCountInput" placeholder="Total games">
+      <button onclick="saveGameCount()">Save Game Count</button>
+    </div>
+
+    <div class="card">
+      <h2>📝 School Notes</h2>
+      <input type="text" id="schoolNoteTitle" placeholder="Note Title">
+      <textarea id="schoolNoteContent" placeholder="Note Content"></textarea>
+      <button onclick="addSchoolNote()">Save Note</button>
+      <div id="schoolNotes"></div>
+    </div>
+
+    <div class="card">
+      <h2>⚠ Broken Games</h2>
+      <input type="text" id="brokenGameName" placeholder="Broken Game Name">
+      <textarea id="brokenGameContent" placeholder="Broken Game Description/Issues"></textarea>
+      <button onclick="addBrokenGame()">Add Broken Game</button>
+      <div id="brokenGames"></div>
+    </div>
+
+    <div class="card">
+      <h2>💡 Ideas & Features</h2>
+      <input type="text" id="ideaTitle" placeholder="Idea Title">
+      <textarea id="ideaContent" placeholder="Idea Content"></textarea>
+      <button onclick="addIdea()">Save Idea</button>
+      <div id="ideas"></div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const STORAGE_KEY = "pixelportalvault";
+let vaultPassword = "";
+
+let vault = {
+  gameCount: 0,
+  schoolNotes: [],
+  brokenGames: [],
+  ideas: []
+};
+
+async function hashPassword(password) {
+  const msgBuffer = new TextEncoder().encode(password);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+async function unlockDashboard() {
+  const password = document.getElementById('password').value;
+  const status = document.getElementById('loginStatus');
+
+  if (!password) return status.textContent = 'Enter a password.';
+
+  const hashed = await hashPassword(password);
+  const saved = localStorage.getItem(STORAGE_KEY);
+
+  if (!saved) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({
+      password: hashed,
+      data: vault
+    }));
+
+    vaultPassword = hashed;
+    showDashboard();
+    saveVault();
+    status.textContent = 'New vault created.';
+    return;
+  }
+
+  const parsed = JSON.parse(saved);
+
+  if (parsed.password !== hashed) {
+    status.textContent = 'Incorrect password.';
+    return;
+  }
+
+  vaultPassword = hashed;
+  vault = parsed.data;
+
+  showDashboard();
+  renderAll();
+}
+
+function showDashboard() {
+  document.getElementById('loginScreen').classList.add('hidden');
+  document.getElementById('dashboard').classList.remove('hidden');
+}
+
+function lockDashboard() {
+  location.reload();
+}
+
+function saveVault() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify({
+    password: vaultPassword,
+    data: vault
+  }));
+  renderStats();
+}
+
+function renderStats() {
+  document.getElementById('gameCountStat').textContent = vault.gameCount;
+  document.getElementById('notesCountStat').textContent = vault.schoolNotes.length;
+  document.getElementById('bugsCountStat').textContent = vault.brokenGames.length;
+  document.getElementById('ideasCountStat').textContent = vault.ideas.length;
+}
+
+function saveGameCount() {
+  vault.gameCount = Number(document.getElementById('gameCountInput').value) || 0;
+  saveVault();
+}
+
+function addSchoolNote() {
+  const title = document.getElementById('schoolNoteTitle').value;
+  const content = document.getElementById('schoolNoteContent').value;
+  if (!title || !content) return;
+
+  vault.schoolNotes.unshift({ title, content });
+
+  document.getElementById('schoolNoteTitle').value = '';
+  document.getElementById('schoolNoteContent').value = '';
+
+  saveVault();
+  renderSchoolNotes();
+}
+
+function addBrokenGame() {
+  const name = document.getElementById('brokenGameName').value;
+  const issue = document.getElementById('brokenGameIssue').value;
+  if (!name || !issue) return;
+
+  vault.brokenGames.unshift({ name, issue });
+
+  document.getElementById('brokenGameName').value = '';
+  document.getElementById('brokenGameIssue').value = '';
+
+  saveVault();
+  renderBrokenGames();
+}
+
+function addIdea() {
+  const title = document.getElementById('ideaTitle').value;
+  const content = document.getElementById('ideaContent').value;
+  if (!title || !content) return;
+
+  vault.ideas.unshift({ title, content });
+
+  document.getElementById('ideaTitle').value = '';
+  document.getElementById('ideaContent').value = '';
+
+  saveVault();
+  renderIdeas();
+}
+
+/* FIXED RENDER FUNCTIONS */
+function renderSchoolNotes() {
+  const container = document.getElementById('schoolNotes');
+  container.innerHTML = '';
+  vault.schoolNotes.forEach(note => {
+    container.innerHTML += `
+      <div class="note">
+        <h3>${note.title}</h3>
+        <p>${note.content}</p>
+      </div>
+    `;
+  });
+}
+
+function renderBrokenGames() {
+  const container = document.getElementById('brokenGames');
+  container.innerHTML = '';
+  vault.brokenGames.forEach(game => {
+    container.innerHTML += `
+      <div class="note">
+        <h3>${game.name}</h3>
+        <p>${game.issue}</p>
+      </div>
+    `;
+  });
+}
+
+function renderIdeas() {
+  const container = document.getElementById('ideas');
+  container.innerHTML = '';
+  vault.ideas.forEach(idea => {
+    container.innerHTML += `
+      <div class="note">
+        <h3>${idea.title}</h3>
+        <p>${idea.content}</p>
+      </div>
+    `;
+  });
+}
+
+function renderAll() {
+  renderStats();
+  renderSchoolNotes();
+  renderBrokenGames();
+  renderIdeas();
+}
+</script>
+
+</body>
+</html>
