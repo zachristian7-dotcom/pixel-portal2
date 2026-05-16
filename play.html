@@ -1,6 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>
+  if ('serviceWorker' in navigator) {
+    // Register the service worker at the root level
+    navigator.serviceWorker.register('./sw.js', { scope: './' })
+      .then((reg) => {
+        console.log('Proxy active and protecting CDNs!');
+        // Automatically reload once if the worker just took control to fix initial load blank screens
+        if (!navigator.serviceWorker.controller) {
+          window.location.reload();
+        }
+      })
+      .catch(err => console.error('Proxy registration failed:', err));
+  }
+</script>
 <meta charset="UTF-8">
 <title>Play | Pixel Portal</title>
 <script src="tabcloak.js"></script>
