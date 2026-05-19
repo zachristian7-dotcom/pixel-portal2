@@ -375,15 +375,19 @@ let DB = {
 async function login() {
 
   const email =
-    document.getElementById("email").value
+    document.getElementById("email")
+    .value
     .trim()
     .toLowerCase();
 
   const password =
-    document.getElementById("password").value;
+    document.getElementById("password")
+    .value;
 
   const status =
     document.getElementById("loginStatus");
+
+  status.textContent = "Loading...";
 
   if(!email || !password) {
 
@@ -414,11 +418,13 @@ async function login() {
 
   } catch(err) {
 
-    /* ACCOUNT DOESN'T EXIST */
+    console.log(err.code);
+
+    /* CREATE ACCOUNT IF NEEDED */
 
     if(
-      err.code ===
-      "auth/user-not-found"
+      err.code === "auth/user-not-found" ||
+      err.code === "auth/invalid-credential"
     ) {
 
       try {
@@ -438,24 +444,20 @@ async function login() {
         status.textContent =
           "Account created";
 
-      } catch(error) {
+      } catch(createErr) {
 
         status.textContent =
-          error.message;
+          createErr.message;
       }
 
     } else {
-
-      /* WRONG PASSWORD / OTHER ERROR */
 
       status.textContent =
         err.message;
     }
   }
 }
-
-window.login = login;
-
+    
 /* =========================
    CLOUD SAVE
 ========================= */
