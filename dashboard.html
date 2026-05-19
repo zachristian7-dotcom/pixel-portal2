@@ -217,9 +217,9 @@ button:hover {
     <!-- USERNAME -->
     <input
       type="text"
-      id="username"
-      placeholder="Username"
-      autocomplete="off"
+      id="email"
+      placeholder="Email"
+      autocomplete="on"
     >
 
     <!-- PASSWORD -->
@@ -229,7 +229,7 @@ button:hover {
       placeholder="Password"
     >
 
-    <button onclick="unlockDashboard()">
+    <button onclick="login()">
       Unlock Dashboard
     </button>
 
@@ -306,98 +306,76 @@ button:hover {
   </div>
 </div>
 
-<script>
-const STORAGE_KEY = "pixelportal_os_secure";
-const SESSION_KEY = "pixelportal_session";
+<script type="module">
+
+/* =========================
+   FIREBASE IMPORTS
+========================= */
+
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  signOut
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+import {
+  getFirestore,
+  doc,
+  setDoc,
+  getDoc
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+/* =========================
+   FIREBASE CONFIG
+========================= */
+
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyDk0LDP2NWpKHddluXNW9tfgPuVIjWlac8",
+  authDomain: "vidr-library.firebaseapp.com",
+  projectId: "vidr-library",
+  storageBucket: "vidr-library.firebasestorage.app",
+  messagingSenderId: "817638492349",
+  appId: "1:817638492349:web:88137e7a4011e88f694fd4",
+  measurementId: "G-SWP44324F4"
+};
+
+/* =========================
+   FIREBASE START
+========================= */
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+const db = getFirestore(app);
 
 /* =========================
    DATABASE
 ========================= */
 
 let DB = {
-  users: {}
+  gameCount: 0,
+  schoolNotes: [],
+  brokenGames: [],
+  ideas: []
 };
-
-let currentUser = null;
-
-/* =========================
-   SECURITY
-========================= */
-
-function generateSalt() {
-  return crypto.randomUUID();
-}
-
-async function hashPassword(password, salt) {
-  const data = new TextEncoder().encode(password + salt);
-
-  const hashBuffer = await crypto.subtle.digest("SHA-256", data);
-
-  return Array.from(new Uint8Array(hashBuffer))
-    .map(b => b.toString(16).padStart(2, "0"))
-    .join("");
-}
-
-/* =========================
-   STORAGE
-========================= */
-
-function saveDB() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(DB));
-}
-
-function loadDB() {
-  const saved = localStorage.getItem(STORAGE_KEY);
-
-  if (saved) {
-    DB = JSON.parse(saved);
-  }
-}
-
-/* =========================
-   USER TEMPLATE
-========================= */
-
-function createEmptyUser() {
-  return {
-    security: {
-      salt: "",
-      passwordHash: "",
-      failedAttempts: 0,
-      lockUntil: 0
-    },
-
-    data: {
-      gameCount: 0,
-      schoolNotes: [],
-      brokenGames: [],
-      ideas: []
-    }
-  };
-}
-
-/* =========================
-   SESSION
-========================= */
-
-function saveSession(username) {
-  sessionStorage.setItem(SESSION_KEY, username);
-}
-
-function clearSession() {
-  sessionStorage.removeItem(SESSION_KEY);
-}
 
 /* =========================
    LOGIN
 ========================= */
 
-async function unlockDashboard() {
+async function login() {
 
-  loadDB();
-
-  const username =
-    document.getElementById("username").value.trim();
+  const email =
+    document.getElementById("email").value;
 
   const password =
     document.getElementById("password").value;
@@ -405,111 +383,89 @@ async function unlockDashboard() {
   const status =
     document.getElementById("loginStatus");
 
-  if (!username || !password) {
+  if(!email || !password) {
 
     status.textContent =
-      "Enter username and password.";
+      "Enter email and password";
 
     return;
   }
 
-  /* CREATE ACCOUNT */
+  try {
 
-  if (!DB.users[username]) {
+    /* LOGIN */
 
-    const user = createEmptyUser();
-
-    const salt = generateSalt();
-    const hash = await hashPassword(password, salt);
-
-    user.security.salt = salt;
-    user.security.passwordHash = hash;
-
-    DB.users[username] = user;
-
-    saveDB();
-
-    currentUser = username;
-
-    saveSession(username);
-
-    showDashboard();
-    renderAll();
-
-    status.textContent = "Account created.";
-
-    return;
-  }
-
-  /* EXISTING ACCOUNT */
-
-  const user = DB.users[username];
-
-  /* LOCKOUT */
-
-  if (Date.now() < user.security.lockUntil) {
-
-    const remaining = Math.ceil(
-      (user.security.lockUntil - Date.now()) / 1000
+    await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
     );
 
-    status.textContent =
-      `Locked. Try again in ${remaining}s`;
+    await loadCloudData();
 
-    return;
-  }
+    showDashboard();
 
-  const hash = await hashPassword(
-    password,
-    user.security.salt
-  );
+    renderAll();
 
-  if (hash !== user.security.passwordHash) {
+  } catch(err) {
 
-    user.security.failedAttempts++;
+    /* CREATE ACCOUNT */
 
-    if (user.security.failedAttempts >= 5) {
+    try {
 
-      user.security.lockUntil =
-        Date.now() + 30000;
+      await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
 
-      user.security.failedAttempts = 0;
+      await createCloudSave();
 
-      status.textContent =
-        "Too many attempts. Locked for 30s.";
+      showDashboard();
 
-    } else {
+      renderAll();
 
       status.textContent =
-        `Incorrect password (${user.security.failedAttempts}/5)`;
+        "Account created";
+
+    } catch(error) {
+
+      status.textContent =
+        error.message;
     }
-
-    saveDB();
-
-    return;
   }
-
-  /* SUCCESS */
-
-  user.security.failedAttempts = 0;
-  user.security.lockUntil = 0;
-
-  currentUser = username;
-
-  saveSession(username);
-
-  saveDB();
-
-  showDashboard();
-  renderAll();
 }
 
 /* =========================
-   USER DATA ACCESS
+   CLOUD SAVE
 ========================= */
 
-function getUserData() {
-  return DB.users[currentUser].data;
+async function createCloudSave() {
+
+  await setDoc(
+    doc(db, "users", auth.currentUser.uid),
+    DB
+  );
+}
+
+async function saveCloudData() {
+
+  await setDoc(
+    doc(db, "users", auth.currentUser.uid),
+    DB
+  );
+}
+
+async function loadCloudData() {
+
+  const snap = await getDoc(
+    doc(db, "users", auth.currentUser.uid)
+  );
+
+  if(snap.exists()) {
+
+    DB = snap.data();
+  }
 }
 
 /* =========================
@@ -517,6 +473,7 @@ function getUserData() {
 ========================= */
 
 function showDashboard() {
+
   document
     .getElementById("loginScreen")
     .classList.add("hidden");
@@ -526,8 +483,10 @@ function showDashboard() {
     .classList.remove("hidden");
 }
 
-function lockDashboard() {
-  clearSession();
+window.lockDashboard = async function() {
+
+  await signOut(auth);
+
   location.reload();
 }
 
@@ -537,45 +496,44 @@ function lockDashboard() {
 
 function renderStats() {
 
-  const data = getUserData();
-
   document.getElementById(
     "gameCountStat"
-  ).textContent = data.gameCount;
+  ).textContent = DB.gameCount;
 
   document.getElementById(
     "notesCountStat"
-  ).textContent = data.schoolNotes.length;
+  ).textContent = DB.schoolNotes.length;
 
   document.getElementById(
     "bugsCountStat"
-  ).textContent = data.brokenGames.length;
+  ).textContent = DB.brokenGames.length;
 
   document.getElementById(
     "ideasCountStat"
-  ).textContent = data.ideas.length;
+  ).textContent = DB.ideas.length;
 }
 
 /* =========================
    FEATURES
 ========================= */
 
-function saveGameCount() {
+window.saveGameCount =
+async function() {
 
-  const data = getUserData();
+  DB.gameCount =
+    Number(
+      document.getElementById(
+        "gameCountInput"
+      ).value
+    ) || 0;
 
-  data.gameCount =
-    Number(document.getElementById(
-      "gameCountInput"
-    ).value) || 0;
+  await saveCloudData();
 
-  saveDB();
   renderStats();
 }
 
-function addSchoolNote() {
-
-  const data = getUserData();
+window.addSchoolNote =
+async function() {
 
   const title =
     document.getElementById(
@@ -587,9 +545,9 @@ function addSchoolNote() {
       "schoolNoteContent"
     ).value;
 
-  if (!title || !content) return;
+  if(!title || !content) return;
 
-  data.schoolNotes.unshift({
+  DB.schoolNotes.unshift({
     title,
     content
   });
@@ -602,14 +560,15 @@ function addSchoolNote() {
     "schoolNoteContent"
   ).value = "";
 
-  saveDB();
+  await saveCloudData();
+
   renderSchoolNotes();
+
   renderStats();
 }
 
-function addBrokenGame() {
-
-  const data = getUserData();
+window.addBrokenGame =
+async function() {
 
   const name =
     document.getElementById(
@@ -621,9 +580,9 @@ function addBrokenGame() {
       "brokenGameContent"
     ).value;
 
-  if (!name || !issue) return;
+  if(!name || !issue) return;
 
-  data.brokenGames.unshift({
+  DB.brokenGames.unshift({
     name,
     issue
   });
@@ -636,14 +595,15 @@ function addBrokenGame() {
     "brokenGameContent"
   ).value = "";
 
-  saveDB();
+  await saveCloudData();
+
   renderBrokenGames();
+
   renderStats();
 }
 
-function addIdea() {
-
-  const data = getUserData();
+window.addIdea =
+async function() {
 
   const title =
     document.getElementById(
@@ -655,9 +615,9 @@ function addIdea() {
       "ideaContent"
     ).value;
 
-  if (!title || !content) return;
+  if(!title || !content) return;
 
-  data.ideas.unshift({
+  DB.ideas.unshift({
     title,
     content
   });
@@ -670,8 +630,10 @@ function addIdea() {
     "ideaContent"
   ).value = "";
 
-  saveDB();
+  await saveCloudData();
+
   renderIdeas();
+
   renderStats();
 }
 
@@ -681,8 +643,6 @@ function addIdea() {
 
 function renderSchoolNotes() {
 
-  const data = getUserData();
-
   const container =
     document.getElementById(
       "schoolNotes"
@@ -690,7 +650,7 @@ function renderSchoolNotes() {
 
   container.innerHTML = "";
 
-  data.schoolNotes.forEach(note => {
+  DB.schoolNotes.forEach(note => {
 
     container.innerHTML += `
       <div class="note">
@@ -703,8 +663,6 @@ function renderSchoolNotes() {
 
 function renderBrokenGames() {
 
-  const data = getUserData();
-
   const container =
     document.getElementById(
       "brokenGames"
@@ -712,7 +670,7 @@ function renderBrokenGames() {
 
   container.innerHTML = "";
 
-  data.brokenGames.forEach(game => {
+  DB.brokenGames.forEach(game => {
 
     container.innerHTML += `
       <div class="note">
@@ -725,8 +683,6 @@ function renderBrokenGames() {
 
 function renderIdeas() {
 
-  const data = getUserData();
-
   const container =
     document.getElementById(
       "ideas"
@@ -734,7 +690,7 @@ function renderIdeas() {
 
   container.innerHTML = "";
 
-  data.ideas.forEach(idea => {
+  DB.ideas.forEach(idea => {
 
     container.innerHTML += `
       <div class="note">
@@ -746,9 +702,13 @@ function renderIdeas() {
 }
 
 function renderAll() {
+
   renderStats();
+
   renderSchoolNotes();
+
   renderBrokenGames();
+
   renderIdeas();
 }
 
@@ -756,25 +716,25 @@ function renderAll() {
    AUTO LOGIN
 ========================= */
 
-window.onload = () => {
+onAuthStateChanged(auth,
+async(user) => {
 
-  loadDB();
+  if(user) {
 
-  const session =
-    sessionStorage.getItem(SESSION_KEY);
-
-  if (
-    session &&
-    DB.users[session]
-  ) {
-
-    currentUser = session;
+    await loadCloudData();
 
     showDashboard();
+
     renderAll();
   }
-};
-</script>
+});
 
+/* =========================
+   GLOBAL LOGIN
+========================= */
+
+window.login = login;
+
+</script>
 </body>
 </html>
