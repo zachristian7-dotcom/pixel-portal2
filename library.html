@@ -1,20 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script>
-  if ('serviceWorker' in navigator) {
-    // Register the service worker at the root level
-    navigator.serviceWorker.register('./sw.js', { scope: './' })
-      .then((reg) => {
-        console.log('Proxy active and protecting CDNs!');
-        // Automatically reload once if the worker just took control to fix initial load blank screens
-        if (!navigator.serviceWorker.controller) {
-          window.location.reload();
-        }
-      })
-      .catch(err => console.error('Proxy registration failed:', err));
-  }
-</script>
 <meta charset="UTF-8">
 <title>Pixel Portal – Library</title>
 <script src="tabcloak.js"></script>
@@ -654,6 +640,54 @@ img {
 .reset-btn{
   background:#888;
 }
+
+/* Overlay background */
+.overlay {
+  display: none; /* Hidden by default */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7); /* Dark semi-transparent background */
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+/* The actual popup box */
+.popup-box {
+  background: #000;
+  padding: 30px;
+  border-radius: 10px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+/* Close button (X) */
+.close-x {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #333;
+}
+
+/* Optional action button inside popup */
+.action-btn {
+   background: linear-gradient(135deg, #4fd1ff, #7c5cff);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
 </style>
 </head>
 
@@ -665,6 +699,18 @@ img {
     <span class="portal">PORTAL</span>
   </a>
 </header>
+
+<!-- Popup Background Overlay -->
+<div id="popupOverlay" class="overlay">
+  <div class="popup-box">
+    <span id="closeBtn" class="close-x">&times;</span>
+    <h2>We have an announcement to make...</h2>
+    <p>Pixel Portal will be adding <b>10</b> more games to the library before we stop working on the site due to Summer Vacation coming up. However, we will occasionally update the site throughout the summer. Thank you for playing on Pixel Portal! See you next year!</p>
+    <!-- Added id="actionBtn" here -->
+    <button id="actionBtn" class="action-btn">I Understand</button>
+  </div>
+</div>
+
 
 <div class="controls glass">
 
@@ -725,6 +771,37 @@ img {
 
 <script src="games.js"></script>
 <script>
+const closeBtn = document.getElementById('closeBtn');
+const actionBtn = document.getElementById('actionBtn'); // Target the action button
+const overlay = document.getElementById('popupOverlay');
+
+// Automatically open the popup when the page loads
+window.onload = function() {
+  overlay.style.display = 'flex';
+};
+
+// Close popup via X button
+closeBtn.addEventListener('click', () => {
+  overlay.style.display = 'none';
+});
+
+// Close popup via Action button
+actionBtn.addEventListener('click', () => {
+  overlay.style.display = 'none';
+  
+  // Optional: If you want to redirect the user to a shop page after closing, 
+  // uncomment the line below and change the URL:
+  // window.location.href = "https://yourshop.com";
+});
+
+// Close popup if user clicks on the dark background
+window.addEventListener('click', (e) => {
+  if (e.target === overlay) {
+    overlay.style.display = 'none';
+  }
+});
+
+
 function openSettings(){
   document.getElementById("settingsPopup").style.display = "flex";
 }
