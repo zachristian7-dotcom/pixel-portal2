@@ -375,7 +375,9 @@ let DB = {
 async function login() {
 
   const email =
-    document.getElementById("email").value;
+    document.getElementById("email").value
+    .trim()
+    .toLowerCase();
 
   const password =
     document.getElementById("password").value;
@@ -407,34 +409,52 @@ async function login() {
 
     renderAll();
 
+    status.textContent =
+      "Logged in";
+
   } catch(err) {
 
-    /* CREATE ACCOUNT */
+    /* ACCOUNT DOESN'T EXIST */
 
-    try {
+    if(
+      err.code ===
+      "auth/user-not-found"
+    ) {
 
-      await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
+      try {
 
-      await createCloudSave();
+        await createUserWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
 
-      showDashboard();
+        await createCloudSave();
 
-      renderAll();
+        showDashboard();
+
+        renderAll();
+
+        status.textContent =
+          "Account created";
+
+      } catch(error) {
+
+        status.textContent =
+          error.message;
+      }
+
+    } else {
+
+      /* WRONG PASSWORD / OTHER ERROR */
 
       status.textContent =
-        "Account created";
-
-    } catch(error) {
-
-      status.textContent =
-        error.message;
+        err.message;
     }
   }
 }
+
+window.login = login;
 
 /* =========================
    CLOUD SAVE
