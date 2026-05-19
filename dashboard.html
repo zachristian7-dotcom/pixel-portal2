@@ -210,13 +210,31 @@ button:hover {
 
 <div class="login-screen" id="loginScreen">
   <div class="card" style="max-width:500px;margin:auto;margin-top:100px;">
-    <h1>🔒 Pixel Portal Vault</h1>
-    <p>Secure encrypted dashboard for Pixel Portal.</p>
 
-    <input type="password" id="password" placeholder="Enter Master Password">
-    <button onclick="unlockDashboard()">Unlock Dashboard</button>
+    <h1>🔒 Pixel Portal Vault</h1>
+    <p>Secure multi-account dashboard system.</p>
+
+    <!-- USERNAME -->
+    <input
+      type="text"
+      id="username"
+      placeholder="Username"
+      autocomplete="off"
+    >
+
+    <!-- PASSWORD -->
+    <input
+      type="password"
+      id="password"
+      placeholder="Password"
+    >
+
+    <button onclick="unlockDashboard()">
+      Unlock Dashboard
+    </button>
 
     <p id="loginStatus" style="margin-top:15px;"></p>
+
   </div>
 </div>
 
@@ -289,135 +307,391 @@ button:hover {
 </div>
 
 <script>
-const STORAGE_KEY = "pixelportalvault";
-let vaultPassword = "";
+const STORAGE_KEY = "pixelportal_os_secure";
+const SESSION_KEY = "pixelportal_session";
 
-let vault = {
-  gameCount: 0,
-  schoolNotes: [],
-  brokenGames: [],
-  ideas: []
+/* =========================
+   DATABASE
+========================= */
+
+let DB = {
+  users: {}
 };
 
-async function hashPassword(password) {
-  const msgBuffer = new TextEncoder().encode(password);
-  const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
-  const hashArray = Array.from(new Uint8Array(hashBuffer));
-  return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+let currentUser = null;
+
+/* =========================
+   SECURITY
+========================= */
+
+function generateSalt() {
+  return crypto.randomUUID();
 }
 
-async function unlockDashboard() {
-  const password = document.getElementById('password').value;
-  const status = document.getElementById('loginStatus');
+async function hashPassword(password, salt) {
+  const data = new TextEncoder().encode(password + salt);
 
-  if (!password) return status.textContent = 'Enter a password.';
+  const hashBuffer = await crypto.subtle.digest("SHA-256", data);
 
-  const hashed = await hashPassword(password);
+  return Array.from(new Uint8Array(hashBuffer))
+    .map(b => b.toString(16).padStart(2, "0"))
+    .join("");
+}
+
+/* =========================
+   STORAGE
+========================= */
+
+function saveDB() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(DB));
+}
+
+function loadDB() {
   const saved = localStorage.getItem(STORAGE_KEY);
 
-  if (!saved) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({
-      password: hashed,
-      data: vault
-    }));
+  if (saved) {
+    DB = JSON.parse(saved);
+  }
+}
 
-    vaultPassword = hashed;
+/* =========================
+   USER TEMPLATE
+========================= */
+
+function createEmptyUser() {
+  return {
+    security: {
+      salt: "",
+      passwordHash: "",
+      failedAttempts: 0,
+      lockUntil: 0
+    },
+
+    data: {
+      gameCount: 0,
+      schoolNotes: [],
+      brokenGames: [],
+      ideas: []
+    }
+  };
+}
+
+/* =========================
+   SESSION
+========================= */
+
+function saveSession(username) {
+  sessionStorage.setItem(SESSION_KEY, username);
+}
+
+function clearSession() {
+  sessionStorage.removeItem(SESSION_KEY);
+}
+
+/* =========================
+   LOGIN
+========================= */
+
+async function unlockDashboard() {
+
+  loadDB();
+
+  const username =
+    document.getElementById("username").value.trim();
+
+  const password =
+    document.getElementById("password").value;
+
+  const status =
+    document.getElementById("loginStatus");
+
+  if (!username || !password) {
+
+    status.textContent =
+      "Enter username and password.";
+
+    return;
+  }
+
+  /* CREATE ACCOUNT */
+
+  if (!DB.users[username]) {
+
+    const user = createEmptyUser();
+
+    const salt = generateSalt();
+    const hash = await hashPassword(password, salt);
+
+    user.security.salt = salt;
+    user.security.passwordHash = hash;
+
+    DB.users[username] = user;
+
+    saveDB();
+
+    currentUser = username;
+
+    saveSession(username);
+
     showDashboard();
-    saveVault();
-    status.textContent = 'New vault created.';
+    renderAll();
+
+    status.textContent = "Account created.";
+
     return;
   }
 
-  const parsed = JSON.parse(saved);
+  /* EXISTING ACCOUNT */
 
-  if (parsed.password !== hashed) {
-    status.textContent = 'Incorrect password.';
+  const user = DB.users[username];
+
+  /* LOCKOUT */
+
+  if (Date.now() < user.security.lockUntil) {
+
+    const remaining = Math.ceil(
+      (user.security.lockUntil - Date.now()) / 1000
+    );
+
+    status.textContent =
+      `Locked. Try again in ${remaining}s`;
+
     return;
   }
 
-  vaultPassword = hashed;
-  vault = parsed.data;
+  const hash = await hashPassword(
+    password,
+    user.security.salt
+  );
+
+  if (hash !== user.security.passwordHash) {
+
+    user.security.failedAttempts++;
+
+    if (user.security.failedAttempts >= 5) {
+
+      user.security.lockUntil =
+        Date.now() + 30000;
+
+      user.security.failedAttempts = 0;
+
+      status.textContent =
+        "Too many attempts. Locked for 30s.";
+
+    } else {
+
+      status.textContent =
+        `Incorrect password (${user.security.failedAttempts}/5)`;
+    }
+
+    saveDB();
+
+    return;
+  }
+
+  /* SUCCESS */
+
+  user.security.failedAttempts = 0;
+  user.security.lockUntil = 0;
+
+  currentUser = username;
+
+  saveSession(username);
+
+  saveDB();
 
   showDashboard();
   renderAll();
 }
 
+/* =========================
+   USER DATA ACCESS
+========================= */
+
+function getUserData() {
+  return DB.users[currentUser].data;
+}
+
+/* =========================
+   UI
+========================= */
+
 function showDashboard() {
-  document.getElementById('loginScreen').classList.add('hidden');
-  document.getElementById('dashboard').classList.remove('hidden');
+  document
+    .getElementById("loginScreen")
+    .classList.add("hidden");
+
+  document
+    .getElementById("dashboard")
+    .classList.remove("hidden");
 }
 
 function lockDashboard() {
+  clearSession();
   location.reload();
 }
 
-function saveVault() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify({
-    password: vaultPassword,
-    data: vault
-  }));
+/* =========================
+   STATS
+========================= */
+
+function renderStats() {
+
+  const data = getUserData();
+
+  document.getElementById(
+    "gameCountStat"
+  ).textContent = data.gameCount;
+
+  document.getElementById(
+    "notesCountStat"
+  ).textContent = data.schoolNotes.length;
+
+  document.getElementById(
+    "bugsCountStat"
+  ).textContent = data.brokenGames.length;
+
+  document.getElementById(
+    "ideasCountStat"
+  ).textContent = data.ideas.length;
+}
+
+/* =========================
+   FEATURES
+========================= */
+
+function saveGameCount() {
+
+  const data = getUserData();
+
+  data.gameCount =
+    Number(document.getElementById(
+      "gameCountInput"
+    ).value) || 0;
+
+  saveDB();
   renderStats();
 }
 
-function renderStats() {
-  document.getElementById('gameCountStat').textContent = vault.gameCount;
-  document.getElementById('notesCountStat').textContent = vault.schoolNotes.length;
-  document.getElementById('bugsCountStat').textContent = vault.brokenGames.length;
-  document.getElementById('ideasCountStat').textContent = vault.ideas.length;
-}
-
-function saveGameCount() {
-  vault.gameCount = Number(document.getElementById('gameCountInput').value) || 0;
-  saveVault();
-}
-
 function addSchoolNote() {
-  const title = document.getElementById('schoolNoteTitle').value;
-  const content = document.getElementById('schoolNoteContent').value;
+
+  const data = getUserData();
+
+  const title =
+    document.getElementById(
+      "schoolNoteTitle"
+    ).value;
+
+  const content =
+    document.getElementById(
+      "schoolNoteContent"
+    ).value;
+
   if (!title || !content) return;
 
-  vault.schoolNotes.unshift({ title, content });
+  data.schoolNotes.unshift({
+    title,
+    content
+  });
 
-  document.getElementById('schoolNoteTitle').value = '';
-  document.getElementById('schoolNoteContent').value = '';
+  document.getElementById(
+    "schoolNoteTitle"
+  ).value = "";
 
-  saveVault();
+  document.getElementById(
+    "schoolNoteContent"
+  ).value = "";
+
+  saveDB();
   renderSchoolNotes();
+  renderStats();
 }
 
 function addBrokenGame() {
-  const name = document.getElementById('brokenGameName').value;
-  const issue = document.getElementById('brokenGameIssue').value;
+
+  const data = getUserData();
+
+  const name =
+    document.getElementById(
+      "brokenGameName"
+    ).value;
+
+  const issue =
+    document.getElementById(
+      "brokenGameContent"
+    ).value;
+
   if (!name || !issue) return;
 
-  vault.brokenGames.unshift({ name, issue });
+  data.brokenGames.unshift({
+    name,
+    issue
+  });
 
-  document.getElementById('brokenGameName').value = '';
-  document.getElementById('brokenGameIssue').value = '';
+  document.getElementById(
+    "brokenGameName"
+  ).value = "";
 
-  saveVault();
+  document.getElementById(
+    "brokenGameContent"
+  ).value = "";
+
+  saveDB();
   renderBrokenGames();
+  renderStats();
 }
 
 function addIdea() {
-  const title = document.getElementById('ideaTitle').value;
-  const content = document.getElementById('ideaContent').value;
+
+  const data = getUserData();
+
+  const title =
+    document.getElementById(
+      "ideaTitle"
+    ).value;
+
+  const content =
+    document.getElementById(
+      "ideaContent"
+    ).value;
+
   if (!title || !content) return;
 
-  vault.ideas.unshift({ title, content });
+  data.ideas.unshift({
+    title,
+    content
+  });
 
-  document.getElementById('ideaTitle').value = '';
-  document.getElementById('ideaContent').value = '';
+  document.getElementById(
+    "ideaTitle"
+  ).value = "";
 
-  saveVault();
+  document.getElementById(
+    "ideaContent"
+  ).value = "";
+
+  saveDB();
   renderIdeas();
+  renderStats();
 }
 
-/* FIXED RENDER FUNCTIONS */
+/* =========================
+   RENDER
+========================= */
+
 function renderSchoolNotes() {
-  const container = document.getElementById('schoolNotes');
-  container.innerHTML = '';
-  vault.schoolNotes.forEach(note => {
+
+  const data = getUserData();
+
+  const container =
+    document.getElementById(
+      "schoolNotes"
+    );
+
+  container.innerHTML = "";
+
+  data.schoolNotes.forEach(note => {
+
     container.innerHTML += `
       <div class="note">
         <h3>${note.title}</h3>
@@ -428,9 +702,18 @@ function renderSchoolNotes() {
 }
 
 function renderBrokenGames() {
-  const container = document.getElementById('brokenGames');
-  container.innerHTML = '';
-  vault.brokenGames.forEach(game => {
+
+  const data = getUserData();
+
+  const container =
+    document.getElementById(
+      "brokenGames"
+    );
+
+  container.innerHTML = "";
+
+  data.brokenGames.forEach(game => {
+
     container.innerHTML += `
       <div class="note">
         <h3>${game.name}</h3>
@@ -441,9 +724,18 @@ function renderBrokenGames() {
 }
 
 function renderIdeas() {
-  const container = document.getElementById('ideas');
-  container.innerHTML = '';
-  vault.ideas.forEach(idea => {
+
+  const data = getUserData();
+
+  const container =
+    document.getElementById(
+      "ideas"
+    );
+
+  container.innerHTML = "";
+
+  data.ideas.forEach(idea => {
+
     container.innerHTML += `
       <div class="note">
         <h3>${idea.title}</h3>
@@ -459,6 +751,29 @@ function renderAll() {
   renderBrokenGames();
   renderIdeas();
 }
+
+/* =========================
+   AUTO LOGIN
+========================= */
+
+window.onload = () => {
+
+  loadDB();
+
+  const session =
+    sessionStorage.getItem(SESSION_KEY);
+
+  if (
+    session &&
+    DB.users[session]
+  ) {
+
+    currentUser = session;
+
+    showDashboard();
+    renderAll();
+  }
+};
 </script>
 
 </body>
