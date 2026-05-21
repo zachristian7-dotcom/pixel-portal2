@@ -1,54 +1,64 @@
 <!DOCTYPE html>
-
-
-
-<!-- Ultimate Game Stash file--> 
-<!-- For the regularly updating doc go to https://docs.google.com/document/d/1_FmH3BlSBQI7FGgAQL59-ZPe8eCxs35wel6JUyVaG8Q/ -->
-
-
-
-
-<html>
-<base href="https://drive.google.com/drive/folders/1OIZYmDLYZmJvvFjA8iPyLa-v9YHLkn-J?dmr=1&ec=wgc-drive-%5Bmodule%5D-goto">      
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Tag</title>
-  <meta name="robots" content="noindex,nofollow" /> 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diamond Clicker | Pixel Portal</title>
+<link rel="stylesheet" href="../../css/style.css">
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0b0b14;
+  color: white;
+  text-align: center;
+}
 
-  <meta name="generator" content="Scirra Construct">
-  <meta name="author" content="jet">
-  <meta name="description" content="jet"> 
-  <link rel="manifest" href="appmanifest.json">
-  <link rel="apple-touch-icon" sizes="128x128" href="icons/icon-128.png">     
-  <link rel="apple-touch-icon" sizes="256x256" href="icons/icon-256.png">
-  <link rel="apple-touch-icon" sizes="512x512" href="icons/icon-512.png">
-  <link rel="icon" type="image/png" href="icons/icon-512.png">
+.logo {
+  padding: 20px;
+  font-size: 32px;
+  color: #4fd1ff;
+}
 
-  <link rel="stylesheet" href="style.css">
+/* Container for iframe to keep centered and responsive */
+.embed-box {
+  width: 100vw;
+  height: 100vh;       
+  max-width: 98%;     /* responsive fallback */
+  margin: 0 auto;
+}
 
+.embed-box iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
 
+/* Fullscreen fills entire screen */
+.embed-box:fullscreen {
+  padding-top: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+canvas, iframe, #game {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+</style>
 </head>
-
 <body>
-
-  <script>
-    if (location.protocol.substr(0, 4) === "file") {
-      alert("Web exports won't work until you upload them. (When running on the file: protocol, browsers block many features from working for security reasons.)");
-    }
-  </script> 
-  <script src="https://cdn.jsdelivr.net/gh/genizy/fancade@main/poki-sdk.js"></script> 
-  <noscript> 
-    <div id="notSupportedWrap">
-      <h2 id="notSupportedTitle">This content requires JavaScript</h2> 
-      <p class="notSupportedMessage">JavaScript appears to be disabled. Please enable it to view this content.</p>
-    </div>
-  </noscript> 
-  <script src="scripts/supportcheck.js"></script>
-  <script src="scripts/offlineclient.js" type="module"></script>   
-  <script src="scripts/main2.js" type="module"></script>  
-  <script src="scripts/register-sw.js" type="module"></script>     
+<div class="embed-box">
+<iframe src="https://zachristian7-dotcom.github.io/UGS-assets/tag/index.html allowfullscreen scrolling="no"></iframe>
+</div>
 
 </body>
-
 </html>
