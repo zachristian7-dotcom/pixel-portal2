@@ -393,7 +393,7 @@ const games = [
   {
     name: "Melon Playground",
     id: "clmelonplayground",
-    thumbnail: "clmelonplayground.png",
+    thumbnail: "melonplayground.png",
     description: "Unleash your creativity in a chaotic physics-based sandbox.",
     categories: ["Sandbox", "Simulation"],
     added: "2026-05-22",
@@ -402,7 +402,7 @@ const games = [
   {
     name: "Level Devil",
     id: "clleveldevil",
-    thumbnail: "clleveldevil.png",
+    thumbnail: "leveldevil.png",
     description: "Survive a brutal platformer packed with unexpected trolls.",
     categories: ["Platformer", "Rage Game"],
     added: "2026-05-22",
@@ -411,7 +411,7 @@ const games = [
   {
     name: "Gorilla Tag",
     id: "clgorillatag",
-    thumbnail: "clgorillatag.png",
+    thumbnail: "gorillatag.png",
     description: "Run, climb, and leap using only your arms to tag others.",
     categories: ["Action", "Multiplayer"],
     added: "2026-05-22",
@@ -420,7 +420,7 @@ const games = [
   {
     name: "Drift Boss",
     id: "cldriftboss",
-    thumbnail: "cldriftboss.png",
+    thumbnail: "driftboss.png",
     description: "Time your drifts perfectly to stay on the endless winding platform.",
     categories: ["Driving", "Arcade"],
     added: "2026-05-22",
@@ -429,7 +429,7 @@ const games = [
   {
     name: "Crossy Road",
     id: "clcrossyroad",
-    thumbnail: "clcrossyroad.png",
+    thumbnail: "crossyroad.png",
     description: "Cross busy roads, tracks, and rivers without getting hit.",
     categories: ["Arcade", "Endless"],
     added: "2026-05-22",
@@ -438,7 +438,7 @@ const games = [
   {
     name: "Angry Birds",
     id: "clangrybirds",
-    thumbnail: "clangrybirds.png",
+    thumbnail: "angrybirds.png",
     description: "Launch birds from a slingshot to crush the greedy pigs' defenses.",
     categories: ["Puzzle", "Physics"],
     added: "2026-05-22",
