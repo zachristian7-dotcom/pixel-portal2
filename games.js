@@ -353,7 +353,97 @@ const games = [
   categories: ["Idle","Clicker"],
   added: "2026-05-01",
   
-}
+},
+  {
+    name: "Sushi Slicer",
+    id: "sushislicer",
+    thumbnail: "sushislicer.png",
+    description: "Slice and dice sushi ingredients with precision!",
+    categories: ["Arcade", "Action"],
+    added: "2026-05-22",
+    new: true
+  },
+  {
+    name: "Eaglercraft 1.12",
+    id: "Eaglercraft1.12",
+    thumbnail: "eaglercraft.png",
+    description: "Explore, build, and survive in a pixelated sandbox world.",
+    categories: ["Sandbox", "Adventure"],
+    added: "2026-05-22",
+    new: true
+  },
+  {
+    name: "Wordle",
+    id: "clwordle",
+    thumbnail: "wordle.png",
+    description: "Guess the hidden five-letter word in six attempts.",
+    categories: ["Puzzle", "Word"],
+    added: "2026-05-22",
+    new: true
+  },
+  {
+    name: "Clover Pit",
+    id: "cloverpit",
+    thumbnail: "cloverpit.png",
+    description: "Navigate challenging pits and collect lucky charms.",
+    categories: ["Platformer", "Arcade"],
+    added: "2026-05-22",
+    new: true
+  },
+  {
+    name: "Melon Playground",
+    id: "clmelonplayground",
+    thumbnail: "clmelonplayground.png",
+    description: "Unleash your creativity in a chaotic physics-based sandbox.",
+    categories: ["Sandbox", "Simulation"],
+    added: "2026-05-22",
+    new: true
+  },
+  {
+    name: "Level Devil",
+    id: "clleveldevil",
+    thumbnail: "clleveldevil.png",
+    description: "Survive a brutal platformer packed with unexpected trolls.",
+    categories: ["Platformer", "Rage Game"],
+    added: "2026-05-22",
+    new: true
+  },
+  {
+    name: "Gorilla Tag",
+    id: "clgorillatag",
+    thumbnail: "clgorillatag.png",
+    description: "Run, climb, and leap using only your arms to tag others.",
+    categories: ["Action", "Multiplayer"],
+    added: "2026-05-22",
+    new: true
+  },
+  {
+    name: "Drift Boss",
+    id: "cldriftboss",
+    thumbnail: "cldriftboss.png",
+    description: "Time your drifts perfectly to stay on the endless winding platform.",
+    categories: ["Driving", "Arcade"],
+    added: "2026-05-22",
+    new: true
+  },
+  {
+    name: "Crossy Road",
+    id: "clcrossyroad",
+    thumbnail: "clcrossyroad.png",
+    description: "Cross busy roads, tracks, and rivers without getting hit.",
+    categories: ["Arcade", "Endless"],
+    added: "2026-05-22",
+    new: true
+  },
+  {
+    name: "Angry Birds",
+    id: "clangrybirds",
+    thumbnail: "clangrybirds.png",
+    description: "Launch birds from a slingshot to crush the greedy pigs' defenses.",
+    categories: ["Puzzle", "Physics"],
+    added: "2026-05-22",
+    new: true
+  }
 ];
 
 const collections = [
