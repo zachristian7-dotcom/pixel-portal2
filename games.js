@@ -443,6 +443,15 @@ const games = [
     categories: ["Puzzle", "Physics"],
     added: "2026-05-22",
     new: true
+  },
+  {
+    name: "FNAF",
+    id: "fnaf",
+    thumbnail: "fnaf.png",
+    description: "Survive 5 nights at Freddy Fasbear's Pizzeria! Disclaimer: this game contains flashing lights, loud noises, and lots of jumpscares!",
+    categories: ["FNAF", "Horror"],
+    added: "2026-05-23",
+    new: true
   }
 ];
 
