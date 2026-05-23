@@ -280,7 +280,7 @@ button:hover{
 <script type="module">
 
 /* =========================
-   FIREBASE
+   FIREBASE IMPORTS
 ========================= */
 
 import { initializeApp }
@@ -304,31 +304,35 @@ import {
 from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 /* =========================
-   CONFIG
+   FIREBASE CONFIG
 ========================= */
 
 const firebaseConfig = {
+
   apiKey: "AIzaSyDk0LDP2NWpKHddluXNW9tfgPuVIjWlac8",
+
   authDomain: "vidr-library.firebaseapp.com",
+
   projectId: "vidr-library",
-  storageBucket: "vidr-library.firebasestorage.app",
+
+  storageBucket: "vidr-library.appspot.com",
+
   messagingSenderId: "817638492349",
-  appId: "1:817638492349:web:88137e7a4011e88f694fd4",
+
+  appId: "1:817638492349:web:88137e7a4011e88f694fd4"
 };
+
 /* =========================
-   INIT
+   INITIALIZE FIREBASE
 ========================= */
 
 const app = initializeApp(firebaseConfig);
 
 const auth = getAuth(app);
-console.log("Firebase initialized");
-console.log("Attempting login...");
-console.log("Login success");
-console.error(err);
-
 
 const db = getFirestore(app);
+
+console.log("Firebase initialized");
 
 /* =========================
    DATABASE
@@ -336,13 +340,13 @@ const db = getFirestore(app);
 
 let DB = {
 
-  games:0,
+  games: 0,
 
-  notes:[],
+  notes: [],
 
-  broken:[],
+  broken: [],
 
-  ideas:[]
+  ideas: []
 };
 
 /* =========================
@@ -359,7 +363,7 @@ const statusText =
 document.getElementById("status");
 
 /* =========================
-   LOGIN
+   LOGIN BUTTON
 ========================= */
 
 document
@@ -370,14 +374,15 @@ document
   document
   .getElementById("email")
   .value
-  .trim();
+  .trim()
+  .toLowerCase();
 
   const password =
   document
   .getElementById("password")
   .value;
 
-  if(!email || !password){
+  if (!email || !password) {
 
     statusText.textContent =
     "Enter email and password";
@@ -386,12 +391,13 @@ document
   }
 
   statusText.textContent =
-"Connecting to Firebase...";
+  "Connecting...";
 
-  statusText.textContent =
-err.message;
+  console.log("Attempting login...");
 
-  try{
+  try {
+
+    /* LOGIN */
 
     await signInWithEmailAndPassword(
       auth,
@@ -399,11 +405,22 @@ err.message;
       password
     );
 
-  }catch(err){
+    console.log("Login successful");
 
-    console.log(err);
+    statusText.textContent =
+    "Logged in";
 
-    try{
+  } catch (err) {
+
+    console.log(
+      "Login failed, creating account..."
+    );
+
+    console.error(err);
+
+    try {
+
+      /* CREATE ACCOUNT */
 
       await createUserWithEmailAndPassword(
         auth,
@@ -411,11 +428,16 @@ err.message;
         password
       );
 
+      console.log("Account created");
+
       await saveData();
 
-    }catch(createErr){
+      statusText.textContent =
+      "Account created";
 
-      console.log(createErr);
+    } catch (createErr) {
+
+      console.error(createErr);
 
       statusText.textContent =
       createErr.message;
@@ -424,65 +446,132 @@ err.message;
 };
 
 /* =========================
-   AUTH CHANGED
+   AUTH STATE
 ========================= */
 
-onAuthStateChanged(auth,
-async user => {
+onAuthStateChanged(
+  auth,
+  async (user) => {
 
-  if(user){
+    console.log(
+      "Auth changed:",
+      user
+    );
 
-    await loadData();
+    if (user) {
 
-    renderAll();
+      try {
 
-    loginScreen.classList.add("hidden");
+        await loadData();
 
-    dashboard.classList.remove("hidden");
+        renderAll();
 
-  }else{
+        loginScreen
+        .classList
+        .add("hidden");
 
-    loginScreen.classList.remove("hidden");
+        dashboard
+        .classList
+        .remove("hidden");
 
-    dashboard.classList.add("hidden");
+      } catch (err) {
+
+        console.error(
+          "Load error:",
+          err
+        );
+
+        statusText.textContent =
+        err.message;
+      }
+
+    } else {
+
+      loginScreen
+      .classList
+      .remove("hidden");
+
+      dashboard
+      .classList
+      .add("hidden");
+    }
   }
-});
+);
 
 /* =========================
-   SAVE / LOAD
+   SAVE DATA
 ========================= */
 
-async function saveData(){
+async function saveData() {
 
-  if(!auth.currentUser) return;
+  if (!auth.currentUser) return;
 
-  await setDoc(
-    doc(
+  try {
+
+    await setDoc(
+
+      doc(
+        db,
+        "users",
+        auth.currentUser.uid
+      ),
+
+      DB
+    );
+
+    console.log("Data saved");
+
+  } catch (err) {
+
+    console.error(
+      "Save error:",
+      err
+    );
+  }
+}
+
+/* =========================
+   LOAD DATA
+========================= */
+
+async function loadData() {
+
+  if (!auth.currentUser) return;
+
+  try {
+
+    const ref = doc(
       db,
       "users",
       auth.currentUser.uid
-    ),
-    DB
-  );
-}
+    );
 
-async function loadData(){
+    const snap =
+    await getDoc(ref);
 
-  const ref = doc(
-    db,
-    "users",
-    auth.currentUser.uid
-  );
+    if (snap.exists()) {
 
-  const snap = await getDoc(ref);
+      DB = snap.data();
 
-  if(snap.exists()){
+      console.log(
+        "Data loaded"
+      );
 
-    DB = snap.data();
+    } else {
 
-  }else{
+      console.log(
+        "Creating new cloud save"
+      );
 
-    await saveData();
+      await saveData();
+    }
+
+  } catch (err) {
+
+    console.error(
+      "Load error:",
+      err
+    );
   }
 }
 
@@ -494,7 +583,16 @@ document
 .getElementById("logoutBtn")
 .onclick = async () => {
 
-  await signOut(auth);
+  try {
+
+    await signOut(auth);
+
+    console.log("Logged out");
+
+  } catch (err) {
+
+    console.error(err);
+  }
 };
 
 /* =========================
@@ -505,11 +603,12 @@ document
 .getElementById("saveGamesBtn")
 .onclick = async () => {
 
-  DB.games =
-  Number(
+  DB.games = Number(
+
     document
     .getElementById("gameCount")
     .value
+
   ) || 0;
 
   await saveData();
@@ -535,7 +634,8 @@ document
   .getElementById("noteContent")
   .value;
 
-  if(!title || !content) return;
+  if (!title || !content)
+  return;
 
   DB.notes.unshift({
     title,
@@ -565,7 +665,8 @@ document
   .getElementById("brokenContent")
   .value;
 
-  if(!title || !content) return;
+  if (!title || !content)
+  return;
 
   DB.broken.unshift({
     title,
@@ -595,7 +696,8 @@ document
   .getElementById("ideaContent")
   .value;
 
-  if(!title || !content) return;
+  if (!title || !content)
+  return;
 
   DB.ideas.unshift({
     title,
@@ -608,10 +710,10 @@ document
 };
 
 /* =========================
-   RENDER
+   RENDER STATS
 ========================= */
 
-function renderStats(){
+function renderStats() {
 
   document
   .getElementById("gamesStat")
@@ -619,21 +721,29 @@ function renderStats(){
 
   document
   .getElementById("notesStat")
-  .textContent = DB.notes.length;
+  .textContent =
+  DB.notes.length;
 
   document
   .getElementById("brokenStat")
-  .textContent = DB.broken.length;
+  .textContent =
+  DB.broken.length;
 
   document
   .getElementById("ideasStat")
-  .textContent = DB.ideas.length;
+  .textContent =
+  DB.ideas.length;
 }
 
-function renderNotes(){
+/* =========================
+   RENDER NOTES
+========================= */
+
+function renderNotes() {
 
   const container =
-  document.getElementById(
+  document
+  .getElementById(
     "notesContainer"
   );
 
@@ -642,18 +752,27 @@ function renderNotes(){
   DB.notes.forEach(note => {
 
     container.innerHTML += `
+
       <div class="note">
+
         <h3>${note.title}</h3>
+
         <p>${note.content}</p>
+
       </div>
     `;
   });
 }
 
-function renderBroken(){
+/* =========================
+   RENDER BROKEN
+========================= */
+
+function renderBroken() {
 
   const container =
-  document.getElementById(
+  document
+  .getElementById(
     "brokenContainer"
   );
 
@@ -662,18 +781,27 @@ function renderBroken(){
   DB.broken.forEach(item => {
 
     container.innerHTML += `
+
       <div class="note">
+
         <h3>${item.title}</h3>
+
         <p>${item.content}</p>
+
       </div>
     `;
   });
 }
 
-function renderIdeas(){
+/* =========================
+   RENDER IDEAS
+========================= */
+
+function renderIdeas() {
 
   const container =
-  document.getElementById(
+  document
+  .getElementById(
     "ideasContainer"
   );
 
@@ -682,15 +810,23 @@ function renderIdeas(){
   DB.ideas.forEach(item => {
 
     container.innerHTML += `
+
       <div class="note">
+
         <h3>${item.title}</h3>
+
         <p>${item.content}</p>
+
       </div>
     `;
   });
 }
 
-function renderAll(){
+/* =========================
+   RENDER ALL
+========================= */
+
+function renderAll() {
 
   renderStats();
 
