@@ -642,6 +642,16 @@ document
     content
   });
 
+  /* CLEAR INPUTS */
+
+  document
+  .getElementById("noteTitle")
+  .value = "";
+
+  document
+  .getElementById("noteContent")
+  .value = "";
+
   await saveData();
 
   renderAll();
@@ -672,6 +682,16 @@ document
     title,
     content
   });
+
+  /* CLEAR INPUTS */
+
+  document
+  .getElementById("brokenTitle")
+  .value = "";
+
+  document
+  .getElementById("brokenContent")
+  .value = "";
 
   await saveData();
 
@@ -704,10 +724,40 @@ document
     content
   });
 
+  /* CLEAR INPUTS */
+
+  document
+  .getElementById("ideaTitle")
+  .value = "";
+
+  document
+  .getElementById("ideaContent")
+  .value = "";
+
   await saveData();
 
   renderAll();
 };
+
+/* =========================
+   RENDER STATS
+========================= */
+
+/* =========================
+   ESCAPE HTML
+========================= */
+
+function escapeHTML(str) {
+
+  if (!str) return "";
+
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
 
 /* =========================
    RENDER STATS
@@ -721,18 +771,15 @@ function renderStats() {
 
   document
   .getElementById("notesStat")
-  .textContent =
-  DB.notes.length;
+  .textContent = DB.notes.length;
 
   document
   .getElementById("brokenStat")
-  .textContent =
-  DB.broken.length;
+  .textContent = DB.broken.length;
 
   document
   .getElementById("ideasStat")
-  .textContent =
-  DB.ideas.length;
+  .textContent = DB.ideas.length;
 }
 
 /* =========================
@@ -742,22 +789,49 @@ function renderStats() {
 function renderNotes() {
 
   const container =
-  document
-  .getElementById(
+  document.getElementById(
     "notesContainer"
   );
 
   container.innerHTML = "";
 
-  DB.notes.forEach(note => {
+  DB.notes.forEach((note, index) => {
 
     container.innerHTML += `
 
       <div class="note">
 
-        <h3>${note.title}</h3>
+        <div style="
+          display:flex;
+          justify-content:space-between;
+          align-items:center;
+          gap:10px;
+          margin-bottom:10px;
+        ">
 
-        <p>${note.content}</p>
+          <h3>
+            ${escapeHTML(note.title)}
+          </h3>
+
+          <button
+            onclick="deleteNote(${index})"
+            style="
+              background:#ef4444;
+              color:white;
+              border:none;
+              padding:6px 10px;
+              border-radius:8px;
+              cursor:pointer;
+            "
+          >
+            Delete
+          </button>
+
+        </div>
+
+        <p>
+          ${escapeHTML(note.content)}
+        </p>
 
       </div>
     `;
@@ -771,22 +845,49 @@ function renderNotes() {
 function renderBroken() {
 
   const container =
-  document
-  .getElementById(
+  document.getElementById(
     "brokenContainer"
   );
 
   container.innerHTML = "";
 
-  DB.broken.forEach(item => {
+  DB.broken.forEach((item, index) => {
 
     container.innerHTML += `
 
       <div class="note">
 
-        <h3>${item.title}</h3>
+        <div style="
+          display:flex;
+          justify-content:space-between;
+          align-items:center;
+          gap:10px;
+          margin-bottom:10px;
+        ">
 
-        <p>${item.content}</p>
+          <h3>
+            ${escapeHTML(item.title)}
+          </h3>
+
+          <button
+            onclick="deleteBroken(${index})"
+            style="
+              background:#ef4444;
+              color:white;
+              border:none;
+              padding:6px 10px;
+              border-radius:8px;
+              cursor:pointer;
+            "
+          >
+            Delete
+          </button>
+
+        </div>
+
+        <p>
+          ${escapeHTML(item.content)}
+        </p>
 
       </div>
     `;
@@ -800,22 +901,49 @@ function renderBroken() {
 function renderIdeas() {
 
   const container =
-  document
-  .getElementById(
+  document.getElementById(
     "ideasContainer"
   );
 
   container.innerHTML = "";
 
-  DB.ideas.forEach(item => {
+  DB.ideas.forEach((item, index) => {
 
     container.innerHTML += `
 
       <div class="note">
 
-        <h3>${item.title}</h3>
+        <div style="
+          display:flex;
+          justify-content:space-between;
+          align-items:center;
+          gap:10px;
+          margin-bottom:10px;
+        ">
 
-        <p>${item.content}</p>
+          <h3>
+            ${escapeHTML(item.title)}
+          </h3>
+
+          <button
+            onclick="deleteIdea(${index})"
+            style="
+              background:#ef4444;
+              color:white;
+              border:none;
+              padding:6px 10px;
+              border-radius:8px;
+              cursor:pointer;
+            "
+          >
+            Delete
+          </button>
+
+        </div>
+
+        <p>
+          ${escapeHTML(item.content)}
+        </p>
 
       </div>
     `;
@@ -836,6 +964,45 @@ function renderAll() {
 
   renderIdeas();
 }
+
+/* =========================
+   DELETE NOTE
+========================= */
+
+window.deleteNote = async (index) => {
+
+  DB.notes.splice(index, 1);
+
+  await saveData();
+
+  renderAll();
+};
+
+/* =========================
+   DELETE BROKEN
+========================= */
+
+window.deleteBroken = async (index) => {
+
+  DB.broken.splice(index, 1);
+
+  await saveData();
+
+  renderAll();
+};
+
+/* =========================
+   DELETE IDEA
+========================= */
+
+window.deleteIdea = async (index) => {
+
+  DB.ideas.splice(index, 1);
+
+  await saveData();
+
+  renderAll();
+};
 
 </script>
 
