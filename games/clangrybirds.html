@@ -1,33 +1,64 @@
-
-
-<!-- Ultimate Game Stash file--> 
-<!-- For the regularly updating doc go to https://docs.google.com/document/d/1_FmH3BlSBQI7FGgAQL59-ZPe8eCxs35wel6JUyVaG8Q/ -->
-
-
-</style><style type="text/css">#button {
-  display:none;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diamond Clicker | Pixel Portal</title>
+<link rel="stylesheet" href="../../css/style.css">
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0b0b14;
+  color: white;
+  text-align: center;
 }
-.imgb_vis {
-  animation: imgb-animation 7s linear;
-}
-@keyframes imgb-animation {
-  10% {
-    transform: translateX(0);
-  }
-  20% {
-    transform: translateX(100px);
-  }
-  90% {
-    transform: translateX(100px);
-  }
-  100% {
-    transform: translateX(0);
-  }
-}</style></head><body dir="ltr"><script src="https://cdn.jsdelivr.net/gh/lee2sman/everyday@d45d601d2c4d60adf809a0b677c00b7d12aba7e9/96/TemplateData/UnityProgress.js"></script><script src="https://cdn.jsdelivr.net/gh/gertdoro/UnityExplorer@cffa09e09790018403c996d37adb6c4450e8f6c6/Runtime/birds/birds.js"></script><script>
-      var gameInstance = UnityLoader.instantiate("gameContainer", "https://cdn.jsdelivr.net/gh/gertdoro/UnityExplorer@cffa09e09790018403c996d37adb6c4450e8f6c6/Runtime/birds/birds.json", {onProgress: UnityProgress,Module:{onRuntimeInitialized: function() {UnityProgress(gameInstance, "complete")}}});
-    </script><script src=""></script><div class="webgl-content">
-        <div id="gameContainer" style="width: 100vw; height: 100vh; padding: 0px; margin: 0px; border: 0px; position: relative; background: rgb(35, 31, 32);"><canvas id="#canvas" style="cursor: default;" width="960" height="600"></canvas><div class="logo Dark" style="display: none;"></div><div class="progress Dark" style="display: none;"><div class="empty" style="width: 0%;"></div><div class="full" style="width: 100%;"></div></div></div>
-        </div>
 
-<script>gadgets.util.runOnLoadHandlers();</script><script>window.google.csi.tickDl();
-</script>
+.logo {
+  padding: 20px;
+  font-size: 32px;
+  color: #4fd1ff;
+}
+
+/* Container for iframe to keep centered and responsive */
+.embed-box {
+  width: 100vw;
+  height: 100vh;       
+  max-width: 98%;     /* responsive fallback */
+  margin: 0 auto;
+}
+
+.embed-box iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+/* Fullscreen fills entire screen */
+.embed-box:fullscreen {
+  padding-top: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+canvas, iframe, #game {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+</style>
+</head>
+<body>
+<div class="embed-box">
+<iframe src="https://www.hypackel.com/files/AngryBirds/game/index.html" allowfullscreen scrolling="no"></iframe>
+</div>
+
+</body>
+</html>
