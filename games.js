@@ -452,6 +452,411 @@ const games = [
     categories: ["FNAF", "Horror"],
     added: "2026-05-23",
     new: true
+  },
+{
+    "name": "Papa's Scooperia",
+    "id": "clpapasscooperia",
+    "thumbnail": "papasscooperia.png",
+    "description": "Scoop ice cream and bake cookies in Papa's Scooperia!",
+    "categories": ["Papa's", "Cooking", "Strategy"],
+    "added": "2026-05-24",
+    "new": true
+  },
+  {
+    "name": "Papa's Hot Doggeria",
+    "id": "clpapashotdoggeria",
+    "thumbnail": "papashotdoggeria.png",
+    "description": "Serve up hot dogs and stadium snacks at the ballpark!",
+    "categories": ["Papa's", "Cooking", "Strategy"],
+    "added": "2026-05-24",
+    "new": true
+  },
+  {
+    "name": "Papa's Freezeria",
+    "id": "clpapasfreezeria",
+    "thumbnail": "papasfreezeria.png",
+    "description": "Mix and serve delicious freezer treats on Calypso Island!",
+    "categories": ["Papa's", "Cooking", "Strategy"],
+    "added": "2026-05-24",
+    "new": true
+  },
+  {
+    "name": "Papa's Cupcakeria",
+    "id": "clpapascupcakeria",
+    "thumbnail": "papascupcakeria.png",
+    "description": "Bake and decorate perfect cupcakes for hungry customers!",
+    "categories": ["Papa's", "Cooking", "Strategy"],
+    "added": "2026-05-24",
+    "new": true
+  },
+  {
+    "name": "Papa's Burgeria",
+    "id": "clpapasburger",
+    "thumbnail": "papasburgeria.png",
+    "description": "Flip patties and build custom burgers in the original burger joint!",
+    "categories": ["Papa's", "Cooking", "Strategy"],
+    "added": "2026-05-24",
+    "new": true
+  },
+  {
+    "name": "Papa's Donuteria",
+    "id": "clpapadonut",
+    "thumbnail": "papasdonuteria.png",
+    "description": "Fry and frost a dizzying variety of donuts for crazy customers!",
+    "categories": ["Papa's", "Cooking", "Strategy"],
+    "added": "2026-05-24",
+    "new": true
+  },
+  {
+    "name": "Papa's Bakeria",
+    "id": "clpapabakeria",
+    "thumbnail": "papasbakeria.png",
+    "description": "Bake mouth-watering pies in the Whiskview Mall!",
+    "categories": ["Papa's", "Cooking", "Strategy"],
+    "added": "2026-05-24",
+    "new": true
+  },
+  {
+    "name": "Dandy's World Clicker",
+    "id": "cldandysworldclicker",
+    "thumbnail": "dandysworldclicker.png",
+    "description": "Click your way to victory in this Dandy's World inspired clicker game!",
+    "categories": ["Clicker", "Casual"],
+    "added": "2026-05-24",
+    "new": true
+  },
+  {
+    "name": "Clash of Vikings",
+    "id": "clclashofvikings",
+    "thumbnail": "clashofvikings.png",
+    "description": "Deploy your troops and destroy the enemy towers in this battle strategy game.",
+    "categories": ["Strategy", "Action"],
+    "added": "2026-05-24",
+    "new": true
+  },
+  {
+    "name": "Steal a Brainrot",
+    "id": "clbrainrot",
+    "thumbnail": "brainrot.png",
+    "description": "Navigate through internet meme chaos in this bizarre and comedic adventure!",
+    "categories": ["Funny", "Meme", "Adventure"],
+    "added": "2026-05-24",
+    "new": true
+  },
+  {
+    "name": "Age of War",
+    "id": "clageofwar",
+    "thumbnail": "ageofwar.png",
+    "description": "Defend your base and evolve your army through the ages from cavemen to future tech!",
+    "categories": ["Strategy", "Defense"],
+    "added": "2026-05-24",
+    "new": true
+  },
+  {
+    "name": "Choppy Orc",
+    "id": "choppy-orc",
+    "thumbnail": "choppy-orc.png",
+    "description": "Use your magical axe to jump, solve puzzles, and rescue your friends!",
+    "categories": ["Platformer", "Puzzle"],
+    "added": "2026-05-24",
+    "new": true
+  },
+  {
+    "name": "Minecraft Case Simulator",
+    "id": "casesim",
+    "thumbnail": "casesim.png",
+    "description": "Test your luck opening virtual cases to see if you can pull rare items!",
+    "categories": ["Simulator", "Casual"],
+    "added": "2026-05-24",
+    "new": true
+  },
+  {
+    "name": "Blackjack",
+    "id": "blackjack",
+    "thumbnail": "blackjack.png",
+    "description": "Try your hand at the classic card game and try to hit 21 without going bust.",
+    "categories": ["Cards", "Casino"],
+    "added": "2026-05-24",
+    "new": true
+  },
+  {
+    "name": "8 Ball Pool",
+    "id": "8-ball",
+    "thumbnail": "8-ball.png",
+    "description": "Chalk up your cue and sink all your solid or striped balls to win!",
+    "categories": ["Sports", "Casual"],
+    "added": "2026-05-24",
+    "new": true
+  },
+  {
+    "name": "Jetpack Joyride",
+    "id": "jetpack",
+    "thumbnail": "jetpack.png",
+    "description": "Suit up with a selection of cool jetpacks and test your reflexes in an endless lab run!",
+    "categories": ["Endless", "Arcade"],
+    "added": "2026-05-24",
+    "new": true
+  },
+  {
+    "name": "Hollow Knight",
+    "id": "hollowknight",
+    "thumbnail": "hollowknight.png",
+    "description": "Explore a vast, ruined kingdom of insects and heroes in this miniature adventure.",
+    "categories": ["Action", "Platformer"],
+    "added": "2026-05-24",
+    "new": true
+  },
+  {
+    "name": "Getting Over It",
+    "id": "gettingoverit",
+    "thumbnail": "gettingoverit.png",
+    "description": "Climb a massive mountain with nothing but a hammer and a pot in this punishing physics game.",
+    "categories": ["Physics", "Rage"],
+    "added": "2026-05-24",
+    "new": true
+  },
+  {
+    "name": "Doodle Jump",
+    "id": "doodlejump",
+    "thumbnail": "doodlejump.png",
+    "description": "Bounce your way up to the stars while dodging monsters and black holes!",
+    "categories": ["Arcade", "Endless"],
+    "added": "2026-05-24",
+    "new": true
+  },
+  {
+    "name": "Doge Miner",
+    "id": "dogeminer",
+    "thumbnail": "dogeminer.png",
+    "description": "Mine vast amounts of Dogecoin and fund your trip to the moon!",
+    "categories": ["Clicker", "Idle"],
+    "added": "2026-05-24",
+    "new": true
+  },
+  {
+    "name": "Cut the Rope",
+    "id": "cuttherope",
+    "thumbnail": "cuttherope.png",
+    "description": "Cut ropes, pop bubbles, and collect stars to feed candy to Om Nom!",
+    "categories": ["Puzzle", "Physics"],
+    "added": "2026-05-24",
+    "new": true
+  },
+  {
+    "name": "Uno",
+    "id": "cluno",
+    "thumbnail": "uno.png",
+    "description": "Match colors and numbers to empty your hand before anyone else!",
+    "categories": ["Cards", "Casual"],
+    "added": "2026-05-24",
+    "new": true
+  },
+  {
+    "name": "Undertale Last Breath",
+    "id": "clundertalelb",
+    "thumbnail": "undertalelb.png",
+    "description": "Test your dodging skills against legendary Undertale boss mechanics!",
+    "categories": ["Action", "Arcade"],
+    "added": "2026-05-24",
+    "new": true
+  },
+  {
+    "name": "Trivia Crack",
+    "id": "cltriviacrack",
+    "thumbnail": "triviacrack.png",
+    "description": "Put your knowledge to the test across six different trivia categories!",
+    "categories": ["Trivia", "Puzzle"],
+    "added": "2026-05-24",
+    "new": true
+  },
+  {
+    "name": "Papa's Taco Mia!",
+    "id": "clpapastacomia",
+    "thumbnail": "papastacomia.png",
+    "description": "Take orders, grill meats, and build custom tacos to please your customers!",
+    "categories": ["Papa's", "Cooking", "Strategy"],
+    "added": "2026-05-24",
+    "new": true
+  },
+  {
+    "name": "StrikeForce Kitty",
+    "id": "clsfk",
+    "thumbnail": "clsfk.png",
+    "description": "Lead a squad of adorable kittens to rescue the princess from the evil foxes!",
+    "categories": ["Strategy", "RPG", "Action"],
+    "added": "2026-05-24",
+    "new": true
+  },
+  {
+    "name": "Retro Bowl",
+    "id": "clretrobowl",
+    "thumbnail": "retrobowl.png",
+    "description": "Manage your roster and call the plays on offense in this retro-styled football game.",
+    "categories": ["Sports", "Strategy"],
+    "added": "2026-05-24",
+    "new": true
+  },
+  {
+    "name": "Papa's Pizzeria",
+    "id": "clpizzapapa",
+    "thumbnail": "pizzapapa.png",
+    "description": "Topping, baking, and cutting pizzas for a fast-paced kitchen rush!",
+    "categories": ["Papa's", "Cooking", "Strategy"],
+    "added": "2026-05-24",
+    "new": true
+  },
+  {
+    "name": "Papa's Wingeria",
+    "id": "clpapaswingeria",
+    "thumbnail": "papaswingeria.png",
+    "description": "Toss chicken wings in signature sauces and arrange them perfectly!",
+    "categories": ["Papa's", "Cooking", "Strategy"],
+    "added": "2026-05-24",
+    "new": true
+  },
+  {
+    "name": "WorldGuessr",
+    "id": "worldguessr",
+    "thumbnail": "worldguessr.png",
+    "description": "Look around and use geographic clues to guess where you are in the world!",
+    "categories": ["Geography", "Puzzle"],
+    "added": "2026-05-24",
+    "new": true
+  },
+  {
+    "name": "Temple Run 2",
+    "id": "templerun2",
+    "thumbnail": "templerun2.png",
+    "description": "Navigate perilous cliffs, zip lines, mines and forests as you escape with the cursed idol!",
+    "categories": ["Endless", "Action"],
+    "added": "2026-05-24",
+    "new": true
+  },
+  {
+    "name": "Henry Stickmin 3: Stealing the Diamond",
+    "id": "stickmin3",
+    "thumbnail": "stickmin3.png",
+    "description": "Choose your choices carefully to pull off the ultimate diamond heist!",
+    "categories": ["Adventure", "Funny"],
+    "added": "2026-05-24",
+    "new": true
+  },
+  {
+    "name": "Henry Stickmin 2: Escaping the Prison",
+    "id": "stickmin2",
+    "thumbnail": "stickmin2.png",
+    "description": "Use unique tools and questionable logic to break out of your jail cell!",
+    "categories": ["Adventure", "Funny"],
+    "added": "2026-05-24",
+    "new": true
+  },
+  {
+    "name": "Henry Stickmin 1: Breaking the Bank",
+    "id": "stickmin",
+    "thumbnail": "stickmin.png",
+    "description": "The classic game where it all started. Find a way into the vault!",
+    "categories": ["Adventure", "Funny"],
+    "added": "2026-05-24",
+    "new": true
+  },
+  {
+    "name": "Solitaire",
+    "id": "solitaire",
+    "thumbnail": "solitaire.png",
+    "description": "Arrange cards in descending order and alternating colors to clear the board.",
+    "categories": ["Cards", "Casual"],
+    "added": "2026-05-24",
+    "new": true
+  },
+  {
+    "name": "Slope 3",
+    "id": "slope3",
+    "thumbnail": "slope3.png",
+    "description": "Keep your ball on the platform while flying down an unpredictable, neon slope!",
+    "categories": ["Arcade", "Skill"],
+    "added": "2026-05-24",
+    "new": true
+  },
+  {
+    "name": "Slope 2",
+    "id": "slope2",
+    "thumbnail": "slope2.png",
+    "description": "The fast-paced sequel with new obstacles and tighter steering control.",
+    "categories": ["Arcade", "Skill"],
+    "added": "2026-05-24",
+    "new": true
+  },
+  {
+    "name": "Slope",
+    "id": "slope",
+    "thumbnail": "slope.png",
+    "description": "Drive down the endless neon grid map, dodging red blocks to secure a high score.",
+    "categories": ["Arcade", "Skill"],
+    "added": "2026-05-24",
+    "new": true
+  },
+  {
+    "name": "Rocket League",
+    "id": "rocketleague",
+    "thumbnail": "rocketleague.png",
+    "description": "Use booster cars to hit a giant soccer ball into the opponent's net!",
+    "categories": ["Sports", "Action"],
+    "added": "2026-05-24",
+    "new": true
+  },
+  {
+    "name": "Texas Hold'em Poker",
+    "id": "poker",
+    "thumbnail": "poker.png",
+    "description": "Bluff, bet, and raise your way to taking down the whole table.",
+    "categories": ["Cards", "Casino"],
+    "added": "2026-05-24",
+    "new": true
+  },
+  {
+    "name": "Paper Minecraft",
+    "id": "papermc",
+    "thumbnail": "papermc.png",
+    "description": "A 2D side-scrolling adaptation of the beloved crafting and survival game.",
+    "categories": ["Survival", "Crafting"],
+    "added": "2026-05-24",
+    "new": true
+  },
+  {
+    "name": "Paper.io",
+    "id": "paperio",
+    "thumbnail": "paperio.png",
+    "description": "Capture as much territory as you can while avoiding getting your tail cut by rivals!",
+    "categories": ["IO", "Multiplayer"],
+    "added": "2026-05-24",
+    "new": true
+  },
+  {
+    "name": "Papa's Cheeseria",
+    "id": "papascheeseria",
+    "thumbnail": "papascheeseria.png",
+    "description": "Craft high-stack grilled cheese sandwiches and fries for hungry customers!",
+    "categories": ["Papa's", "Cooking", "Strategy"],
+    "added": "2026-05-24",
+    "new": true
+  },
+  {
+    "name": "Pac-Man",
+    "id": "pacman",
+    "thumbnail": "pacman.png",
+    "description": "Navigate the maze to eat all the dots while evading Blinky, Pinky, Inky, and Clyde!",
+    "categories": ["Arcade", "Retro"],
+    "added": "2026-05-24",
+    "new": true
+  },
+  {
+    "name": "Minesweeper",
+    "id": "minesweeper",
+    "thumbnail": "minesweeper.png",
+    "description": "Use numerical hints to clear the grid without triggering any hidden mines.",
+    "categories": ["Puzzle", "Logic"],
+    "added": "2026-05-24",
+    "new": true
   }
 ];
 
