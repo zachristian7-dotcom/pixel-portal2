@@ -1,148 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diamond Clicker | Pixel Portal</title>
+<link rel="stylesheet" href="../../css/style.css">
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0b0b14;
+  color: white;
+  text-align: center;
+}
 
-  <meta name="theme-color" content="#000000" />
+.logo {
+  padding: 20px;
+  font-size: 32px;
+  color: #4fd1ff;
+}
 
-  <link rel="manifest" href="./manifest.json" />
+/* Container for iframe to keep centered and responsive */
+.embed-box {
+  width: 100vw;
+  height: 100vh;       
+  max-width: 98%;     /* responsive fallback */
+  margin: 0 auto;
+}
 
-  <script src=js/poki-sdk.js></script>
+.embed-box iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
 
-  <meta name="mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="application-name" content="Fruit Ninja" />
-  <meta name="apple-mobile-web-app-title" content="Fruit Ninja" />
-  <meta name="msapplication-starturl" content="./" />
-  <!-- <script type="text/javascript" src="https://storms.com/lib/h5Sdk/v1/h5Sdk.js"></script> -->
+/* Fullscreen fills entire screen */
+.embed-box:fullscreen {
+  padding-top: 0;
+  width: 100vw;
+  height: 100vh;
+}
 
-  <title>Fruit Ninja</title>
-  <style>
-    @font-face {
-      font-family: gangofchinese;
-      src: url('assets/font/gangofchinese.ttf');
-    }
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+}
 
-    html,
-    body {
-      height: 100%;
-      width: 100% !important;
-      margin: 0;
-      background-color: #000000 !important;
-    }
-
-    .fontLoader {
-      position: absolute;
-      left: -1000px;
-      visibility: hidden;
-    }
-
-    #phaser-canvas {
-      margin: 0 auto;
-      background-color: #000000;
-    }
-
-    body,
-    #content {
-      height: 100vh !important;
-      max-height: 100vh !important;
-    }
-
-    #divAds,
-    #tempads {
-      display: none;
-    }
-
-    /* canvas{
-          width: 100%;
-          height: 100%;
-          display: grid !important;
-          grid-area: 1/1;
-          margin-top: 0 !important;
-          margin-bottom: 0 !important;
-          padding: 0 !important;
-          max-width: 100% !important;
-          max-height: 100vh !important;
-      } */
-
-    #enable3d-three-canvas,
-    #enable3d-phaser-canvas {
-      min-width: 100%;
-      max-width: 100%;
-      max-width: -webkit-fill-available;
-      max-width: -moz-available;
-      max-width: -webkit-fill-available;
-      max-width: fill-available;
-      margin: 0 auto;
-    }
-
-    /* @media screen and (max-width: 768px) {
-        #enable3d-three-canvas, #enable3d-phaser-canvas {
-          min-width: auto !important;
-          max-width: auto;
-          width: 960px;
-          height: auto;
-          margin: 0 auto;
-        }
-      } */
-
-    @media (min-aspect-ratio: 1.85) {
-
-      #enable3d-three-canvas,
-      #enable3d-phaser-canvas {
-        width: 960px;
-        min-width: 640px;
-      }
-    }
-
-    @media (min-aspect-ratio: 8/4) {
-
-      #enable3d-three-canvas,
-      #enable3d-phaser-canvas {
-        min-width: 640px;
-        /* background-color: aquamarine; */
-      }
-    }
-  </style>
-
-  <noscript>Please enable javascript to continue using this application.</noscript>
-
-  <!-- <script async
-        data-ad-client="ca-pub-6934234812187351"
-        data-ad-frequency-hint= "30s"
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js">
-    </script>
-    <script>window.adsbygoogle = window.adsbygoogle || [];
-        const adBreak =  adConfig = function(o) {adsbygoogle.push(o);}
-    </script> -->
-  <!-- installs the serviceWorker -->
-  <!-- <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('./sw.js')
-        })
-      }
-    </script> -->
+canvas, iframe, #game {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+</style>
 </head>
-
 <body>
-  <div class="fontLoader" style="font-family: gangofchinese;">-</div>
-  <div class="fontLoader" style="font-family: gangofchinese;">-</div>
-  <div id="content">
-    <div id="phaser-canvas"></div>
-  </div>
-  <!-- <div id="phaser-game"></div> -->
-  <style id="injectStyles">
-    html,
-    body {
-      background: none !important;
-    }
-  </style>
-  <script type="text/javascript" src="js/vendors.bundle.js"></script>
-  <script type="text/javascript" src="js/main.bundle.js"></script>
-</body>
+<div class="embed-box">
+<iframe src="https://www.hypackel.com/files/fruitninja/game/index.html" allowfullscreen scrolling="no"></iframe>
+</div>
 
+</body>
 </html>
