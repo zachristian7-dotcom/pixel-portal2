@@ -900,4 +900,222 @@ const collections = [
       "Undertale Last Breath"
     ].includes(g.name)
   },
+  {
+  name: "Papa's Collection",
+  desc: "Serve customers in the complete Papa's restaurant series",
+  thumbnails: "pizzapapa.png",
+  filter: g => [
+    "Papa's Scooperia",
+    "Papa's Hot Doggeria",
+    "Papa's Freezeria",
+    "Papa's Cupcakeria",
+    "Papa's Burgeria",
+    "Papa's Donuteria",
+    "Papa's Bakeria",
+    "Papa's Taco Mia!",
+    "Papa's Pizzeria",
+    "Papa's Wingeria",
+    "Papa's Cheeseria"
+  ].includes(g.name)
+},
+
+{
+  name: "Duck Life Collection",
+  desc: "Train, race, and evolve your champion ducks",
+  thumbnails: "duck-life.png",
+  filter: g => [
+    "Duck Life",
+    "Duck Life 2",
+    "Duck Life 3: Evolution",
+    "Duck Life 4",
+    "Duck Life 5: Treasure Hunt"
+  ].includes(g.name)
+},
+
+{
+  name: "Minecraft Collection",
+  desc: "Minecraft-inspired adventures, parkour, and sandbox games",
+  thumbnails: "eaglercraft.png",
+  filter: g => [
+    "Minecraft Parkour 1",
+    "Minecraft Parkour 2",
+    "Minecraft Parkour GOD MODE",
+    "Minecraft Tower Defense",
+    "Paper Minecraft",
+    "Eaglercraft 1.12",
+    "Block Craft Parkour",
+    "Diamond Clicker",
+    "Minecraft Case Simulator"
+  ].includes(g.name)
+},
+
+{
+  name: "Henry Stickmin Collection",
+  desc: "Classic Henry Stickmin adventures and escape missions",
+  thumbnails: "stickmin.png",
+  filter: g => [
+    "Henry Stickmin 1: Breaking the Bank",
+    "Henry Stickmin 2: Escaping the Prison",
+    "Henry Stickmin 3: Stealing the Diamond"
+  ].includes(g.name)
+},
+
+{
+  name: "Slope Collection",
+  desc: "Fast-paced neon rolling games that test your reflexes",
+  thumbnails: "slope.png",
+  filter: g => [
+    "Slope",
+    "Slope 2",
+    "Slope 3"
+  ].includes(g.name)
+},
+
+{
+  name: "Arcade Collection",
+  desc: "Quick, addictive arcade games packed with action",
+  thumbnails: "pacman.png",
+  filter: g => [
+    "Pac-Man",
+    "Fruit Ninja",
+    "Geometry Dash Lite",
+    "Tomb of the Mask",
+    "Crossy Road",
+    "Doodle Jump",
+    "Jetpack Joyride",
+    "Hole.io",
+    "Drift Boss",
+    "Google Snake Game",
+    "Google Dinosaur Game",
+    "Temple Run 2",
+    "Sushi Slicer",
+    "Magic Tiles 3",
+    "Learn to Fly",
+    "Curveball",
+    "Candy Timbermen",
+    "Google Baseball",
+    "Burrito Bison"
+  ].includes(g.name)
+},
+
+{
+  name: "Puzzle Collection",
+  desc: "Solve puzzles, riddles, and brain-teasing challenges",
+  thumbnails: "2048.png",
+  filter: g => [
+    "Wordle",
+    "2048",
+    "2048 Cupcakes",
+    "Minesweeper",
+    "Cut the Rope",
+    "Maze",
+    "Angry Birds",
+    "Trivia Crack",
+    "There is No Game",
+    "WorldGuessr",
+    "Jellydad Hero",
+    "Chess"
+  ].includes(g.name)
+},
+
+{
+  name: "FNAF Collection",
+  desc: "Survive creepy nights and animatronic horror challenges",
+  thumbnails: "fnaf.png",
+  filter: g => [
+    "FNAF",
+    "One Night as Freddy"
+  ].includes(g.name)
+},
+
+{
+  name: "Idle & Clicker Collection",
+  desc: "Relaxing incremental games built around upgrades and progression",
+  thumbnails: "cookieclicker.png",
+  filter: g => [
+    "Cookie Clicker",
+    "Doge Miner",
+    "Capybara Clicker",
+    "Diamond Clicker",
+    "Spacebar Clicker",
+    "Girly Pop Bow Clicker!",
+    "Dandy's World Clicker",
+    "Idle Miner Tycoon",
+    "Idle Idle GameDev"
+  ].includes(g.name)
+},
+
+{
+  name: "Flash Classics",
+  desc: "Legendary browser and Flash-era games from the golden age",
+  thumbnails: "ageofwar.png",
+  filter: g => [
+    "Age of War",
+    "Learn to Fly",
+    "Jacksmith",
+    "Duck Life",
+    "Duck Life 2",
+    "Duck Life 3: Evolution",
+    "Duck Life 4",
+    "Duck Life 5: Treasure Hunt",
+    "Henry Stickmin 1: Breaking the Bank",
+    "Henry Stickmin 2: Escaping the Prison",
+    "Henry Stickmin 3: Stealing the Diamond",
+    "Papa's Pizzeria",
+    "Papa's Burgeria",
+    "Papa's Freezeria",
+    "Papa's Taco Mia!",
+    "Papa's Cheeseria",
+    "Papa's Wingeria",
+    "Papa's Bakeria",
+    "Papa's Scooperia",
+    "Papa's Donuteria",
+    "Papa's Cupcakeria",
+    "Papa's Hot Doggeria",
+    "Burrito Bison",
+    "StrikeForce Kitty"
+  ].includes(g.name)
+},
+
+{
+  name: "Mobile Classics",
+  desc: "Iconic mobile games that defined phones and tablets",
+  thumbnails: "fruitninja.png",
+  filter: g => [
+    "Fruit Ninja",
+    "Temple Run 2",
+    "Angry Birds",
+    "Jetpack Joyride",
+    "Crossy Road",
+    "Doodle Jump",
+    "Cut the Rope",
+    "Drift Boss",
+    "Geometry Dash Lite",
+    "Magic Tiles 3",
+    "Hole.io"
+  ].includes(g.name)
+},
+
+{
+  name: "Big Z's Favorites",
+  desc: "Handpicked favorites from Big Z himself",
+  thumbnails: "undertale.png",
+  filter: g => [
+    "Undertale",
+    "Deltarune",
+    "Pizza Tower",
+    "Hollow Knight",
+    "Minecraft Parkour GOD MODE",
+    "Duck Life",
+    "Geometry Dash Lite",
+    "Fruit Ninja",
+    "Retro Bowl",
+    "Henry Stickmin 3: Stealing the Diamond",
+    "Cookie Clicker",
+    "Slope",
+    "Pac-Man",
+    "Crossy Road",
+    "Jetpack Joyride"
+  ].includes(g.name)
+},
 ];
