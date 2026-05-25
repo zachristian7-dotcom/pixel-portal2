@@ -864,7 +864,7 @@ const games = [
     "thumbnail": "fruitninja.png",
     "description": "Use your mouse to slice different fruits (but make sure to avoid bombs!)",
     "categories": ["Arcade", "Classics"],
-    "added": "2026-05-24",
+    "added": "2026-05-25",
     "new": true
   }
 ];
