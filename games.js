@@ -857,6 +857,15 @@ const games = [
     "categories": ["Puzzle", "Logic"],
     "added": "2026-05-24",
     "new": true
+  },
+  {
+    "name": "Fruit Ninja",
+    "id": "clfruitninja",
+    "thumbnail": "fruitninja.png",
+    "description": "Use your mouse to slice different fruits (but make sure to avoid bombs!)",
+    "categories": ["Arcade", "Classics"],
+    "added": "2026-05-24",
+    "new": true
   }
 ];
 
@@ -887,7 +896,8 @@ const collections = [
       "Asriel Dreemurr Fight Simulator",
       "Ring Runner",
       "Jevil Fight Simulator",
-      "Asgore Fight Simulator"
+      "Asgore Fight Simulator",
+      "Undertale Last Breath"
     ].includes(g.name)
   },
 ];
