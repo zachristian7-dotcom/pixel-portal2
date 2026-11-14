@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#080b16">
 <meta name="description" content="Pixel Portal — a free collection of browser games. Find something fun and jump straight in.">
-<title>Game Library · Pixel Portal</title>
+<title>Find a game · Pixel Portal</title>
 <script src="tabcloak.js"></script>
 <link rel="icon" href="images/favicon.png" id="base-favicon">
 <link rel="icon" href="" id="dynamic-favicon">
@@ -46,6 +46,15 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 .featured-copy p{font-size:12px;line-height:1.5;color:var(--muted);margin:0 0 15px}
 .featured-art{width:100%;aspect-ratio:1.15;object-fit:cover;border-radius:18px;border:1px solid rgba(255,255,255,.16);box-shadow:0 15px 35px rgba(0,0,0,.35);position:relative;z-index:1}
 .stats{display:flex;gap:10px;flex-wrap:wrap;margin:4px 0 26px}
+.recent-section{margin:22px 0 28px}
+.recent-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.recent-card{display:flex;align-items:center;gap:11px;min-width:0;padding:9px;border:1px solid var(--line);border-radius:14px;background:rgba(255,255,255,.035);cursor:pointer;text-align:left;transition:.2s}
+.recent-card:hover{border-color:rgba(85,220,255,.4);background:rgba(85,220,255,.07)}
+.recent-card img{width:62px;height:48px;object-fit:cover;border-radius:8px;background:#151d32}
+.recent-card strong{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:11px}
+.recent-card span{display:block;color:var(--muted);font-size:10px;margin-top:4px}
+@media(max-width:720px){.recent-row{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:420px){.recent-row{gap:8px}.recent-card{padding:7px}.recent-card img{width:48px;height:42px}}
 .stat{padding:9px 13px;border:1px solid var(--line);border-radius:12px;background:rgba(255,255,255,.035);color:var(--muted);font-size:11px}
 .stat strong{color:var(--text);font-size:13px;margin-right:5px}
 .toolbar{position:sticky;top:10px;z-index:30;display:grid;grid-template-columns:minmax(200px,1fr) 180px auto;gap:10px;padding:12px;border:1px solid var(--line);border-radius:18px;background:rgba(10,15,29,.88);backdrop-filter:blur(18px);box-shadow:0 12px 38px rgba(0,0,0,.24)}
@@ -128,19 +137,19 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 
 <section class="hero">
   <div>
-    <span class="eyebrow"><i class="pulse"></i> YOUR BROWSER ARCADE</span>
-    <h1>Find your next<br><span class="gradient">favorite game.</span></h1>
-    <p>A growing collection of quick-play classics, indie favorites, puzzles, and adventures. No downloads. Pick a game and jump right in.</p>
+    <span class="eyebrow"><i class="pulse"></i> A LITTLE ARCADE ON THE INTERNET</span>
+    <h1>Hey, glad you’re here.<br><span class="gradient">What sounds fun?</span></h1>
+    <p>A cozy corner of the internet for a quick game, an old favorite, or something you have never tried. Have a look around and see what catches your eye.</p>
     <div class="hero-actions">
-      <a class="btn primary" href="#library">Explore the library ↓</a>
-      <button class="btn" id="surpriseBtn" type="button">✦ Surprise me</button>
+      <a class="btn primary" href="#library">Take a look around ↓</a>
+      <button class="btn" id="surpriseBtn" type="button">✦ Pick for me ✦</button>
     </div>
   </div>
   <div class="featured-panel" id="featuredPanel">
     <div class="featured-copy">
-      <small>✦ FEATURED PICK</small>
+      <small>✦ A LITTLE SPOTLIGHT</small>
       <h2 id="featuredName">Loading a game…</h2>
-      <p id="featuredDescription">A hand-picked game from the Pixel Portal library.</p>
+      <p id="featuredDescription">A game we thought you might enjoy. Give it a try!</p>
       <button class="btn primary" id="featuredPlay" type="button">Play now →</button>
     </div>
     <img class="featured-art" id="featuredImage" src="images/favicon.png" alt="Featured game artwork">
@@ -148,42 +157,43 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
 </section>
 
 <div class="stats" aria-label="Library statistics">
-  <div class="stat"><strong id="gameCount">—</strong> games to explore</div>
-  <div class="stat"><strong id="categoryCount">—</strong> categories</div>
-  <div class="stat"><strong id="favoriteCount">0</strong> saved favorites</div>
+  <div class="stat"><strong id="gameCount">—</strong> games to try</div>
+  <div class="stat"><strong id="categoryCount">—</strong> ways to play</div>
+  <div class="stat"><strong id="favoriteCount">0</strong> saved for later</div>
 </div>
 
 <section id="library">
   <div class="toolbar">
-    <label class="search"><span>⌕</span><input id="searchInput" type="search" placeholder="Search games, genres, or keywords…" autocomplete="off" aria-label="Search games"></label>
+    <label class="search"><span>⌕</span><input id="searchInput" type="search" placeholder="Got a game in mind? Search here…" autocomplete="off" aria-label="Search games"></label>
     <select id="sortSelect" aria-label="Sort games">
-      <option value="featured">Featured first</option>
-      <option value="newest">Recently added</option>
+      <option value="featured">A little of everything</option>
+      <option value="newest">Fresh additions</option>
       <option value="oldest">Oldest first</option>
       <option value="title">Name A–Z</option>
     </select>
     <div class="toolbar-actions">
-      <button id="gamesBtn" class="active" type="button">🎮 Games</button>
-      <button id="collectionsBtn" type="button">▦ Collections</button>
-      <button id="favoritesBtn" type="button">♡ Favorites</button>
+      <button id="gamesBtn" class="active" type="button">Browse</button>
+      <button id="collectionsBtn" type="button">Collections</button>
+      <button id="favoritesBtn" type="button">♥ Saved</button>
     </div>
   </div>
   <div class="section-head">
-    <div><h2 id="sectionTitle">Browse all games</h2><p id="sectionSubtitle">Find something fun to play.</p></div>
+    <div><h2 id="sectionTitle">Take a look around</h2><p id="sectionSubtitle">No plan needed. Just find something that looks fun.</p></div>
     <span class="count" id="resultCount" aria-live="polite"></span>
   </div>
+  <section class="recent-section" id="recentSection" hidden><div class="section-head"><div><h2>Pick up where you left off</h2><p>Your recently played games, kept just on this device.</p></div></div><div class="recent-row" id="recentGames"></div></section>
   <div class="filters" id="categoryFilters" aria-label="Filter by category"></div>
   <div id="collectionGrid" class="collection-grid" hidden></div>
   <div id="gameGrid" class="grid"></div>
 </section>
 
 <section class="request-strip">
-  <div><strong>Missing a game you'd love to see?</strong><p>Send a request and help shape the next update to Pixel Portal.</p></div>
+  <div><strong>Wish we had another game?</strong><p>Tell us what you would love to play here. We read the suggestions.</p></div>
   <a class="btn" href="request.html">Request a game →</a>
 </section>
 
 <footer class="footer">
-  <span>© <span id="year"></span> Pixel Portal · Made for the love of games.</span>
+  <span>Made with care, for people who love games. · © <span id="year"></span> Pixel Portal</span>
   <div class="footer-links"><a href="welcome.html">Home</a><a href="about.html">About</a><a href="devlog.html">DevLog</a><a href="dmca.html">DMCA</a></div>
 </footer>
 </div>
@@ -221,6 +231,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
   let activeCollection = null;
   const categories = [...new Set(safeGames.flatMap(game => game.categories.map(String)))].sort((a,b)=>a.localeCompare(b));
   const featured = safeGames.find(game => game.featured) || safeGames[0];
+  const recentIds = (() => { try { return JSON.parse(localStorage.getItem(recentKey) || "[]"); } catch { return []; } })();
 
   $("year").textContent = new Date().getFullYear();
   $("gameCount").textContent = safeGames.length;
@@ -246,6 +257,20 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
     if (className) el.className = className;
     if (text !== undefined) el.textContent = text;
     return el;
+  }
+  function renderRecent() {
+    const section = $("recentSection");
+    const root = $("recentGames");
+    root.replaceChildren();
+    const recentGames = recentIds.map(id => safeGames.find(game => game.id === id)).filter(Boolean).slice(0,4);
+    section.hidden = recentGames.length === 0;
+    recentGames.forEach(game => {
+      const card = make("button", "recent-card"); card.type = "button";
+      const image = make("img"); image.src = "images/" + game.thumbnail; image.alt = ""; image.loading = "lazy";
+      image.onerror = () => { image.src = "images/favicon.png"; };
+      const copy = make("span"); copy.append(make("strong", "", game.name), make("span", "", "Fancy another round?"));
+      card.append(image, copy); card.addEventListener("click", () => openGame(game)); root.append(card);
+    });
   }
   function renderFilters() {
     const root = $("categoryFilters");
@@ -291,7 +316,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
     body.append(categoryRow);
     const foot = make("div", "card-foot");
     foot.append(make("span", "", game.added ? "Added " + game.added : "Pixel Portal"));
-    foot.append(make("span", "play-label", "PLAY →"));
+    foot.append(make("span", "play-label", "Give it a go →"));
     body.append(foot);
     card.append(imageWrap, body);
     card.addEventListener("click", () => openGame(game));
@@ -354,12 +379,12 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
     else if (sort === "title") list.sort((a,b)=>a.name.localeCompare(b.name));
     else list.sort((a,b)=>Number(Boolean(b.featured))-Number(Boolean(a.featured)) || a.name.localeCompare(b.name));
     list.forEach(game => grid.append(createCard(game)));
-    $("sectionTitle").textContent = mode === "favorites" ? "Your favorites" : activeCategory === "All" ? "Browse all games" : activeCategory + " games";
-    $("sectionSubtitle").textContent = mode === "favorites" ? "Your saved games, stored on this device." : "Choose a game to open its player.";
+    $("sectionTitle").textContent = mode === "favorites" ? "Your saved games" : activeCategory === "All" ? "Take a look around" : "In the mood for " + activeCategory.toLowerCase() + "?";
+    $("sectionSubtitle").textContent = mode === "favorites" ? "The ones you saved for another time. Only stored on this device." : "Pick whatever catches your eye. You can always come back for another.";
     $("resultCount").textContent = list.length + " " + (list.length === 1 ? "game" : "games");
     if (!list.length) {
       const empty = make("div", "empty");
-      empty.append(make("strong", "", mode === "favorites" ? "No favorites yet" : "No games found"), make("span", "", mode === "favorites" ? "Tap the heart on any game card to save it here." : "Try another search or category."));
+      empty.append(make("strong", "", mode === "favorites" ? "Nothing saved just yet" : "Hmm, nothing turned up"), make("span", "", mode === "favorites" ? "Tap the little heart on a game you like and it will be waiting here." : "Try a different search. There are plenty more games to find."));
       grid.append(empty);
     }
     $("favoritesBtn").classList.toggle("active", mode === "favorites");
@@ -382,6 +407,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{ou
   $("surpriseBtn").addEventListener("click", () => { const choices = safeGames.filter(game => !game.categories.includes("Casino")); if (choices.length) openGame(choices[Math.floor(Math.random()*choices.length)]); });
   $("searchInput").addEventListener("keydown", event => { if (event.key === "Escape") { event.target.value = ""; render(); event.target.blur(); } });
   document.addEventListener("keydown", event => { if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "k") { event.preventDefault(); $("searchInput").focus(); } });
+  renderRecent();
   render();
 
   const modal = $("settingsModal");
