@@ -1,0 +1,79 @@
+/* Pixel Portal's original atmosphere, carried into the redesign. */
+:root {
+  --pp-glass: rgba(7, 12, 27, .62);
+  --pp-glass-strong: rgba(8, 13, 29, .78);
+  --pp-glass-line: rgba(220, 232, 255, .28);
+  --pp-glow-cyan: rgba(79, 209, 255, .20);
+  --pp-glow-violet: rgba(124, 92, 255, .22);
+}
+html { background: #080b16; }
+body {
+  background-color: #080b16 !important;
+  background-image:
+    linear-gradient(135deg, rgba(4, 8, 20, .42), rgba(8, 10, 25, .58)),
+    url("images/galaxy.gif") !important;
+  background-position: center center !important;
+  background-size: cover !important;
+  background-attachment: fixed !important;
+  background-repeat: no-repeat !important;
+  font-family: "Trebuchet MS", Arial, sans-serif !important;
+  isolation: isolate;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 12% 8%, rgba(79, 209, 255, .13), transparent 42%),
+    radial-gradient(ellipse at 88% 22%, rgba(180, 124, 255, .16), transparent 40%),
+    linear-gradient(180deg, rgba(3, 7, 18, .10), rgba(3, 7, 18, .36));
+}
+.topbar, header.topbar, footer, .footer {
+  border-color: rgba(220, 232, 255, .20) !important;
+}
+.brand-mark, .mark {
+  border: 1px solid rgba(255,255,255,.42) !important;
+  background: linear-gradient(135deg, rgba(79,209,255,.78), rgba(124,92,255,.82)) !important;
+  box-shadow: 0 0 22px rgba(79,209,255,.20), inset 0 1px 0 rgba(255,255,255,.55) !important;
+}
+.btn, .nav a, .nav button, .chip, .stat, .toolbar, .search,
+.toolbar select, .settings-box, .sidebar, .player-shell,
+.featured-panel, .portal-card, .float-tag, .panel, .form-panel,
+.content, .collection-card, .recent-card, .request-strip,
+.request-box, .game-card, .controls, .bottom-nav, .bottom-bar {
+  background-color: var(--pp-glass) !important;
+  border-color: var(--pp-glass-line) !important;
+  -webkit-backdrop-filter: blur(13px) saturate(155%) !important;
+  backdrop-filter: blur(13px) saturate(155%) !important;
+  box-shadow: 0 14px 42px rgba(0,0,0,.27), inset 0 1px 0 rgba(255,255,255,.13) !important;
+}
+.featured-panel, .portal-card, .panel, .form-panel, .content,
+.sidebar, .player-shell, .settings-box {
+  background-image: linear-gradient(135deg, rgba(255,255,255,.075), rgba(255,255,255,.012)) !important;
+}
+.game-card, .collection-card, .recent-card, .suggestion, .btn, .chip {
+  transition: transform .22s ease, border-color .22s ease, background-color .22s ease, box-shadow .22s ease !important;
+}
+.game-card:hover, .collection-card:hover, .recent-card:hover, .suggestion:hover {
+  border-color: rgba(79,209,255,.58) !important;
+  box-shadow: 0 18px 46px rgba(0,0,0,.38), 0 0 22px var(--pp-glow-cyan), inset 0 1px 0 rgba(255,255,255,.18) !important;
+}
+.btn.primary, .button {
+  box-shadow: 0 8px 28px rgba(79,209,255,.18), 0 0 18px rgba(124,92,255,.12) !important;
+}
+h1, h2, .brand, .pixel, .portal {
+  text-shadow: 0 1px 16px rgba(79,209,255,.12);
+}
+input, select, textarea {
+  background-color: rgba(4, 9, 22, .62) !important;
+  border-color: rgba(220,232,255,.25) !important;
+  color: #f4f6ff !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  backdrop-filter: blur(10px) !important;
+}
+::selection { background: rgba(79,209,255,.38); color: white; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+}
