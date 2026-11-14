@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#080b16">
-<title>Now Playing · Pixel Portal</title>
+<title>Let's play · Pixel Portal</title>
 <script src="tabcloak.js"></script>
 <link rel="icon" href="images/favicon.png" id="base-favicon">
 <link rel="icon" href="" id="dynamic-favicon">
@@ -49,22 +49,22 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--cyan);outline-offse
 <div class="shell">
 <header class="topbar">
   <a class="brand" href="library.html"><span class="mark">P</span> PIXEL PORTAL</a>
-  <div class="nav-actions"><a class="btn" href="library.html">← Game library</a><a class="btn" href="request.html">Request a game</a></div>
+  <div class="nav-actions"><a class="btn" href="library.html">← Game library</a><a class="btn" href="request.html">Suggest a game</a></div>
 </header>
 <main class="main">
   <section class="player-column">
-    <div class="heading"><div><h1 id="gameTitle">Loading game…</h1><p>Now playing on Pixel Portal</p></div><span id="gameCategories" class="btn">ARCADE</span></div>
+    <div class="heading"><div><h1 id="gameTitle">Loading game…</h1><p>Hope you have a good time!</p></div><span id="gameCategories" class="btn">ARCADE</span></div>
     <div class="player-shell" id="playerShell">
       <div class="frame-wrap"><iframe id="gameFrame" title="Game player" allowfullscreen scrolling="no"></iframe></div>
       <div class="frame-toolbar">
-        <p>Having trouble? <a id="directLink" href="#" target="_blank" rel="noopener">Open the game in a new tab ↗</a></p>
-        <div class="toolbar-actions"><button class="btn" id="reloadBtn" type="button">↻ Reload</button><button class="btn" id="fullscreenBtn" type="button">⛶ Fullscreen</button></div>
+        <p>Game not loading? <a id="directLink" href="#" target="_blank" rel="noopener">Try opening it separately ↗</a></p>
+        <div class="toolbar-actions"><button class="btn" id="reloadBtn" type="button">↻ Start over</button><button class="btn" id="fullscreenBtn" type="button">⛶ Fullscreen</button></div>
       </div>
     </div>
-    <div class="not-found" id="notFound"><strong>We couldn't find that game.</strong>It may have moved or the link may be incorrect.<p><a class="btn" href="library.html">Return to the library</a></p></div>
+    <div class="not-found" id="notFound"><strong>We couldn't find that one.</strong>Looks like this game has wandered off. Try heading back to the library.<p><a class="btn" href="library.html">Return to the library</a></p></div>
   </section>
   <aside class="sidebar">
-    <div class="sidebar-head"><h2>You might also like</h2><span>MORE TO EXPLORE</span></div>
+    <div class="sidebar-head"><h2>Feel like trying something else?</h2><span>A FEW MORE IDEAS</span></div>
     <div class="suggestions" id="suggestions"></div>
     <div class="request-box"><strong>Have a game idea?</strong><p>Send in a request and it could be part of a future Pixel Portal update.</p><a href="request.html">Suggest a game →</a></div>
   </aside>
@@ -91,6 +91,7 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--cyan);outline-offse
   }
   document.title=game.name+" · Pixel Portal";
   document.getElementById("gameTitle").textContent=game.name;
+  document.querySelector(".heading p").textContent="Hope you have a good time with " + game.name + "!";
   document.getElementById("gameCategories").textContent=(game.categories||[]).slice(0,2).join(" · ").toUpperCase()||"GAME";
   frame.src="games/"+encodeURIComponent(game.id)+".html";
   document.getElementById("directLink").href="games/"+encodeURIComponent(game.id)+".html";
@@ -117,7 +118,7 @@ button:focus-visible,a:focus-visible{outline:3px solid var(--cyan);outline-offse
     image.onerror=()=>{image.src="images/favicon.png";};
     const copy=document.createElement("span");
     const title=document.createElement("strong");title.textContent=item.name;
-    const desc=document.createElement("small");desc.textContent=item.description||"Explore this game.";
+    const desc=document.createElement("small");desc.textContent=item.description||"Could be your next favorite.";
     copy.append(title,desc);card.append(image,copy);suggestions.append(card);
   });
 })();
