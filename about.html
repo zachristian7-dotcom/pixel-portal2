@@ -1,269 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>About Pixel Portal</title>
-<script src="tabcloak.js"></script>
-<link rel="icon" href="images/favicon.png" id="base-favicon">
-<link rel="stylesheet" href="liquid-glass.css">
-<link rel="icon" href="" id="dynamic-favicon">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#080b16">
+<title>About · Pixel Portal</title><script src="tabcloak.js"></script><link rel="icon" href="images/favicon.png" id="base-favicon"><link rel="icon" href="" id="dynamic-favicon">
 <style>
-.logo-link {
-    display: inline-flex;
-    flex-direction: column; /* Stacks items vertically */
-    align-items: center;    /* Centers items horizontally */
-    text-decoration: none;
-    color: black;           /* Or your preferred color */
-}
-
-.pixel, .portal {
-    display: block;         /* Ensures each span takes full width */
-    line-height: 1.2;       /* Adjusts space between lines */
-}
-
-/* Style for the link */
-.gradient-link {
-  font-weight: bold;
-  text-decoration: none;
-  font-size: 16px;
-  
-  /* Create the gradient */
-  background: linear-gradient(90deg, #a859ff, #00c4ff);
-  
-  /* Clip background to text */
-  -webkit-background-clip: text;
-  background-clip: text;
-  
-  /* Make original text color transparent to reveal gradient */
-  -webkit-text-fill-color: transparent;
-  color: transparent; 
-  
-  /* Optional: Smooth transition for hover effects */
-  transition: opacity 0.3s ease;
-}
-
-/* Optional hover effect */
-.gradient-link:hover {
-  opacity: 0.8;
-}
-    
-a {
-    color: #4fd1ff; /* Sets the default link color to a sky blue */
-    text-decoration: none; /* Optional: removes the default underline */
-  }
-    
-body {
-  margin: 0;
-  font-family: 'Trebuchet MS', Arial, sans-serif;
-  background: url("images/galaxy.gif") center / cover fixed;
-  color: white;
-  text-align: center;
-}
-
-/* Logo text */
-.logo {
-  padding: 30px 0 10px 0;
-}
-
-.logo-link {
-  text-decoration: none;
-  color: inherit;
-  display: inline-block;
-  transition: transform 0.15s ease;
-}
-
-.logo-link:hover {
-  cursor: pointer;
-  transform: scale(1.05);
-}
-
-.pixel {
-  font-size: 48px;
-  letter-spacing: 4px;
-  color: #4fd1ff;
-  text-shadow: 0 0 8px #4fd1ff;
-}
-
-.portal {
-  font-size: 54px;
-  letter-spacing: 6px;
-  color: #b47cff;
-  text-shadow: 0 0 12px #7c5cff;
-}
-
-/* Panel */
-.panel {
-  max-width: 700px;
-  margin: 40px auto;
-  padding: 30px;
-  background: rgba(0,0,0,0.65);
-  border-radius: 16px;
-  text-align: left;
-  line-height: 1.6;
-}
-
-.promo-tag {
-  position: fixed;
-  top: 40%;
-  right: -220px; /* hidden except stub */
-  width: 240px;
-  background: white;
-  color: black;
-  padding: 15px;
-  border-radius: 14px 0 0 14px;
-  box-shadow: 0px 0px 18px rgba(0, 0, 0, 0.25);
-  font-family: Arial, sans-serif;
-  z-index: 9999;
-  transition: right 0.6s ease;
-}
-
-.promo-tag.show {
-  right: 0; /* fully visible */
-}
-
-.promo-tag h4 {
-  margin: 0;
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.promo-tag p {
-  margin: 6px 0 12px;
-  font-size: 13px;
-  opacity: 0.8;
-}
-
-.promo-buttons {
-  display: flex;
-  gap: 10px;
-}
-
-.promo-btn {
-  flex: 1;
-  text-decoration: none;
-  text-align: center;
-  padding: 10px;
-  border-radius: 10px;
-  font-size: 13px;
-  font-weight: bold;
-  color: white;
-  transition: 0.2s ease;
-}
-
-.promo-btn:hover {
-  transform: scale(1.05);
-}
-
-.promo-btn.discord {
-  background: #5865F2;
-}
-
-.promo-btn.youtube {
-  background: #FF0000;
-}
-
-/* the stub arrow button */
-.promo-toggle {
-  position: absolute;
-  top: 50%;
-  left: -28px;
-  transform: translateY(-50%);
-  width: 28px;
-  height: 55px;
-  border: none;
-  background: white;
-  color: black;
-  font-size: 18px;
-  font-weight: bold;
-  cursor: pointer;
-  border-radius: 12px 0 0 12px;
-  box-shadow: -3px 0px 12px rgba(0, 0, 0, 0.15);
-  transition: 0.2s ease;
-}
-
-.promo-toggle:hover {
-  transform: translateY(-50%) scale(1.05);
-}
-
-.icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 6px;
-}
-
-.icon svg {
-  width: 18px;
-  height: 18px;
-}
-
-.promo-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-}
-
-.bottom-bar{
-position:fixed;
-bottom:20px;
-left:50%;
-transform:translateX(-50%);
-display:flex;
-gap:30px;
-padding:14px 28px;
-z-index:100;
-}
-
-.bottom-bar a{
-color:white;
-text-decoration:none;
-font-weight:bold;
-opacity:.8;
-}
-
-.bottom-bar a:hover{
-opacity:1;
-}
-</style>
-<script src="tabcloak.js"></script>
+:root{color-scheme:dark;--line:rgba(169,190,255,.16);--text:#f4f6ff;--muted:#a5b0c9;--cyan:#55dcff;--violet:#a98bff}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;background:radial-gradient(ellipse at 15% 0%,rgba(67,115,255,.2),transparent 40%),linear-gradient(145deg,#070a13,#0c1224 55%,#080b16)}
+a{color:inherit;text-decoration:none}.shell{width:min(1050px,calc(100% - 36px));margin:auto}.topbar{height:76px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);gap:14px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900;letter-spacing:.08em}.mark{width:38px;height:38px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,var(--cyan),var(--violet));color:#08101d;font-size:20px}
+nav{display:flex;gap:8px}nav a,.btn{padding:10px 13px;border:1px solid transparent;border-radius:11px;color:var(--muted);font-size:12px;font-weight:800}nav a:hover,.btn:hover{color:white;background:rgba(255,255,255,.06);border-color:var(--line)}
+main{padding:55px 0 70px}.eyebrow{color:var(--cyan);font-size:11px;font-weight:900;letter-spacing:.18em;text-transform:uppercase}h1{font-size:clamp(38px,6vw,62px);letter-spacing:-.055em;line-height:1;margin:15px 0}.gradient{background:linear-gradient(100deg,var(--cyan),#b7a0ff 65%,#ff80c8);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{max-width:700px;color:var(--muted);font-size:16px;line-height:1.8}.content{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:34px}.panel{padding:22px;border:1px solid var(--line);border-radius:18px;background:rgba(17,24,43,.72)}.panel h2{font-size:17px;margin:0 0 10px}.panel p,.panel li{font-size:13px;line-height:1.75;color:var(--muted)}.panel ul{padding-left:19px}.credits{grid-column:1/-1}.credits a{color:var(--cyan);text-decoration:underline;text-underline-offset:3px}.foot{border-top:1px solid var(--line);padding:20px 0;color:var(--muted);font-size:11px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+@media(max-width:650px){.content{grid-template-columns:1fr}.credits{grid-column:auto}.topbar{height:auto;min-height:68px}nav a:nth-child(2){display:none}main{padding:38px 0 50px}}
+</style><link rel="stylesheet" href="nostalgic.css">
 </head>
-
-<body>
-
-<header class="logo">
-  <a href="library.html" class="logo-link">
-    <span class="pixel">PIXEL</span>
-    <span class="portal">PORTAL</span>
-  </a>
-</header>
-
-<div class="glass">
-  <h1>About Pixel Portal</h2>
-  <p>Pixel Portal is a student-made game site built for fun and to learn how websites work. It lets you play games such as Scratch games and others instantly using your browser.</p>
-  <p>This site was created to explore web development, game design, and how online platforms work — all using HTML, CSS, and JavaScript.</p>
-  <p>Pixel Portal does not require accounts, downloads, or personal information. Just click a game and play.</p>
-  <p>Made by a student who loves coding, game design, and building cool things.</p>
-
-  <h3>Credits</h3>
-  <p>
-    • <a href="https://elthen.itch.io/2d-pixel-art-portal-sprites" target="_blank" class="gradient-link">Elthen's Pixel Art Shop</a> – logo sprites<br>
-    • <a href="https://tenor.com/view/galaxy-pixel-art-space-universe-stars-gif-16432213"target="_blank" class="gradient-link">honeyconebunny on Tenor</a> – galaxy background GIF<br>
-    • TurboWarp – for making Scratch projects embeddable and downloadable<br>
-    • Scratch – for providing the games and sprites<br>
-    • <b>All other artwork, design, and development is by Signal Sixteen Studios. Do not steal any of our code or games.</b>
-  </p>
+<body><div class="shell">
+<header class="topbar"><a class="brand" href="welcome.html"><span class="mark">P</span> PIXEL PORTAL</a><nav aria-label="Main navigation"><a href="library.html">Game library</a><a href="request.html">Suggest a game</a></nav></header>
+<main><span class="eyebrow">A little about this place</span><h1>Made for the love<br>of <span class="gradient">playing games.</span></h1>
+<p class="lead">Pixel Portal is a student-made browser game site built from curiosity, creativity, and a lot of tinkering. It is a place to find something fun, revisit a classic, and explore games without having to install anything.</p>
+<div class="content">
+<section class="panel"><h2>Why Pixel Portal exists</h2><p>This started as a way to learn more about web development and game design. Over time, it grew into a little arcade filled with browser games, collections, and experiments. The hope is simple: make it easy to find something enjoyable and give people a reason to come back.</p></section>
+<section class="panel"><h2>What to expect</h2><ul><li>No Pixel Portal account is needed.</li><li>Games open right in your browser when their host allows it.</li><li>Favorites and recently played games stay in your browser on this device.</li><li>Some games are hosted by other sites, so availability can change.</li></ul></section>
+<section class="panel credits"><h2>A thank-you to the creators</h2><p>Pixel Portal is possible because of the artists, developers, and platforms whose work makes browser gaming great.</p><ul>
+<li><a href="https://elthen.itch.io/2d-pixel-art-portal-sprites" target="_blank" rel="noopener">Elthen's Pixel Art Shop</a> — logo sprites.</li>
+<li><a href="https://tenor.com/view/galaxy-pixel-art-space-universe-stars-gif-16432213" target="_blank" rel="noopener">honeyconebunny on Tenor</a> — galaxy background artwork.</li>
+<li>TurboWarp — tools for embedding and sharing Scratch projects.</li><li>Scratch — the creative community and platform behind many projects.</li>
+</ul><p>Game titles, artwork, and other materials belong to their respective creators. If you are a rights holder with a concern, please visit the <a href="dmca.html">DMCA page</a>.</p></section>
 </div>
-
-<div class="bottom-bar glass">
-<a href="welcome.html">Welcome</a>
-<a href="library.html">Library</a>
-<a href="about.html">About</a>
-<a href="request.html">Request</a>
-<a href="devlog.html">DevLog</a>
-<a href="dmca.html">DMCA</a>
-</div>
-</body>
-</html>
+</main>
+<footer class="foot"><span>Made with care, for people who love games. · © <span id="year"></span> Pixel Portal</span><span><a href="welcome.html">Home</a>　<a href="library.html">Library</a>　<a href="devlog.html">DevLog</a></span></footer>
+</div><script>document.getElementById("year").textContent=new Date().getFullYear();</script></body></html>
