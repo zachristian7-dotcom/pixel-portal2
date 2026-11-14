@@ -56,7 +56,7 @@ footer a:hover{color:var(--cyan)}
 </header>
 <main>
   <section>
-    <span class="eyebrow">✦ YOUR LITTLE CORNER OF THE INTERNET</span>
+    <span class="eyebrow" id="welcomeEyebrow">✦ YOUR LITTLE CORNER OF THE INTERNET</span>
     <h1>Hey there.<br><span class="gradient">Glad you found us.</span></h1>
     <p class="intro">Pixel Portal is a little browser arcade for when you want to play something, revisit an old favorite, or find a new one. Have a look around, take your time, and play whatever sounds fun. No downloads or account needed.</p>
     <div class="actions"><a class="btn primary" href="library.html">Come on in <span aria-hidden="true">→</span></a><a class="btn" href="request.html">Got a game idea?</a></div>
@@ -71,13 +71,15 @@ footer a:hover{color:var(--cyan)}
       <p>Find a game. Make yourself at home.</p>
       <div class="mini-tags"><span>ARCADE</span><span>ADVENTURE</span><span>PUZZLE</span></div>
     </div>
-    <div class="float-tag tag-one">● ONLINE ARCADE</div><div class="float-tag tag-two">✦ DISCOVER SOMETHING NEW</div>
+    <div class="float-tag tag-one">✦ MADE WITH CARE</div><div class="float-tag tag-two">TAKE YOUR TIME. HAVE FUN.</div>
   </section>
 </main>
 <footer><span>A small project made with a big love of games. · © <span id="year"></span> Pixel Portal</span><span><a href="library.html">Library</a>　<a href="devlog.html">DevLog</a>　<a href="dmca.html">DMCA</a></span></footer>
 <div class="teacher-safe-indicator">Teacher Safe Mode Active</div>
 <script>
 const SAFE_KEY="teacherSafeMode";
+const hasPlayedBefore=(()=>{try{return JSON.parse(localStorage.getItem("pixelPortalRecent")||"[]").length>0;}catch{return false;}})();
+if(hasPlayedBefore)document.getElementById("welcomeEyebrow").textContent="✦ GOOD TO SEE YOU AGAIN";
 if(localStorage.getItem(SAFE_KEY)==="on")document.body.classList.add("teacher-safe");
 document.addEventListener("keydown",event=>{if(event.shiftKey&&event.key.toLowerCase()==="t"){document.body.classList.toggle("teacher-safe");localStorage.setItem(SAFE_KEY,document.body.classList.contains("teacher-safe")?"on":"off");}});
 document.getElementById("year").textContent=new Date().getFullYear();
